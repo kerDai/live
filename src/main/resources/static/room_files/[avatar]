@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>提示信息-傻瓜理财</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta name="keywords" content=""/>
+<meta name="description" content=""/>
+<meta property="qc:admins" content="103635625175141311636" />
+<link href="http://static.91fool.com.cn/www/css/reset.css" rel="stylesheet" type="text/css"/>
+<link href="http://static.91fool.com.cn/www/css/function.css" rel="stylesheet" type="text/css"/>
+<link href="http://static.91fool.com.cn/www/css/style.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="http://static.91fool.com.cn/public/js/jquery-1.11.3/jquery.min.js"></script>
+<script type="text/javascript" src="http://static.91fool.com.cn/public/js/layer-v2.0/layer.js"></script>
+<script type="text/javascript" src="http://static.91fool.com.cn/public/js/validform-5.3.2/validform_v5.3.2_min.js"></script>
+<script type="text/javascript" src="http://static.91fool.com.cn/public/js/jquery.cookie.js"></script>
+<script type="text/javascript" src="http://static.91fool.com.cn/public/js/utils/common.js"></script>
+
+<script>
+    document.domain = "shagualicai.cn";
+        host = 'aHR0cDovLzEyMC4yNy40Ni4xNDQ6MjAyMA==';
+//    host = 'aHR0cDovL2ltLnNoYWd1YWxpY2FpLmNu';
+    </script>
+<!--[style]-->
+<!--[script]-->
+<!--[if lte IE 8]>
+<div style="background-color:wheat;padding:20px;border-color:wheat; border-style:solid;border-width:2px;z-index: 1002;position: absolute;width: 100%;">
+    <p style="text-align: center">
+        <strong>您好</strong>，您目前使用的是旧版浏览器，为了更好的体验，建议使用更快、更好用的浏览器！ 如：
+        <strong><a target="_blank" href="http://se.360.cn/">360安全浏览器(推荐!)</a></strong>
+        或 <strong><a target="_blank" href="http://download.firefox.com.cn/releases/stub/official/zh-CN/Firefox-latest.exe">火狐浏览器</a>。</strong>
+    </p>
+</div>
+<![endif]-->
+
+
+</head>
+<body>
+<style>
+.my-site-top-temp{ position: relative; height: 60px; }
+.my-site-top{ background: #d94432; position: fixed; z-index: 1000; width: 100%; top: 0; left: 0; }
+.my-site-top-logo{ background:url("http://static.91fool.com.cn/www/img/img.png") no-repeat 0 -973px; float: left; height: 60px; margin-right: 24px; width: 223px; }
+.my-site-top .u-btn{ float: left; text-align: left; height: 32px; width: 218px; margin: 14px 0 0 10px; background: #fff; color: #000; cursor: auto; }
+.my-site-search{ background: #fff url("http://static.91fool.com.cn/www/img/img.png") no-repeat scroll 100% -446px; display: block; float: left; height: 30px; overflow: hidden; width: 30px; margin-left: -32px; margin-top: 16px; }
+.my-site-btn{ background: url("http://static.91fool.com.cn/www/img/repeater.jpg") repeat-x scroll 0 0; color: #fff; font-size: 16px; height: 29px; line-height: 29px; margin-top: 14px; padding: 0 15px; border: 1px solid #b2281c; border-radius: 2px; cursor: pointer; display: inline-block; text-align: center; text-decoration: none; vertical-align: middle; margin-right: 35px; }
+.my-site-btn:hover{ background-position: 0 -29px; color: #fff; }
+.my-site-a{ display: inline-block; height: 31px; line-height: 31px; margin-top: 14px; vertical-align: middle; color: #fff; padding-right: 20px; }
+.my-site-userId{ display: inline-block; height: 31px; line-height: 31px; margin-top: 14px; vertical-align: middle; color: #fff; background: rgba(0, 0, 0, 0) url("http://static.91fool.com.cn/www/img/arrow-down.png") no-repeat scroll 100% 13px; padding-right: 20px; }
+.my-site-userId:hover{ color: #fff; }
+.my-site-userId-cnt{ position: absolute; right: 0; top: 50px; background: #fff none repeat scroll 0 0; border: 1px solid #ccc; z-index: 11; display: none; }
+.my-site-userId-cnt a{ color: #565656; display: block; height: 30px; line-height: 30px; margin-left: 0; padding: 0 10px; width: 90px; }
+.my-site-userId-cnt a:hover{ background: #ccc; color: #fff; }
+</style>
+<div class="my-site-top-temp"></div>
+<div class="my-site-top f-cb">
+    <div class="g-doc">
+        <a class="my-site-top-logo f-ti" href="/">傻瓜理财Logo</a>
+        <form action="/search" method="get" class="room-search-form">
+        <input type="text" class="u-btn room-search-key" name="key" placeholder="直播室号/直播室名" value=""/>
+        </form>
+        <a class="my-site-search"></a>
+        <script>
+            $(function(){
+                $(".my-site-search").click(function(){
+                    if($.trim($(".room-search-key").val()) != ''){
+                        $(".room-search-form").submit();
+                    }else{
+                        layer.msg('请输入关键字后再搜索！');
+                    }
+                });
+            });
+        </script>
+                <!--登录后-->
+        <script>
+            $(document).ready(function(){
+                $("#siteUserId").on("mouseenter",function(){
+                    $(this).addClass("hover");
+                    $("#siteUserIdCnt").show();
+                });
+                $("#siteUserIdCnt").on("mouseleave",function(){
+                    $("#siteUserIdCnt").hide();
+                    $("#siteUserId").removeClass("hover")
+                });
+            });
+        </script>
+        <div class="f-fr f-pr">
+                        <a target="_blank" class="my-site-btn" href="http://passport.shagualicai.cn/user_studio/apply.shtml">申请成为老师</a>
+                        <a target="_blank" class="my-site-btn" href="http://passport.shagualicai.cn/pay/recharge.shtml">充值</a>
+            <a target="_blank" class="my-site-userId" id="siteUserId"></a>
+            <ul class="my-site-userId-cnt" id="siteUserIdCnt">
+                <li><a target="_blank" href="http://passport.shagualicai.cn/">个人管理中心</a></li>
+                <li><a target="_blank" href="http://passport.shagualicai.cn/">直播管理</a></li>
+                <li><a target="_blank" href="http://passport.shagualicai.cn/public/logout.shtml">退出</a></li>
+            </ul>
+        </div>
+            </div>
+</div>
+<style>
+    .msg{
+        text-align: center;
+        line-height: 35px;
+        padding: 30px;
+    }
+</style>
+<script language="javascript" type="text/javascript">
+    var i = 5;
+    var intervalid;
+    intervalid = setInterval("fun()", 1000);
+    function fun() {
+        if (i == 0) {
+                        window.location.href = '/';
+                        clearInterval(intervalid);
+        }
+        document.getElementById("mes").innerHTML = i;
+        i--;
+    }
+</script>
+<div class="g-doc">
+    <div class="cnt">
+        <div class="msg f-fs16">
+            404 Not Found 系统将在 <span id="mes">5</span> 秒钟后 <a href="/">前往</a>  ！
+        </div>
+    </div>
+</div>
+<div class="my-footer f-cb">
+    <div class="g-doc f-cb">
+        <div class="f-fl f-tac">
+            <i class="icon icon1"></i>
+            <h2>帮助中心</h2>
+            <p><a href="http://www.shagualicai.cn/help?tab=1">如何注册</a></p>
+            <p><a href="http://www.shagualicai.cn/help?tab=2">如何充值</a></p>
+            <p><a href="http://www.shagualicai.cn/help?tab=3">修改密码</a></p>
+            <p><a href="http://www.shagualicai.cn/help?tab=4">如何提问</a></p>
+            <p><a href="http://www.shagualicai.cn/help?tab=5">如何送礼</a></p>
+            <p><a href="http://www.shagualicai.cn/help?tab=6">股市讲堂</a></p>
+        </div>
+        <div class="f-fl f-tac">
+            <i class="icon icon2"></i>
+            <h2>安全保障</h2>
+            <p><a href="http://www.shagualicai.cn/about?tab=7">资金安全</a></p>
+            <p><a href="http://www.shagualicai.cn/about?tab=7">信息安全</a></p>
+            <p><a href="http://www.shagualicai.cn/about?tab=7">交易安全</a></p>
+        </div>
+        <div class="f-fl f-tac">
+            <i class="icon icon3"></i>
+            <h2>关注我们</h2>
+            <p><a href="http://widget.weibo.com/dialog/follow.php?fuid=5249093745" target="_blank">新浪微博</a></p>
+            <p><a>官方微信</a></p>
+            <p class="f-mt10"><img src="http://static.91fool.com.cn/www/img/foot-weixin.jpg" alt="微信二维码"/></p>
+        </div>
+        <div class="f-fl f-tac">
+            <i class="icon icon4"></i>
+            <h2>了解傻瓜理财</h2>
+            <p><a href="http://www.shagualicai.cn/about?tab=1">公司介绍</a></p>
+            <p><a href="http://www.shagualicai.cn/about?tab=2">合作伙伴</a></p>
+            <p><a href="http://www.shagualicai.cn/about?tab=3">招聘信息</a></p>
+            <p><a href="http://www.shagualicai.cn/about?tab=4">商务合作</a></p>
+            <p><a href="http://www.shagualicai.cn/about?tab=5">联系我们</a></p>
+            <p><a href="http://www.shagualicai.cn/about?tab=6">投诉建议</a></p>
+        </div>
+        <div class="f-fl f-tal hot-line">
+            <h2>全国客服热线</h2>
+            <p><span class="f-fs20">010</span><span class="f-fs24">-53342637</span></p>
+            <p>商务合作</p>
+            <p>010-53342639</p>
+            <p>周一至周五&nbsp;8:30-18:00</p>
+            <p class="f-mt15">在线客服小秘书QQ</p>
+            <p class="f-mt5"><img alt="客服QQ" src="http://static.91fool.com.cn/www/img/foot-qq.png"/> <a href="http://wpa.qq.com/msgrd?v=3&amp;uin=443561285&amp;site=qq&amp;menu=yes" target="_blank">443561285</a></p>
+            <p><img alt="客服QQ" src="http://static.91fool.com.cn/www/img/foot-qq.png"/> <a href="http://wpa.qq.com/msgrd?v=3&amp;uin=2944920795&amp;site=qq&amp;menu=yes" target="_blank">2944920795</a></p>
+        </div>
+        <div class="f-fr f-tar">
+            <p><a href="http://www.shagualicai.cn/"><img src="http://static.91fool.com.cn/www/img/foot-logo.png" alt="傻瓜理财logo"/></a></p>
+            <p>傻瓜理财所载文章、数据仅供参考,</p>
+            <p>使用前请仔细阅读法律声明，风险自负。 </p>
+            <p>Copyright©2015 shagualicai.cn</p>
+            <p>All Rights Reserved</p>
+            <p><a href="http://www.miibeian.gov.cn/" target="_blank">京ICP备 14036695号</a></p>
+        </div>
+    </div>
+</div>
+<div style="background: #fff;">
+    <div class="g-doc f-tac my-bottom">
+        <span>权威机构安全认证</span>
+        <a href="http://www.bjjubao.org/" target="_blank"><img src="http://static.91fool.com.cn/www/img/report1.jpg" alt="北京互联网举报中心"/></a>
+        <a href="http://www.net.china.com.cn/" target="_blank"><img src="http://static.91fool.com.cn/www/img/report2.jpg" alt="不良信息举报中心"/></a>
+        <a href="http://webscan.360.cn/index/checkwebsite?url=www.shagualicai.cn" target="_blank"><img src="http://static.91fool.com.cn/www/img/report3.jpg" alt="360网站安全检测"/></a>
+        <a href="http://www.itrust.org.cn/yz/pjwx.asp?wm=1062815328" target="_blank"><img src="http://static.91fool.com.cn/www/img/report4.jpg" alt="网信认证"/></a>
+        <a href="https://search.szfw.org/cert/l/CX20141219006071006172" target="_blank"><img src="http://static.91fool.com.cn/www/img/report5.jpg" alt="诚信网站"/></a>
+    </div>
+</div>
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "//hm.baidu.com/hm.js?4e544208853f635bd056188b6c5272a3";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+</body>
+</html>
