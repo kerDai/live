@@ -15,7 +15,7 @@ import javax.persistence.Table;
 @Table(name = "sj_live_classify")
 public class LiveClassify extends IdEntity{
 
-//    private static final long serialVersionUID = -4169265002502610978L;
+    private static final long serialVersionUID = -4169265002502610978L;
 
     private String code;
 

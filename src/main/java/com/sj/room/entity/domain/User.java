@@ -15,7 +15,7 @@ import javax.persistence.Table;
 @Table(name = "sj_user")
 public class User extends IdEntity {
 
-//    private static final long serialVersionUID = -5179498387222264177L;
+    private static final long serialVersionUID = -5179498387222264177L;
 
     private String username;
 

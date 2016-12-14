@@ -14,8 +14,6 @@ public class LiveCondition extends PageAndSortCondition {
 
     private String title;
 
-    private String code;
-
     @Override
     protected String getDefaultSort() {
         return "id_1";
@@ -37,11 +35,4 @@ public class LiveCondition extends PageAndSortCondition {
         this.title = title;
     }
 
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
 }

@@ -3,6 +3,8 @@ package com.sj.room.entity.domain;
 import com.sj.room.core.base.IdEntity;
 
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -15,14 +17,12 @@ import javax.persistence.Table;
 @Table(name = "sj_live")
 public class Live extends IdEntity{
 
-//    private static final long serialVersionUID = 2249003552028217678L;
+    private static final long serialVersionUID = 2249003552028217678L;
 
     private String title;
 
-//    @ManyToOne
-//    @JoinColumn(name = "liveClassify_id")
-//    private LiveClassify liveClassify;
-
+    @ManyToOne
+    private LiveClassify liveClassify;
 
     private String remark;
 
@@ -34,13 +34,13 @@ public class Live extends IdEntity{
         this.title = title;
     }
 
-//    public LiveClassify getLiveClassify() {
-//        return liveClassify;
-//    }
-//
-//    public void setLiveClassify(LiveClassify liveClassify) {
-//        this.liveClassify = liveClassify;
-//    }
+    public LiveClassify getLiveClassify() {
+        return liveClassify;
+    }
+
+    public void setLiveClassify(LiveClassify liveClassify) {
+        this.liveClassify = liveClassify;
+    }
 
     public String getRemark() {
         return remark;

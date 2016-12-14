@@ -5,11 +5,11 @@
 
 	<groupId>com.sj.room</groupId>
 	<artifactId>live</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.1</version>
 	<packaging>war</packaging>
 
 	<name>live</name>
-	<description>Demo project for Spring Boot</description>
+	<description>图文直播聊天</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>

@@ -9,12 +9,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.criteria.*;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -44,22 +46,28 @@ public class LiveServiceImpl implements ILiveService {
         liveRepository.save(live);
     }
 
+    @Override
+    public List<Live> getList(LiveCondition condition) {
+        return liveRepository.findAll();
+    }
+
+    @Override
+    public Page<Live> findClassifyPage(Long classifyId ,Pageable pageable) {
+        return liveRepository.findClassifyPage(classifyId, pageable);
+    }
+
 
     private Specification<Live> toSpecification(final LiveCondition cond) {
         return new Specification<Live>() {
 
             @Override
             public Predicate toPredicate(Root<Live> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
-                Path<String> code = root.get("code");
                 Path<String> title = root.get("title");
                 Path<Long> id = root.get("id");
 
                 Set<Predicate> predicates = new HashSet<>();
                 if (cond.getId() != null) {
                     predicates.add(cb.equal(id, cond.getId()));
-                }
-                if (StringUtils.isNotBlank(cond.getCode())) {
-                    predicates.add(cb.like(code, "%" + cond.getCode() + "%"));
                 }
                 if (StringUtils.isNotBlank(cond.getTitle())) {
                     predicates.add(cb.equal(title, "%" + cond.getTitle() + "%"));
