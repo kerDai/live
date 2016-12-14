@@ -5,6 +5,7 @@ import com.sj.room.entity.domain.Live;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -21,6 +22,13 @@ public interface ILiveService {
     void save(Live live);
 
     List<Live> getList(LiveCondition condition);
+
+    /**
+     * 查看当天是否发起直播
+     * @param userId
+     * @return
+     */
+    Live findTodayLive(long userId);
 
     /**
      * 关联查询——通过classify级联查询

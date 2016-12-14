@@ -19,12 +19,22 @@ public class Live extends IdEntity{
 
     private static final long serialVersionUID = 2249003552028217678L;
 
+    private Long userId;
+
     private String title;
 
     @ManyToOne
     private LiveClassify liveClassify;
 
     private String remark;
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
 
     public String getTitle() {
         return title;

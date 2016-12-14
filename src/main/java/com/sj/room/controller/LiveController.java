@@ -3,17 +3,18 @@ package com.sj.room.controller;
 import com.sj.room.entity.condition.LiveCondition;
 import com.sj.room.entity.domain.Live;
 import com.sj.room.service.ILiveService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.orm.jpa.vendor.OpenJpaDialect;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,16 +27,31 @@ import java.util.Map;
 @RequestMapping(value = "/live")
 public class LiveController {
 
+    private static final Logger logger = LoggerFactory.getLogger(LiveController.class);
+
 
     @Autowired
     private ILiveService liveService;
 
     @RequestMapping( method= RequestMethod.GET)
-    public String list(LiveCondition condition){
-        liveService.getList(condition);
+    public Object getList(LiveCondition condition){
+        return liveService.getList(condition);
+    }
 
+    @RequestMapping(method=RequestMethod.POST)
+    public Object save(Live live){
+        Live temp = liveService.findTodayLive(live.getUserId());
+        if(temp == null){
+            liveService.save(live);
+        }
 
-        return "123";
+        return "";
+    }
+
+    @RequestMapping(value = "/{userId}/exist", method= RequestMethod.GET)
+    public Object isExist(@PathVariable long userId){
+        Date start = new Date();
+        return liveService.findTodayLive(userId);
     }
 
 
@@ -52,5 +68,8 @@ public class LiveController {
         long classifyId = 1;
         return liveService.findClassifyPage(classifyId , pageable);
     }
+
+
+
 
 }

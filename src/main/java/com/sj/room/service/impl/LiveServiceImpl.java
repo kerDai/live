@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.criteria.*;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -49,6 +50,11 @@ public class LiveServiceImpl implements ILiveService {
     @Override
     public List<Live> getList(LiveCondition condition) {
         return liveRepository.findAll();
+    }
+
+    @Override
+    public Live findTodayLive(long id) {
+        return liveRepository.findTodayLive(id);
     }
 
     @Override
