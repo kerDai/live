@@ -48,9 +48,13 @@ public class LiveController {
         return "";
     }
 
+    /**
+     * 查看当天是否发起直播
+     * @param userId
+     * @return
+     */
     @RequestMapping(value = "/{userId}/exist", method= RequestMethod.GET)
     public Object isExist(@PathVariable long userId){
-        Date start = new Date();
         return liveService.findTodayLive(userId);
     }
 
@@ -68,8 +72,5 @@ public class LiveController {
         long classifyId = 1;
         return liveService.findClassifyPage(classifyId , pageable);
     }
-
-
-
 
 }

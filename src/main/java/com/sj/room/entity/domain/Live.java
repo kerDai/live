@@ -2,10 +2,9 @@ package com.sj.room.entity.domain;
 
 import com.sj.room.core.base.IdEntity;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.List;
+import java.util.Set;
 
 /**
  * 图文直播
@@ -23,8 +22,12 @@ public class Live extends IdEntity{
 
     private String title;
 
-    @ManyToOne
+    @OneToOne
     private LiveClassify liveClassify;
+
+    @OneToMany(cascade=CascadeType.ALL,fetch=FetchType.LAZY)
+    @JoinColumn(name="live_id")
+    private Set<LiveDetail> liveDetails;
 
     private String remark;
 
@@ -58,5 +61,14 @@ public class Live extends IdEntity{
 
     public void setRemark(String remark) {
         this.remark = remark;
+    }
+
+
+    public Set<LiveDetail> getLiveDetails() {
+        return liveDetails;
+    }
+
+    public void setLiveDetails(Set<LiveDetail> liveDetails) {
+        this.liveDetails = liveDetails;
     }
 }
