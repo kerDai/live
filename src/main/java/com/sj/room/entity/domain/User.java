@@ -26,8 +26,8 @@ public class User extends IdEntity {
     private String mobile;
 
     /**
-     * 1 普通用户
-     * 2 主播
+     * 0 普通用户
+     * 1 主播
      */
     private Integer tag;
 
