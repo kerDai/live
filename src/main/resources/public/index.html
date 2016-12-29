@@ -10,7 +10,8 @@
     <link href="./room_files/reset.css" rel="stylesheet" type="text/css">
     <link href="./room_files/function.css" rel="stylesheet" type="text/css">
     <link href="./room_files/style.css" rel="stylesheet" type="text/css">
-    <script src="./room_files/hm.js"></script><script type="text/javascript" src="./room_files/jquery.min.js"></script>
+    <script src="./room_files/hm.js"></script>
+    <script type="text/javascript" src="./room_files/jquery.min.js"></script>
     <script type="text/javascript" src="./room_files/layer.js"></script><link rel="stylesheet" href="./room_files/layer.css" id="layui_layer_skinlayercss">
     <script type="text/javascript" src="./room_files/validform_v5.3.2_min.js"></script>
     <script type="text/javascript" src="./room_files/jquery.cookie.js"></script>
@@ -56,7 +57,7 @@
             </form>
         </div>
                 <div class="s-user-header f-ml20 f-fl">
-            <img class="f-fl f-mr10" alt="" src="./room_files/161209010109090889">
+            <img class="f-fl f-mr10" alt="" src="">
             <p class="f-fl">
                 <a>kerdai</a>
                 </p><div class="user-more-icon">
@@ -143,6 +144,8 @@
 </div>
 <script>
     $(function(){
+
+        liveDetail();
 //        限制老师介绍的字数
         $(".t-brief-con").each(function(){
             var maxwidth=66;
@@ -245,6 +248,30 @@
             layer.msg('提问字数不能超过120字，请用简洁的语句描述~');
         }
     }
+
+    function liveDetail(){
+        $.ajax({
+            type: "GET",
+            url: "live/11/exist",
+//            data: {username:$("#username").val(), content:$("#content").val()},
+            dataType: "json",
+            success: function(data){
+                $('#resText').empty();   //清空resText里面的所有内容
+                var html = '';
+                $.each(data.liveDetails, function(index, obj){
+                    html += '<div class="f-mt15 talk-item s-border-bot" data-id="'+index+'">'+
+                                '<p>'+
+                                    '<span class="f-cl0 f-ff3 f-fs18 ctime">'+obj.createTime+'</span>'+
+                                '</p>'+
+                                '<div class="talk-item-txt">'+
+                                    '<div style=""><p>'+obj.content +'</p></div>'+
+                                '</div>'+
+                            '</div>';
+                });
+                $('#resText').html(html);
+            }
+        });
+    }
 </script>
 <div class="studio-main">
     <div class="s-main-mid"><!-- s-main-mid-screen-->
@@ -309,36 +336,8 @@
         <div class="studio-talk f-cb">
             <!--观点区-->
             <div class="view-zone">
-    <div style="margin: 20px 0px;">
-        <!-- 视频直播 -->
-        <!-- 策略更新 左侧添加红色块
-        <div class="">
-            <div class="f-fl tactics-update">战法/交易</div>
-            <div class="f-fl f-ml20">
-                <div class="f-fs18"><a>王老师3月策略</a><span class="money-tip f-ml15">￥</span><span class="tag-tip f-ml15">更新</span></div><p class="f-fs16 f-cl8 f-mt5">更新了新内容。</p>
-            </div>
-        </div>-->
-    <div class="f-mt15 talk-item s-border-bot" data-id="789840">
-            <p>
-                <span class="f-cl0 f-ff3 f-fs18 ctime">13:46</span>
-                
-        <span class="tag f-ml5">系统消息</span>
-    
-            </p>
-            <div class="talk-item-txt studio-grey-tip">
-                <div class="ask-reply-box f-cb"><div class="studio-ar-con"><p style="color: #313131;"><span class="studio-ask">？</span>花开若相惜: <a href="http://www.shagualicai.cn/answer/info-aid-117693.shtml" target="_blank">601968可以补仓吗？</a></p><p class="f-cl8"><span class="studio-reply"></span>播主:暂不建议补仓</p></div></div>
-            </div>
-            <!-- 视频直播
-            <div class="talk-item-txt studio-grey-tip">
-                <div class="f-cb">
-                    <div class="f-fl video-msg-icon"></div>
-                    <div class="f-fl f-ml10">
-                        <p class="f-fs18"><span class="f-cl8 f-mr10">宇辉战舰</span>开始视频直播<a class="f-cl3">《K线短线买卖点》</a></p>
-                    </div>
-                </div>
-            </div>
-            -->
-        </div><div class="f-mt15 talk-item s-border-bot" data-id="789936">
+    <div style="margin: 20px 0px;" id="resText">
+        <div class="f-mt15 talk-item s-border-bot" data-id="789936">
             <p>
                 <span class="f-cl0 f-ff3 f-fs18 ctime">13:58</span>
                 
@@ -346,103 +345,9 @@
             <div class="talk-item-txt">
                 <div style=""><p>【市场资讯】全球不少国家，都正在步入老龄社会。IMF在2016年《全球经济展望报告》中特别指出，这一老龄化特征不仅表现在人口整体数量的增速减缓，更体现在劳动力增长出现负增长以及老龄劳动力份额急剧上升的特征上。特别对于中国而言，在短期内，中国步入人口老龄化的节奏将呈现出速度更快、间隔更短、负担更重的趋势。</p></div>
             </div>
-        </div><div class="f-mt15 talk-item s-border-bot" data-id="789973">
-            <p>
-                <span class="f-cl0 f-ff3 f-fs18 ctime">14:01</span>
-                
-            </p>
-            <div class="talk-item-txt">
-                <div style=""><p>创业板若水给的2100点支撑， 上午在此位置双底后反弹， 目前反弹力度有所欠缺， 与主板跷跷板效应明显， 这跟市场资金有限很大关系</p></div>
-            </div>
-        </div><div class="f-mt15 talk-item s-border-bot" data-id="790022">
-            <p>
-                <span class="f-cl0 f-ff3 f-fs18 ctime">14:05</span>
-                
-        <span class="tag f-ml5">系统消息</span>
-    
-            </p>
-            <div class="talk-item-txt studio-grey-tip">
-                <div class="ask-reply-box f-cb"><div class="studio-ar-con"><p style="color: #313131;"><span class="studio-ask">？</span>芭飞特: <a href="http://www.shagualicai.cn/answer/info-aid-117696.shtml" target="_blank">老师，帮看看000002</a></p><p class="f-cl8"><span class="studio-reply"></span>播主:上方压力比较大，不新低谨慎暂持，否则可以先规避</p></div></div>
-            </div>
-            <!-- 视频直播
-            <div class="talk-item-txt studio-grey-tip">
-                <div class="f-cb">
-                    <div class="f-fl video-msg-icon"></div>
-                    <div class="f-fl f-ml10">
-                        <p class="f-fs18"><span class="f-cl8 f-mr10">宇辉战舰</span>开始视频直播<a class="f-cl3">《K线短线买卖点》</a></p>
-                    </div>
-                </div>
-            </div>
-            -->
-        </div><div class="f-mt15 talk-item s-border-bot" data-id="790080">
-            <p>
-                <span class="f-cl0 f-ff3 f-fs18 ctime">14:13</span>
-                
-            </p>
-            <div class="talk-item-txt">
-                <div style=""><p>【市场资讯】谷歌购买的风力和太阳能将能够满足其全球数据中心和办事处的全部电力消耗。</p></div>
-            </div>
-        </div><div class="f-mt15 talk-item s-border-bot" data-id="790209">
-            <p>
-                <span class="f-cl0 f-ff3 f-fs18 ctime">14:26</span>
-                
-            </p>
-            <div class="talk-item-txt">
-                <div style=""><p>钢铁股午后走强，宝钢股份、武钢股份领涨，西宁特钢、新钢股份、沙钢股份等多股拉升。</p></div>
-            </div>
-        </div><div class="f-mt15 talk-item s-border-bot" data-id="790338">
-            <p>
-                <span class="f-cl0 f-ff3 f-fs18 ctime">14:39</span>
-                
-            </p>
-            <div class="talk-item-txt">
-                <div style=""><p>中字头权重股稳步走高，龙头中国建筑涨，中国铁建、中国交建、中国人寿等涨，中国中铁、中国电建等亦涨幅居前。港股相关标的亦受捧，中国建筑国际涨。</p></div>
-            </div>
-        </div><div class="f-mt15 talk-item s-border-bot" data-id="790508">
-            <p>
-                <span class="f-cl0 f-ff3 f-fs18 ctime">14:54</span>
-                
-            </p>
-            <div class="talk-item-txt">
-                <div style=""><p>【市场资讯】“西门子计划在2017财年(2016年10月1日至2017年9月30日)投入约50亿欧元用于研发，这一金额比上财年增加了约3亿欧元，所增加的主要部分用于自动化、数字化以及分布式能源系统领域的研发以及新成立的初创业务部门next47。”12月7日，西门子公司宣布称。</p></div>
-            </div>
-        </div><div class="f-mt15 talk-item s-border-bot" data-id="790523">
-            <p>
-                <span class="f-cl0 f-ff3 f-fs18 ctime">14:55</span>
-                
-        <span class="tag f-ml5">系统消息</span>
-    
-            </p>
-            <div class="talk-item-txt studio-grey-tip">
-                <div class="ask-reply-box f-cb"><div class="studio-ar-con"><p style="color: #313131;"><span class="studio-ask">？</span>石岩: <a href="http://www.shagualicai.cn/answer/info-aid-117699.shtml" target="_blank">我刚买的中国中车，怎么操作？</a></p><p class="f-cl8"><span class="studio-reply"></span>播主:收上20均就持有，第一压力11</p></div></div>
-            </div>
-            <!-- 视频直播
-            <div class="talk-item-txt studio-grey-tip">
-                <div class="f-cb">
-                    <div class="f-fl video-msg-icon"></div>
-                    <div class="f-fl f-ml10">
-                        <p class="f-fs18"><span class="f-cl8 f-mr10">宇辉战舰</span>开始视频直播<a class="f-cl3">《K线短线买卖点》</a></p>
-                    </div>
-                </div>
-            </div>
-            -->
-        </div><div class="f-mt15 talk-item s-border-bot" data-id="790665">
-            <p>
-                <span class="f-cl0 f-ff3 f-fs18 ctime">15:08</span>
-                
-            </p>
-            <div class="talk-item-txt">
-                <div style=""><p>沪深两市分化，银行、保险、证券等权重股发力，助力上证指数一度涨，回补周一缺口，尾盘回落涨幅收窄；创业板指午后一路走低，创4个月新低。云南城投、华安证券、奥康国际等40余股涨停，宝钢股份、武钢股份大涨。王子新材、大豪科技、上海亚虹跌停，通灵珠宝、激智科技等近跌停。</p></div>
-            </div>
-        </div><div class="f-mt15 talk-item s-border-bot" data-id="790747">
-            <p>
-                <span class="f-cl0 f-ff3 f-fs18 ctime">15:30</span>
-                
-            </p>
-            <div class="talk-item-txt">
-                <div style=""><p>【市场资讯】相比关注TPP会否存续，沈铭辉认为中国更应该集中精力推动区域全面经济伙伴关系(RCEP)的谈判进程，并用好“一带一路”倡议这一开放式的、包容性更大的合作机制。面对美国候任总统特朗普的坚决表态，TPP搁浅正在成为大概率事件。</p></div>
-            </div>
-        </div></div>
+        </div>
+
+    </div>
 </div>
 <div class="template view-zone-template">
     <!--观点系统标签-->
