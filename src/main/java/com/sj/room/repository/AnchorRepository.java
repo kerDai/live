@@ -14,8 +14,8 @@ import org.springframework.data.jpa.repository.Query;
 public interface AnchorRepository extends JpaRepository<Anchor, Long>, JpaSpecificationExecutor<Anchor> {
 
     @Modifying
-    @Query("update Anchor a set a.status = ?1 where a.id = ?2")
-    void updateStatus(Integer status, long id);
+    @Query("update Anchor a set a.status = ?2 where a.id = ?1")
+    void updateStatus(long id, Integer status);
 
     Anchor findByMobile(String mobile);
 

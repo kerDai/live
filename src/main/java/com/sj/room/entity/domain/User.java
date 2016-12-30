@@ -2,6 +2,7 @@ package com.sj.room.entity.domain;
 
 import com.sj.room.core.base.IdEntity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
@@ -29,7 +30,8 @@ public class User extends IdEntity {
      * 0 普通用户
      * 1 主播
      */
-    private Integer tag;
+    @Column(name="tag",columnDefinition="tinyint default 0")
+    private Integer tag = 0;
 
     private Integer status;
 

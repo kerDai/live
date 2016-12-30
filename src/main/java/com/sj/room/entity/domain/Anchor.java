@@ -3,7 +3,6 @@ package com.sj.room.entity.domain;
 import com.sj.room.core.base.IdEntity;
 
 import javax.persistence.Entity;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -19,8 +18,7 @@ public class Anchor  extends IdEntity {
     private static final long serialVersionUID = -8723264167417988266L;
 
 
-    @OneToOne
-    private User user;
+    private long userId;
 
     private String realName;
 
@@ -46,12 +44,12 @@ public class Anchor  extends IdEntity {
     //0 待审核  1 审核通过  2 不通过
     private Integer status;
 
-    public User getUser() {
-        return user;
+    public long getUserId() {
+        return userId;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUserId(long userId) {
+        this.userId = userId;
     }
 
     public String getRealName() {

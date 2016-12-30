@@ -41,7 +41,7 @@ public class AnchorController {
 
     @GetMapping(value = "/{id}/{status}")
     public void updateStatus(@PathVariable long id, @PathVariable Integer status){
-        anchorService.updateStatus(status, id);
+        anchorService.updateStatus(id, status);
     }
 
 }

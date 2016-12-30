@@ -48,11 +48,12 @@ public class AnchorServiceImpl implements IAnchorService {
     }
 
     @Override
-    public void updateStatus(Integer status, long id) {
-        anchorRepository.updateStatus(status, id);
+    @Transactional
+    public void updateStatus(long id, Integer status) {
+        anchorRepository.updateStatus(id, status);
         if(status == 1){
             Anchor anchor = anchorRepository.findOne(id);
-            userRepository.updateTag(1, anchor.getUser().getId());
+            userRepository.updateTag(1, anchor.getUserId());
         }
     }
 

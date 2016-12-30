@@ -50,12 +50,7 @@ public class LiveClassifyServiceImpl implements ILiveClassifyService {
             @Override
             public Predicate toPredicate(Root<LiveClassify> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
                 Path<String> title = root.get("title");
-                Path<Long> id = root.get("id");
-
                 Set<Predicate> predicates = new HashSet<>();
-                if (cond.getId() != null) {
-                    predicates.add(cb.equal(id, cond.getId()));
-                }
                 if (StringUtils.isNotBlank(cond.getTitle())) {
                     predicates.add(cb.equal(title, "%" + cond.getTitle() + "%"));
                 }
