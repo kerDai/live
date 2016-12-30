@@ -28,4 +28,20 @@ public interface IUserService {
      * @param id
      */
     void updateStatus(Integer status, Long id);
+
+
+    /**
+     * 修改头像
+     * @param id
+     * @param avatar
+     */
+    void avatar(Long id, String avatar);
+
+    /**
+     * 修改密码
+     * @param id
+     * @param oldPassword
+     * @param newPassword
+     */
+    boolean changepwd(Long id, String oldPassword, String newPassword);
 }

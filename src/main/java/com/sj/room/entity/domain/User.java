@@ -26,6 +26,8 @@ public class User extends IdEntity {
 
     private String mobile;
 
+    private String avatar;
+
     /**
      * 0 普通用户
      * 1 主播
@@ -35,6 +37,13 @@ public class User extends IdEntity {
 
     private Integer status;
 
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
 
     public String getUsername() {
         return username;

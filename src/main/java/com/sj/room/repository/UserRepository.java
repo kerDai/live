@@ -14,6 +14,8 @@ import org.springframework.data.jpa.repository.Query;
 public interface UserRepository extends JpaRepository<User, Long>, JpaSpecificationExecutor<User> {
 
 
+    User findByMobileAndPassword(String mobile, String password);
+
     /**
      * 修改用户身份
      * @param tag
@@ -23,9 +25,32 @@ public interface UserRepository extends JpaRepository<User, Long>, JpaSpecificat
     void updateTag(Integer tag, Long id);
 
 
+    /**
+     * 更新状态
+     * @param status
+     * @param id
+     */
     @Modifying
     @Query("update User u set u.status = ?1 where u.id = ?2")
     void updateStatus(Integer status, Long id);
 
+
+    /**
+     * 修改头像
+     * @param id
+     * @param avatar
+     */
+    @Modifying
+    @Query("update User u set u.avatar = ?2 where u.id = ?1")
+    void avatar(Long id, String avatar);
+
+    /**
+     * 修改密码
+     * @param id
+     * @param password
+     */
+    @Modifying
+    @Query("update User u set u.password = ?2 where u.id = ?1")
+    void changepwd(Long id, String password);
 }
 
