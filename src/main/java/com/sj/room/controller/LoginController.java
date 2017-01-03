@@ -5,6 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
  * Date: 2016/12/30.
  * Time: 16:23
  */
-@Controller
+@RestController
 public class LoginController {
 
     private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
@@ -24,14 +25,13 @@ public class LoginController {
     @Autowired
     private ILoginService loginService;
 
-    @PostMapping(value = "/live/login")
-    @RequestMapping
+    @PostMapping(value = "/user/sign")
     public Object login(String mobile, String password){
         boolean result = loginService.login(mobile, password);
         if(result){
-            return "/index";
+            return "success";
         }
-        return "";
+        return "error";
     }
 
 }

@@ -33,7 +33,6 @@
     	<!-- 课件模块  -->
     	<!--<script src="/gotye/js/model/courseware.js"></script>-->
     	<!-- 视频模块 -->
-    	<script src="/gotye/js/model/play.js"></script>
     	<!-- 亲加视频直播js库 -->
 		<script src="http://medias.livevip.com.cn/web_lib/js/live.player_2.0.js"></script>
     </head>
@@ -260,13 +259,9 @@
 //            var a = request.QueryString("token_key");
 
 	   		var token = Tool.getCookie("room_token_239138");
-	   		var live = new Gotye.Live(token);
-//	   		var path = "http://localhost:8080/live";
-//	   		var roomId = "239138";
-	   		var room;
+//	   		var live = new Gotye.Live(token);
 	   		var chat;
 	        $(function(){
-	   				room = '239138';
 	   				chat = new Gotye.Chat(token);//聊天
 //	   				$("#anchorIntr").html(room.anchorDesc);//主播介绍
 	         });

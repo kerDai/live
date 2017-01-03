@@ -74,6 +74,17 @@ public class SmsApi {
         return post("https://sms.yunpian.com/v2/sms/single_send.json", params);//请自行使用post方式请求,可使用Apache HttpClient
     }
 
+    public static String callBind(String apikey, String from, String to, Integer duration) throws Exception {
+        Map<String, String> params = new HashMap<String, String>();//请求参数集合
+        params.put("apikey", apikey);
+        params.put("from", from);
+        params.put("to", to);
+        params.put("duration", "60");
+        return post(URIConstants.URI_SEND_BIND, params);//请自行使用post方式请求,可使用Apache HttpClient
+    }
+
+
+
     public static void main(String[] args) throws Exception{
 //        getUserInfo(apikey);
 
@@ -82,9 +93,9 @@ public class SmsApi {
 //        String result = tplSendSms(apikey, 1677662, tpl_value, "13917466694");
 
 //        addTpl(apikey);
+        callBind("30524e716d705668dca215e079d3ec41", "13917466694", "15221897459", 0);
 
-
-        singleSend(apikey, "您的验证码是12349", "13917466694");
+//        singleSend(apikey, "您的验证码是12349", "13917466694");
 
     }
 

@@ -55,7 +55,7 @@ public class GotyeController {
 	 */
 	@RequestMapping(method = RequestMethod.GET, value = "/live/{roomId}")
 	public String liveOnlineEnter(@PathVariable Long roomId, HttpServletRequest req, HttpServletResponse resp, ModelMap map) throws IOException {
-		roomId = Long.valueOf(239138);
+//		roomId = Long.valueOf(239138);
 		String path = req.getScheme()+"://"+req.getServerName() + ":" + req.getServerPort()+ req.getContextPath() + "/live";
 		req.setAttribute("_path_", path);
 		req.setAttribute("roomId", roomId);
