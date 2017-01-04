@@ -157,7 +157,7 @@ Gotye.Chat = (function(win) {
 			tempGift.giftName = giftName;
 			tempGift.giftPrice = giftPrice;
 			tempGift.giftPicUrl = giftPicUrl;
-			$("#giftBox").hide();
+			// $("#giftBox").hide();
 			//免费礼物直接发送
 			if(giftPrice == 0){
 				//发送送礼
@@ -315,7 +315,7 @@ Gotye.Chat = (function(win) {
 	    			$("#giftBox").show();
 	    			$("expressionBox").hide();
 	    		}else{
-	    			$("#giftBox").hide();
+	    			// $("#giftBox").hide();
 	    		}
 			});
 			var self=this;

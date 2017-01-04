@@ -15,8 +15,8 @@
     <link rel="stylesheet" type="text/css" href="/template/ue-content/templates/images/style.css" />
     <link rel="stylesheet" type="text/css" href="/template/ue-content/templates/css/style.css" />
     <script src="http://www.jq22.com/jquery/1.7.2/jquery.min.js"></script>
-    <script language="javascript" src="/script/jquery.easing.min.js"></script>
-    <script language="javascript" src="/script/custom.js"></script>
+    <script language="javascript" src="script/jquery.easing.min.js"></script>
+    <script language="javascript" src="script/custom.js"></script>
 
     <script src="/room_files/hm.js"></script>
     <script type="text/javascript" src="/room_files/jquery.min.js"></script>
@@ -36,14 +36,23 @@
 
     <link href="/gotye/css/style.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="/gotye/css/reset.css">
+    <script type="text/javascript">
+    </script>
+    <!-- 模板 -->
     <script src="/gotye/js/ejs.js"></script>
+    <!-- 表情 -->
     <script src="/gotye/js/expression.js"></script>
-    <!--<script src="/gotye/js/jquery-1.11.1.js"></script>-->
+    <script src="/gotye/js/jquery-1.11.1.js"></script>
     <script src="/gotye/js/util.js"></script>
+    <!-- 页面初始化 -->
     <script src="/gotye/js/winInit.js"></script>
+    <!-- h5监听手势滑动等事件 -->
     <script src="/gotye/js/hammer.min.js"></script>
     <script src="/gotye/js/jquery.hammer.js"></script>
+
+    <!-- 聊天模块 -->
     <script src="/gotye/js/model/chat.js"></script>
+    <!-- 亲加视频直播js库 -->
     <script src="/gotye/js/model/live.play.js"></script>
 
 </head>
@@ -235,7 +244,7 @@ $(function () {
         </div>
 
         <div class="s-user-header f-ml20 f-fl" id="grzx">
-            <img class="f-fl f-mr10" alt="" src="/room_files/flower.png">
+            <img class="f-fl f-mr10" alt="" src="/room_files/161209010109090889">
             <p class="f-fl">
                 <a>kerdai</a>
             </p><div class="user-more-icon">
@@ -580,9 +589,8 @@ $(function () {
         </div>
     </div>
 </div>
-
-<!--消息设置区-->
-<div class="view-set-zone">
+                        <!--消息设置区-->
+            <div class="view-set-zone">
     <span class="f-fl f-cl7" style="margin-right: 210px;">显示模式：<i class="full-screen f-mr10"></i></span>
     <div class="f-fl f-cb f-cl8">
         <span class="f-cl7 f-fl">字号：</span>
@@ -591,6 +599,7 @@ $(function () {
             <span class="cur">中</span>
             <span>小</span>
         </p>
+
     </div>
     <div class="f-fr">
         <span class="f-cl7">声音：</span><i class="sound-icon" id="sound"></i>
@@ -651,6 +660,33 @@ $(function () {
     <div style="margin: 20px 0px;">
 
         <div data-role="page" id="pageone" class="container" style="max-width:640px;margin:auto;">
+            <!--<div class="header">
+                <ul>
+                    <li class="lo">
+                        <p>
+                            在线<span class="fans-num">0人</span>
+                        </p>
+                    </li>
+                    <li class="lu">
+                        <p id="roomName2">
+                        </p>
+                    </li>
+                    <li class="ig">
+                        <a href="#">
+                            <i class="ico01">
+                            </i>
+                        </a>
+                        <div class="ab">
+                            <div class="audio">
+                                <a href="#">
+                                    <i class="ico02">
+                                    </i>
+                                </a>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>-->
             <div class="chat-plate">
                 <div class="tabs" id="activity_tab">
                     <ul class="display-box fastclick">
@@ -688,10 +724,53 @@ $(function () {
                             <!-- 聊天 -->
                             <section class="msg-chat swiper-slide show" id="infor-tab10">
                                 <div class="showgift" id="showgift"></div>
-                                <ul class="msg-list chat allow-roll" id="msg-chat-list" style="height: 498px; border-bottom: 1px solid #ddd;">
+                                <ul class="msg-list chat allow-roll" id="msg-chat-list" style="height: 333.063px;">
                                 </ul>
                             </section>
                         </div>
+                        <!-- 输入栏  -->
+                        <!--fixed定位输入框在底部， 布局外层是为了兼容手机大多数浏览器下输入框得到焦点时被手机键盘遮挡问题 -->
+                        <nav id="chat">
+                            <div class="display-box">
+                                <div class="chat-input flex border-box">
+                                    <div class="face_div"><a class="smilebtn" id="facebtn" href="javascript:void(0);"></a></div>
+                                    <div id="chat_div" class="chattxt" contenteditable="true"></div>
+                                    <div class="send_div"><a class="sendbtn" id="sendbtn">发送</a></div>
+                                </div>
+                                <a id="giftbtn" class="gift-icon" href="javascript:void(0);"></a>
+                            </div>
+
+                            <div id="expressionBox" style="display:none;">
+                                <ul>
+                                </ul>
+                            </div>
+                            <div id="giftBox" style="display:none;">
+                                <p>礼品区</p>
+                                <div class="page_emotion box_swipe" id="page_emotion">
+                                    <dl id="list_emotion" class="list_emotion pt_10" style="list-style: none; transition-duration: 500ms; transform: translate3d(0px, 0px, 0px);">
+                                        <div style="vertical-align: top; float: left; width: 375px;">
+                                            <dd data-name="小花" data-price='0' data-src="/gotye/images/gift/gift_5.png">
+                                                <img src="/gotye/images/gift/gift_5.png"><span class="diamond"><i></i>免费</span>
+                                            </dd>
+                                            <dd data-name="摩托车" data-price='0' data-src="/gotye/images/gift/gift_4.png">
+                                                <img src="/gotye/images/gift/gift_4.png"><span class="diamond"><i></i>免费</span>
+                                            </dd>
+                                            <dd data-name="手捧花" data-price='0' data-src="/gotye/images/gift/gift_3.png">
+                                                <img src="/gotye/images/gift/gift_3.png"><span class="diamond"><i></i>免费</span>
+                                            </dd>
+                                            <dd data-name="砖石" data-price='0' data-src="/gotye/images/gift/gift_2.png">
+                                                <img src="/gotye/images/gift/gift_2.png"><span class="diamond"><i></i>免费</span>
+                                            </dd>
+                                        </div>
+                                    </dl><!-- 礼物框 -->
+                                    <dt>
+                                    <ol id="nav_emotion" class="nav_emotion">
+                                        <span class="on"></span>
+                                    </ol>
+                                    </dt>
+                                </div>
+                            </div>
+                        </nav>
                     </div>
                 </div>
             </div>
@@ -897,60 +976,263 @@ $(function () {
         </div>
     </div>
 </div>
-<!-- 送礼发评论 -->
-<div class="chat-send-zone">
+            <!-- 送礼发评论 -->
+            <div class="chat-send-zone">
     <div class="scroll-shadow" style="display: none;"></div>
+    <div class="txtScroll-left f-cb">
+        <div class="gift-box bd">
+            <div class="tempWrap" style="overflow:hidden; position:relative; width:385px"><ul style="width: 1100px; position: relative; overflow: hidden; padding: 0px; margin: 0px; left: -55px;"><li class="gift-item clone" data-id="4" data-name="老爷车" data-price="999" onmouseover="gift.showInfo($(this));" style="float: left; width: 55px;">
+                    <div class="gift-local">
+                        <span class="gift-pic">
+                            <img alt="老爷车" src="/room_files/car.png">
+                        </span>
+                        <p class="f-tac f-fs12 f-mt5">999金币</p>
+                    </div>
+                </li>
+                                <li class="gift-item" data-id="9" data-name="鲜花" data-price="2" onmouseover="gift.showInfo($(this));" style="float: left; width: 55px;">
+                    <div class="gift-local">
+                        <span class="gift-pic">
+                            <img alt="鲜花" src="/room_files/flower.png">
+                        </span>
+                        <p class="f-tac f-fs12 f-mt5">2金币</p>
+                    </div>
+                </li>
+                                <li class="gift-item" data-id="12" data-name="票" data-price="2" onmouseover="gift.showInfo($(this));" style="float: left; width: 55px;">
+                    <div class="gift-local">
+                        <span class="gift-pic">
+                            <img alt="票" src="/room_files/toupiao.png">
+                        </span>
+                        <p class="f-tac f-fs12 f-mt5">2金币</p>
+                    </div>
+                </li>
+                                <li class="gift-item" data-id="3" data-name="掌声" data-price="4" onmouseover="gift.showInfo($(this));" style="float: left; width: 55px;">
+                    <div class="gift-local">
+                        <span class="gift-pic">
+                            <img alt="掌声" src="/room_files/applause.gif">
+                        </span>
+                        <p class="f-tac f-fs12 f-mt5">4金币</p>
+                    </div>
+                </li>
+                                <li class="gift-item" data-id="1" data-name="赞" data-price="10" onmouseover="gift.showInfo($(this));" style="float: left; width: 55px;">
+                    <div class="gift-local">
+                        <span class="gift-pic">
+                            <img alt="赞" src="/room_files/praise.png">
+                        </span>
+                        <p class="f-tac f-fs12 f-mt5">10金币</p>
+                    </div>
+                </li>
+                                <li class="gift-item" data-id="11" data-name="涨停板" data-price="20" onmouseover="gift.showInfo($(this));" style="float: left; width: 55px;">
+                    <div class="gift-local">
+                        <span class="gift-pic">
+                            <img alt="涨停板" src="/room_files/limit.png">
+                        </span>
+                        <p class="f-tac f-fs12 f-mt5">20金币</p>
+                    </div>
+                </li>
+                                <li class="gift-item" data-id="13" data-name="美女" data-price="28" onmouseover="gift.showInfo($(this));" style="float: left; width: 55px;">
+                    <div class="gift-local">
+                        <span class="gift-pic">
+                            <img alt="美女" src="/room_files/meinv.png">
+                        </span>
+                        <p class="f-tac f-fs12 f-mt5">28金币</p>
+                    </div>
+                </li>
+                                <li class="gift-item" data-id="14" data-name="蛋糕" data-price="58" onmouseover="gift.showInfo($(this));" style="float: left; width: 55px;">
+                    <div class="gift-local">
+                        <span class="gift-pic">
+                            <img alt="蛋糕" src="/room_files/dangao.png">
+                        </span>
+                        <p class="f-tac f-fs12 f-mt5">58金币</p>
+                    </div>
+                </li>
+                                <li class="gift-item" data-id="2" data-name="金牛" data-price="80" onmouseover="gift.showInfo($(this));" style="float: left; width: 55px;">
+                    <div class="gift-local">
+                        <span class="gift-pic">
+                            <img alt="金牛" src="/room_files/goldox.png">
+                        </span>
+                        <p class="f-tac f-fs12 f-mt5">80金币</p>
+                    </div>
+                </li>
+                                <li class="gift-item" data-id="15" data-name="金条" data-price="100" onmouseover="gift.showInfo($(this));" style="float: left; width: 55px;">
+                    <div class="gift-local">
+                        <span class="gift-pic">
+                            <img alt="金条" src="/room_files/jintiao.png">
+                        </span>
+                        <p class="f-tac f-fs12 f-mt5">100金币</p>
+                    </div>
+                </li>
+                                <li class="gift-item" data-id="16" data-name="宝箱" data-price="266" onmouseover="gift.showInfo($(this));" style="float: left; width: 55px;">
+                    <div class="gift-local">
+                        <span class="gift-pic">
+                            <img alt="宝箱" src="/room_files/baoxiang.png">
+                        </span>
+                        <p class="f-tac f-fs12 f-mt5">266金币</p>
+                    </div>
+                </li>
+                                <li class="gift-item" data-id="6" data-name="财神爷" data-price="800" onmouseover="gift.showInfo($(this));" style="float: left; width: 55px;">
+                    <div class="gift-local">
+                        <span class="gift-pic">
+                            <img alt="财神爷" src="/room_files/mommon.png">
+                        </span>
+                        <p class="f-tac f-fs12 f-mt5">800金币</p>
+                    </div>
+                </li>
+                                <li class="gift-item" data-id="4" data-name="老爷车" data-price="999" onmouseover="gift.showInfo($(this));" style="float: left; width: 55px;">
+                    <div class="gift-local">
+                        <span class="gift-pic">
+                            <img alt="老爷车" src="/room_files/car.png">
+                        </span>
+                        <p class="f-tac f-fs12 f-mt5">999金币</p>
+                    </div>
+                </li>
+                            <li class="gift-item clone" data-id="9" data-name="鲜花" data-price="2" onmouseover="gift.showInfo($(this));" style="float: left; width: 55px;">
+                    <div class="gift-local">
+                        <span class="gift-pic">
+                            <img alt="鲜花" src="/room_files/flower.png">
+                        </span>
+                        <p class="f-tac f-fs12 f-mt5">2金币</p>
+                    </div>
+                </li><li class="gift-item clone" data-id="12" data-name="票" data-price="2" onmouseover="gift.showInfo($(this));" style="float: left; width: 55px;">
+                    <div class="gift-local">
+                        <span class="gift-pic">
+                            <img alt="票" src="/room_files/toupiao.png">
+                        </span>
+                        <p class="f-tac f-fs12 f-mt5">2金币</p>
+                    </div>
+                </li><li class="gift-item clone" data-id="3" data-name="掌声" data-price="4" onmouseover="gift.showInfo($(this));" style="float: left; width: 55px;">
+                    <div class="gift-local">
+                        <span class="gift-pic">
+                            <img alt="掌声" src="/room_files/applause.gif">
+                        </span>
+                        <p class="f-tac f-fs12 f-mt5">4金币</p>
+                    </div>
+                </li><li class="gift-item clone" data-id="1" data-name="赞" data-price="10" onmouseover="gift.showInfo($(this));" style="float: left; width: 55px;">
+                    <div class="gift-local">
+                        <span class="gift-pic">
+                            <img alt="赞" src="/room_files/praise.png">
+                        </span>
+                        <p class="f-tac f-fs12 f-mt5">10金币</p>
+                    </div>
+                </li><li class="gift-item clone" data-id="11" data-name="涨停板" data-price="20" onmouseover="gift.showInfo($(this));" style="float: left; width: 55px;">
+                    <div class="gift-local">
+                        <span class="gift-pic">
+                            <img alt="涨停板" src="/room_files/limit.png">
+                        </span>
+                        <p class="f-tac f-fs12 f-mt5">20金币</p>
+                    </div>
+                </li><li class="gift-item clone" data-id="13" data-name="美女" data-price="28" onmouseover="gift.showInfo($(this));" style="float: left; width: 55px;">
+                    <div class="gift-local">
+                        <span class="gift-pic">
+                            <img alt="美女" src="/room_files/meinv.png">
+                        </span>
+                        <p class="f-tac f-fs12 f-mt5">28金币</p>
+                    </div>
+                </li><li class="gift-item clone" data-id="14" data-name="蛋糕" data-price="58" onmouseover="gift.showInfo($(this));" style="float: left; width: 55px;">
+                    <div class="gift-local">
+                        <span class="gift-pic">
+                            <img alt="蛋糕" src="/room_files/dangao.png">
+                        </span>
+                        <p class="f-tac f-fs12 f-mt5">58金币</p>
+                    </div>
+                </li></ul></div>
+        </div>
+        <!-- 礼物详细信息展示区 -->
+        <div class="gift-more">
+            <p class="f-cl8">
+                <input type="hidden" class="gift-id" value="1">
+                品名：<span class="gift-name">赞</span><span class="f-cl0 ">(<i class="gift-price">4</i>金币)</span>
+            </p>
+            <div class="f-cb gift-send">
+                <p class="gift-change f-cb f-mt10 f-fl">
+                    <span class="f-fl">数量：</span>
+                    <a class="gift-del">-</a>
+                    <input class="gift-show" type="text" value="1">
+                    <a class="gift-add gift-red">+</a>
+                </p>
+                <a class="f-fl f-ml10 u-btn confirm-gift">赠送</a>
+            </div>
+            <p class="f-cb f-mt10 f-fs12">
+                <span class="f-fl">共需：<i class="f-cl6 need-money">4</i>金币</span>
+                                <span class="f-fr">金币余额：<i class="balance ">0</i>金币  <a class="f-ml10 f-cl3" href="http://passport.shagualicai.cn/pay/recharge.shtml" target="_blank">充值</a></span>
+                            </p>
+        </div>
+        <div class="hd">
+            <div class="btn-roll prev"> &lt;</div>
+            <div class="btn-roll next"> &gt;</div>
+        </div>
+    </div>
     <div class="chat-text-zone"><!-- class="f-mt10"-->
-        <!--<textarea class="chat-text" placeholder="来聊几句~" id="room_talk_post"></textarea>-->
-        <nav id="chat">
-            <div class="display-box">
-                <div class="chat-input flex border-box">
-                    <div class="face_div"><a class="smilebtn" id="facebtn" href="javascript:void(0);"></a></div>
-                    <div id="chat_div" class="chattxt" contenteditable="true"></div>
-                    <div class="send_div"><a class="sendbtn" id="sendbtn">发送</a></div>
-                </div>
-                <!--<a class="u-btn f-mr10 f-ml20 chat-btn" id="room_talk_post_ok">发送</a>-->
-                <a id="giftbtn" class="gift-icon" href="javascript:void(0);"></a>
-            </div>
-
-            <div id="expressionBox" style="display:none;">
-                <ul>
-                </ul>
-            </div>
-            <div id="giftBox" style="">
-                <p>礼品区</p>
-                <div class="page_emotion box_swipe" id="page_emotion">
-                    <dl id="list_emotion" class="list_emotion pt_10" style="list-style: none; transition-duration: 500ms; transform: translate3d(0px, 0px, 0px);">
-                        <div style="vertical-align: top; float: left; width: 375px;">
-                            <dd data-name="小花" data-price='0' data-src="/gotye/images/gift/gift_5.png">
-                                <img src="/gotye/images/gift/gift_5.png"><span class="diamond"><i></i>免费</span>
-                            </dd>
-                            <dd data-name="手捧花" data-price='0' data-src="/gotye/images/gift/gift_3.png">
-                                <img src="/gotye/images/gift/gift_3.png"><span class="diamond"><i></i>免费</span>
-                            </dd>
-                            <dd data-name="砖石" data-price='0' data-src="/gotye/images/gift/gift_2.png">
-                                <img src="/gotye/images/gift/gift_2.png"><span class="diamond"><i></i>免费</span>
-                            </dd>
-                        </div>
-                    </dl><!-- 礼物框 -->
-                    <dt>
-                    <ol id="nav_emotion" class="nav_emotion">
-                        <!--<span class="on"></span>-->
-                    </ol>
-                    </dt>
-                </div>
-            </div>
-        </nav>
+        <textarea class="chat-text" placeholder="来聊几句~" id="room_talk_post"></textarea>
         <div class="f-cb">
             <span class="f-fl f-ml10 f-mt5 expression-icon"></span>
-            <!--<p class="f-fr">
+            <p class="f-fr">
                 <span class="post-editor-title"><input type="hidden" id="reply_user_nickname" value=""><input type="hidden" id="reply_chat_id" value="0"></span>
                 <span class="f-cl11 f-fs12">按下ctrl+enter键发送</span>
                 <a class="u-btn f-mr10 f-ml20 chat-btn" id="room_talk_post_ok">发送</a>
-            </p>-->
+            </p>
             <div class="qq-face">
                 <span class="triangle-down"></span>
                 <div style="height: 155px;overflow: auto;">
+                    <img width="20" class="emoji" style="vertical-align:middle" src="/room_files/1f604.png">
+                    <img width="20" class="emoji" style="vertical-align:middle" src="/room_files/1f603.png">
+                    <img width="20" class="emoji" style="vertical-align:middle" src="/room_files/1f600.png">
+                    <img width="20" class="emoji" style="vertical-align:middle" src="/room_files/1f60a.png">
+                    <img width="20" class="emoji" style="vertical-align:middle" src="/room_files/263a-fe0f.png">
+                    <img width="20" class="emoji" style="vertical-align:middle" src="/room_files/1f609.png">
+                    <img width="20" class="emoji" style="vertical-align:middle" src="/room_files/1f60d.png">
+                    <img width="20" class="emoji" style="vertical-align:middle" src="/room_files/1f618.png">
+                    <img width="20" class="emoji" style="vertical-align:middle" src="/room_files/1f61a.png">
+                    <img width="20" class="emoji" style="vertical-align:middle" src="/room_files/1f617.png">
+                    <img width="20" class="emoji" style="vertical-align:middle" src="/room_files/1f619.png">
+                    <img width="20" class="emoji" style="vertical-align:middle" src="/room_files/1f61c.png">
+                    <img width="20" class="emoji" style="vertical-align:middle" src="/room_files/1f61d.png">
+                    <img width="20" class="emoji" style="vertical-align:middle" src="/room_files/1f61b.png">
+                    <img width="20" class="emoji" style="vertical-align:middle" src="/room_files/1f633.png">
+                    <img width="20" class="emoji" style="vertical-align:middle" src="/room_files/1f601.png">
+                    <img width="20" class="emoji" style="vertical-align:middle" src="/room_files/1f614.png">
+                    <img width="20" class="emoji" style="vertical-align:middle" src="/room_files/1f60c.png">
+                    <img width="20" class="emoji" style="vertical-align:middle" src="/room_files/1f612.png">
+                    <img width="20" class="emoji" style="vertical-align:middle" src="/room_files/1f61e.png">
+                    <img width="20" class="emoji" style="vertical-align:middle" src="/room_files/1f623.png">
+                    <img width="20" class="emoji" style="vertical-align:middle" src="/room_files/1f622.png">
+                    <img width="20" class="emoji" style="vertical-align:middle" src="/room_files/1f602.png">
+                    <img width="20" class="emoji" style="vertical-align:middle" src="/room_files/1f62d.png">
+                    <img width="20" class="emoji" style="vertical-align:middle" src="/room_files/1f62a.png">
+                    <img width="20" class="emoji" style="vertical-align:middle" src="/room_files/1f625.png">
+                    <img width="20" class="emoji" style="vertical-align:middle" src="/room_files/1f630.png">
+                    <img width="20" class="emoji" style="vertical-align:middle" src="/room_files/1f605.png">
+                    <img width="20" class="emoji" style="vertical-align:middle" src="/room_files/1f613.png">
+                    <img width="20" class="emoji" style="vertical-align:middle" src="/room_files/1f629.png">
+                    <img width="20" class="emoji" style="vertical-align:middle" src="/room_files/1f62b.png">
+                    <img width="20" class="emoji" style="vertical-align:middle" src="/room_files/1f628.png">
+                    <img width="20" class="emoji" style="vertical-align:middle" src="/room_files/1f631.png">
+                    <img width="20" class="emoji" style="vertical-align:middle" src="/room_files/1f620.png">
+                    <img width="20" class="emoji" style="vertical-align:middle" src="/room_files/1f621.png">
+                    <img width="20" class="emoji" style="vertical-align:middle" src="/room_files/1f624.png">
+                    <img width="20" class="emoji" style="vertical-align:middle" src="/room_files/1f616.png">
+                    <img width="20" class="emoji" style="vertical-align:middle" src="/room_files/1f606.png">
+                    <img width="20" class="emoji" style="vertical-align:middle" src="/room_files/1f60b.png">
+                    <img width="20" class="emoji" style="vertical-align:middle" src="/room_files/1f637.png">
+                    <img width="20" class="emoji" style="vertical-align:middle" src="/room_files/1f60e.png">
+                    <img width="20" class="emoji" style="vertical-align:middle" src="/room_files/1f634.png">
+                    <img width="20" class="emoji" style="vertical-align:middle" src="/room_files/1f635.png">
+                    <img width="20" class="emoji" style="vertical-align:middle" src="/room_files/1f632.png">
+                    <img width="20" class="emoji" style="vertical-align:middle" src="/room_files/1f61f.png">
+                    <img width="20" class="emoji" style="vertical-align:middle" src="/room_files/1f626.png">
+                    <img width="20" class="emoji" style="vertical-align:middle" src="/room_files/1f627.png">
+                    <img width="20" class="emoji" style="vertical-align:middle" src="/room_files/1f608.png">
+                    <img width="20" class="emoji" style="vertical-align:middle" src="/room_files/1f47f.png">
+                    <img width="20" class="emoji" style="vertical-align:middle" src="/room_files/1f62e.png">
+                    <img width="20" class="emoji" style="vertical-align:middle" src="/room_files/1f62c.png">
+                    <img width="20" class="emoji" style="vertical-align:middle" src="/room_files/1f610.png">
+                    <img width="20" class="emoji" style="vertical-align:middle" src="/room_files/1f615.png">
+                    <img width="20" class="emoji" style="vertical-align:middle" src="/room_files/1f62f.png">
+                    <img width="20" class="emoji" style="vertical-align:middle" src="/room_files/1f636.png">
+                    <img width="20" class="emoji" style="vertical-align:middle" src="/room_files/1f607.png">
+                    <img width="20" class="emoji" style="vertical-align:middle" src="/room_files/1f60f.png">
+                    <img width="20" class="emoji" style="vertical-align:middle" src="/room_files/1f611.png">
+                    <img width="20" class="emoji" style="vertical-align:middle" src="/room_files/1f472.png">
+                    <img width="20" class="emoji" style="vertical-align:middle" src="/room_files/1f473.png">
                 </div>
             </div>
         </div>
@@ -1294,6 +1576,69 @@ $(function () {
         }, 300);
     });
 </script>
+        <!-- 银河大作战 -->
+    <!--    <div class="galaxy">
+    <div class="galaxy-t-info">
+        <img class="galaxy-super-title" alt="银河高手榜标题" src="/room_files/galaxy-super-title.png">
+                    <span class="galaxy-t-pic">
+                        <img alt="" src="/room_files/31">
+                    </span>
+        <span class="galaxy-t-rank">第<em>10</em>名</span>
+        <p class="galaxy-total-vote">累计 <em>175</em> 票</p>
+        <p class="f-ml20">我要支持 <em>至柔若水</em></p>
+        <div class="galaxy-vote">
+            <input type="text" name="voteNum" value="1"> 票 <span>（1票=2金币）</span>
+        </div>
+    </div>
+    <span class="lottery-support-btn confirm-gift-vote">立即支持</span>
+    <div class="galaxy-voter-rank">
+        <p class="f-tac">支持股友</p>
+        <div class="galaxy-voter-rank-box">
+            <table>
+                                <tbody><tr>
+                    <td>相思成疾</td>
+                    <td><span>支持了</span></td>
+                    <td>100<span>票</span></td>
+                </tr>
+                                <tr>
+                    <td>蜂蜜柚子茶</td>
+                    <td><span>支持了</span></td>
+                    <td>50<span>票</span></td>
+                </tr>
+                                <tr>
+                    <td>向阳花开</td>
+                    <td><span>支持了</span></td>
+                    <td>15<span>票</span></td>
+                </tr>
+                                <tr>
+                    <td>wangting</td>
+                    <td><span>支持了</span></td>
+                    <td>10<span>票</span></td>
+                </tr>
+                            </tbody></table>
+        </div>
+    </div>
+    <div class="galaxy-report">
+        <p class="f-tac">银河报道</p>
+        <div class="galaxy-report-box txtScroll-top">
+            <div class="bd">
+                <div class="tempWrap" style="overflow:hidden; position:relative; height:110px"><ul style="top: -22px; position: relative; padding: 0px; margin: 0px;">
+                                        <li style="height: 22px;"><a target="_blank" href="http://www.shagualicai.cn/article/25581.shtml">2016年投资高手评选之股市银河战队</a></li>
+                                        <li style="height: 22px;"><a target="_blank" href="http://www.shagualicai.cn/article/26075.shtml">银河红包雨火爆来袭</a></li>
+                                        <li style="height: 22px;"><a target="_blank" href="http://www.shagualicai.cn/article/25673.shtml">邀请有礼：收获更多优惠</a></li>
+                                        <li style="height: 22px;"><a target="_blank" href="http://www.shagualicai.cn/article/26591.shtml">股市银河战队活动规则</a></li>
+                                        <li style="height: 22px;"><a target="_blank" href="http://www.shagualicai.cn/article/26592.shtml">惊喜游轮大奖等你来拿</a></li>
+                                        <li style="height: 22px;"><a target="_blank" href="http://www.shagualicai.cn/article/25581.shtml">2016年投资高手评选之股市银河战队</a></li>
+                                    </ul></div>
+            </div>
+
+        </div>
+    </div>
+    <div class="galaxy-bottom f-cb">
+        <a target="_blank" class="f-fl" href="http://www.shagualicai.cn/topic/pc2016lottery">前往评选</a>
+        <span class="f-fr pack-up">收起 ∨</span>
+    </div>
+</div>-->
 <div class="galaxy-float"></div>
 <script>
     $(function(){
@@ -1307,6 +1652,97 @@ $(function () {
         });
     });
 
+    //===
+    $(".confirm-gift-vote").click(function(){
+        var couponList = '';
+        var gift_num = $("input[name='voteNum']").val();
+        var giftPrice = gift_num*2;
+        var CoinNum = "0";
+                layer.confirm(
+                "<div id='tips'>"+
+                "<p>您确定要赠送给本房间<i class='price'> "+gift_num+" </i>个 票 吗？" +
+                "<div class='coupon-box'>" +
+                "<p class='coupon-list-title'>" +
+                "<input type='radio' checked />使用优惠券 <a href='http://passport.shagualicai.cn/pay/coupon.shtml' target='_blank'>" +
+                "<span id='coupon-more' class='coupon-more'>查看我的优惠券</span></a>" +
+                "</p>" +
+                "<form class='coupon_form'>" +
+                "<div id='coupon-item' class='coupon-item'>" +
+                "<ul>" +
+                couponList +
+                "</ul>" +
+                "</div></form></div>" +
+                "<div class='money-info'>" +
+                "<p>优惠券抵充：<span class='coupon-bold'>-<i class='user_coin'><i class='coupon_coin'>0</i>金币</span></p>" +
+                "<p>您共需支付：<span class='coupon-red'><i class='pay_coin'>"+giftPrice+"</i>金币</span></p>" +
+                "<p class='coupon-size'>账户余额：<i class='user_coin'>"+CoinNum+"</i>金币</p></div>" +
+                "</div>",
+                {
+                    area : ['660px' , 'auto'],
+                    title: " 赠送礼物",
+                    btn: ['确定','取消'],
+                    yes: function (index) {
+                        //选中优惠券
+                        var coupon = "";
+                        $(".sel_coupon_item").each(function(idx, item){
+                            if(item.checked){
+                                coupon += $(this).val()+',';
+                            }
+                        });
+                        var strCoupon = coupon.substring(0,coupon.length-1);
+                        var lastPrice = $(".pay_coin").text();
+                        if(parseInt(CoinNum) < parseInt(lastPrice)){
+                            //在父层弹出一个层
+                            layer.msg('金币不足哦');
+                        }else {
+                            var pdata = {
+                                giftId: 12,
+                                roomId: room.sid,
+                                number: gift_num,
+                                couponId: strCoupon,
+                                fromId: 1
+                            };
+                            $.ajax({
+                                type: 'post',
+                                url: "http://"+host_api+"/user_gift/buygift/host/www.shtml",
+                                data: pdata,
+                                xhrFields: {
+                                    withCredentials: true
+                                },
+                                crossDomain: true,
+                                success: function (data) {
+                                    layer.msg(data.info);
+                                    if (data.code == 1) {
+                                    }
+                                },
+                                failureCallback: function () {
+                                    layer.msg("error");
+                                },
+                                dataType: "json"
+                            });
+                        }
+                    }
+                });
+        //增加优惠券处理
+        $(".sel_coupon_item").on("change", function(){
+            $price = giftPrice;
+            $dis_coin = 0;
+            $(".sel_coupon_item").each(function(idx, item){
+                if(item.checked){
+                    $dis_coin = $dis_coin + parseInt($(item).next().find(".dis_coin").text());
+                }
+            });
+            $(".coupon_coin").text($dis_coin);
+            $pay_coin = $price - $dis_coin;
+            if($pay_coin < 0){
+                $pay_coin = 0;
+            }
+            $(".pay_coin").text($pay_coin);
+        });
+        //增加优惠券处理
+    });
+    //===
+
     $('.pack-up').on('click',function(){
         $('.galaxy').hide();
         $('.galaxy-float').show();
@@ -1317,6 +1753,11 @@ $(function () {
     });
 </script>
 </div>
+        <!--<div class="spread">-->
+<!--<a target="_blank" href="" title="">-->
+<!--<img title="" alt="" src="" />-->
+<!--</a>-->
+<!--</div>-->
 <div class="s-notice">
     风险提示：傻瓜理财平台服务是完全无偿的，所有播主不提供代客理财或qq咨询等非法业务。有私下进行收费咨询或推销其他产品服务，属于非法个人行为，与傻瓜理财无关，请各位网友务必不要上当受骗！如发现上述违规行为可向傻瓜理财客服举报。播主所发表言论均代表其个人对市场所持观点，网友应充分考虑市场的高风险性，据此操作风险自担。傻瓜理财网站提供此互动平台不代表认可其观点。
 </div>

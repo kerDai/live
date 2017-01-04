@@ -74,7 +74,8 @@ public class GotyeController {
 			Long tokenTime = Long.parseLong(tokenTimeStr);
 			//如果token未过期
 			if((System.currentTimeMillis() - tokenTime) < 24 * 60 * 60 * 1000){
-				return "gotye/live";
+//				return "gotye/live";
+				return "home";
 			}
 		}
 		token = accesstoken("","",roomId);
@@ -86,7 +87,8 @@ public class GotyeController {
 
 		CookiesUtil.setCookie(resp, "room_token_"+roomId, token);
 		CookiesUtil.setCookie(resp, "room_token_" + roomId+"_time", new Date().getTime()+"");
-		return "gotye/live";
+//		return "gotye/live";
+		return "home";
 	}
 	
 
