@@ -6,6 +6,7 @@ import com.sj.room.core.util.ApiCall;
 import com.sj.room.core.util.CookiesUtil;
 import com.sj.room.core.util.LIVE_ROLE;
 import com.sj.room.core.util.NameLib;
+import com.sj.room.entity.domain.User;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,26 +70,49 @@ public class GotyeController {
 		String tokenTimeStr = CookiesUtil.getCookie(req, token_key_time);
 		String token = CookiesUtil.getCookie(req, tokenKey);
 
-		//如果cookie中已经存在token
-		if (StringUtils.isNotEmpty(token) && StringUtils.isNotEmpty(tokenTimeStr)) {
-			Long tokenTime = Long.parseLong(tokenTimeStr);
-			//如果token未过期
-			if((System.currentTimeMillis() - tokenTime) < 24 * 60 * 60 * 1000){
-//				return "gotye/live";
-				return "home";
+		User user = (User) req.getSession().getAttribute("loginSession");
+
+		if(user == null){
+			//如果cookie中已经存在token
+			if (StringUtils.isNotEmpty(token) && StringUtils.isNotEmpty(tokenTimeStr)) {
+				Long tokenTime = Long.parseLong(tokenTimeStr);
+				//如果token未过期
+				if((System.currentTimeMillis() - tokenTime) < 24 * 60 * 60 * 1000){
+					return "home";
+				}
 			}
+			token = accesstoken("0", "", roomId);
+			//传值到前台js cookie
+			CookiesUtil.setCookie(resp, "token_key", tokenKey);
+			CookiesUtil.setCookie(resp, "room", obj);
+
+			CookiesUtil.setCookie(resp, "roomId", roomId+"");
+
+			CookiesUtil.setCookie(resp, "room_token_"+roomId, token);
+			CookiesUtil.setCookie(resp, "room_token_" + roomId+"_time", new Date().getTime()+"");
+			return "home";
+		}else {
+			//如果cookie中已经存在token
+			if (StringUtils.isNotEmpty(token) && StringUtils.isNotEmpty(tokenTimeStr)) {
+				accesstoken(user.getNickname(), user.getMobile(), roomId);
+				CookiesUtil.setCookie(resp, "room", obj);
+				Long tokenTime = Long.parseLong(tokenTimeStr);
+				//如果token未过期
+				if((System.currentTimeMillis() - tokenTime) < 24 * 60 * 60 * 1000){
+					return "home";
+				}
+			}
+			token = accesstoken(user.getNickname(), user.getMobile(), roomId);
+			//传值到前台js cookie
+			CookiesUtil.setCookie(resp, "token_key", tokenKey);
+			CookiesUtil.setCookie(resp, "room", obj);
+
+			CookiesUtil.setCookie(resp, "roomId", roomId+"");
+
+			CookiesUtil.setCookie(resp, "room_token_"+roomId, token);
+			CookiesUtil.setCookie(resp, "room_token_" + roomId+"_time", new Date().getTime()+"");
+			return "home";
 		}
-		token = accesstoken("","",roomId);
-		//传值到前台js cookie
-		CookiesUtil.setCookie(resp, "token_key", tokenKey);
-		CookiesUtil.setCookie(resp, "room", obj);
-
-		CookiesUtil.setCookie(resp, "roomId", roomId+"");
-
-		CookiesUtil.setCookie(resp, "room_token_"+roomId, token);
-		CookiesUtil.setCookie(resp, "room_token_" + roomId+"_time", new Date().getTime()+"");
-//		return "gotye/live";
-		return "home";
 	}
 	
 
@@ -124,7 +148,11 @@ public class GotyeController {
 			req = new AccessTokenReq();
 			req.setAccount(StringUtils.isEmpty(account)?UUID.randomUUID().toString().replace("-", ""):account);
 			//登录名称
-			req.setNickName(StringUtils.isEmpty(nickName)? NameLib.generateName():nickName);
+			if("游客".equals(nickName)){
+				req.setNickName("游客—" + NameLib.generateName());
+			}else {
+				req.setNickName(StringUtils.isEmpty(nickName)? NameLib.generateName():nickName);
+			}
 			//// TODO: 2016/12/28   获取登录名称
 //			req.setNickName("留下你的微笑");
 			req.setRoomId(roomId);

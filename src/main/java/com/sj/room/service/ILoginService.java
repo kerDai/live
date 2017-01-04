@@ -1,5 +1,7 @@
 package com.sj.room.service;
 
+import com.sj.room.entity.domain.User;
+
 /**
  * ${DESCRIPTION}
  * Created by duanke
@@ -8,7 +10,7 @@ package com.sj.room.service;
  */
 public interface ILoginService {
 
-    boolean login(String mobile, String password);
+    User login(String mobile, String password);
 
     void logout();
 

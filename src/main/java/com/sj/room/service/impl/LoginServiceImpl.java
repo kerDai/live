@@ -20,12 +20,8 @@ public class LoginServiceImpl implements ILoginService{
     private UserRepository userRepository;
 
     @Override
-    public boolean login(String mobile, String password) {
-        User user = userRepository.findByMobileAndPassword(mobile, EncryptUtil.encrypt(password));
-        if(user != null){
-            return true;
-        }
-        return false;
+    public User login(String mobile, String password) {
+        return userRepository.findByMobileAndPassword(mobile, EncryptUtil.encrypt(password));
     }
 
     @Override
