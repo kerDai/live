@@ -59,8 +59,8 @@ public class GotyeController {
 		String path = req.getScheme()+"://"+req.getServerName() + ":" + req.getServerPort()+ req.getContextPath() + "/live";
 		req.setAttribute("_path_", path);
 		req.setAttribute("roomId", roomId);
-		req.setAttribute("room", mapper.writeValueAsString(getRoom(roomId)));
-
+		String obj = mapper.writeValueAsString(getRoom(roomId));
+		req.setAttribute("room", obj);
 		String tokenKey = "room_token_"+roomId;
 		//页面通过tokenkey从cookie中获得token
 		req.setAttribute("token_key",tokenKey);
@@ -78,6 +78,12 @@ public class GotyeController {
 			}
 		}
 		token = accesstoken("","",roomId);
+		//传值到前台js cookie
+		CookiesUtil.setCookie(resp, "token_key", tokenKey);
+		CookiesUtil.setCookie(resp, "room", obj);
+
+		CookiesUtil.setCookie(resp, "roomId", roomId+"");
+
 		CookiesUtil.setCookie(resp, "room_token_"+roomId, token);
 		CookiesUtil.setCookie(resp, "room_token_" + roomId+"_time", new Date().getTime()+"");
 		return "gotye/live";

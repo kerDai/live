@@ -30,11 +30,8 @@
     	
     	<!-- 聊天模块 -->
     	<script src="/gotye/js/model/chat.js"></script>
-    	<!-- 课件模块  -->
-    	<!--<script src="/gotye/js/model/courseware.js"></script>-->
-    	<!-- 视频模块 -->
     	<!-- 亲加视频直播js库 -->
-		<script src="http://medias.livevip.com.cn/web_lib/js/live.player_2.0.js"></script>
+		<script src="/gotye/js/model/live.play.js"></script>
     </head>
     <body>
         <div data-role="page" id="pageone" class="container" style="max-width:640px;margin:auto;">
@@ -256,14 +253,21 @@
 				</li>
 			</script>
         <script type="text/javascript">
-//            var a = request.QueryString("token_key");
-
-	   		var token = Tool.getCookie("room_token_239138");
+//            var token = Tool.getCookie("${token_key}");
+//	   		var token = Tool.getCookie("room_token_239138");
+	   		var token_key = Tool.getCookie("token_key");
+	   		var token = Tool.getCookie(token_key);
+	   		var path = Tool.getCookie("_path_");
+            var roomId = Tool.getCookie("roomId");
+            var room = Tool.getCookie("room");
 //	   		var live = new Gotye.Live(token);
 	   		var chat;
 	        $(function(){
-	   				chat = new Gotye.Chat(token);//聊天
-//	   				$("#anchorIntr").html(room.anchorDesc);//主播介绍
+                if(room) {
+                    chat = new Gotye.Chat(token);//聊天
+                }else {
+                    Tool.log("room is empty!");
+                }
 	         });
         </script>
     </body>
