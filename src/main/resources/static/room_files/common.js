@@ -29,30 +29,6 @@ function getLocalTime(nS) {
     }
 }
 
-/* 声音 */
-function readStorageSound(id){
-    // 本地没有存贮，直接返回false
-    if(!localStorage.soundSetting) return false;
-    var localSet = JSON.parse(localStorage.soundSetting);
-    return localSet[id];
-}
-
-function setStorageSound(id, change){
-    var localSet = {};
-    if(!!localStorage.soundSetting){
-        localSet = JSON.parse(localStorage.soundSetting);
-    }
-    localSet[id] = change;
-    localStorage.soundSetting = JSON.stringify(localSet);
-}
-function playSound(audio){
-    if(!!readStorageSound(room.sid)){
-        return false;
-    }
-    audio.play();
-}
-/* 声音  end*/
-
 $(function () {
     $(".pop-windows").each(function () {
         var herf = $(this).attr("href");
@@ -60,10 +36,10 @@ $(function () {
         $(this).attr("_href", herf);
     });
     $(".pop-windows").on("click", function () {
-        var auth = $.cookie('AUTH');
-        if($.trim(auth) == ''){
+        // var auth = $.cookie('AUTH');
+        var auth = Tool.getCookie("users");
+        if(auth == null){
             window.top.layer.msg('请登录！');
-            //window.top.location = 'http://new.passport.shagualicai.cn/public/login.shtml';
         }else{
             var popsize = $(this).attr('popsize');
             popsize = popsize.split("*");

@@ -4653,6 +4653,17 @@ var Tool = {
             return null
         }
     },
+    setNickname: function(a, b, c) {
+        var d = new Date();
+        c = c || 8*60*60000;
+        d.setTime(d.getTime() + c);
+        document.cookie = a + "=" + encodeURIComponent(b) + ";expires=" + d.toGMTString()
+    },
+    getNickname: function(name) {
+        var reg = new RegExp(["(?:^| )", name, "=([^;]*)"].join(""),"i"),
+            arr = document.cookie.match(reg);
+        return arr ? decodeURIComponent(arr[1]) : null;
+    },
     resizeIMG: function(d, a, l, m) {
         var g = d;
         var k = g.width,
@@ -5536,9 +5547,15 @@ Gotye.Live = (function(g) {
                         function(w) {
                             if (Gotye.Code.SUCCESS == w.code) {
                                 p.login_status = 2;
+                                var nickname;
+                                if(Tool.getCookie("nickname") == null){
+                                    nickname = w.nickname;
+                                }else {
+                                    nickname = Tool.getNickname("nickname");
+                                }
                                 p.loginUser = {
                                     account: w.account,
-                                    nickname: w.nickname
+                                    nickname: nickname
                                 };
                                 Tool.info("login user account--" + w.account);
                                 r.call(g, w)

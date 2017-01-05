@@ -5,7 +5,7 @@
 $(function () {
     this_ctime = '';
     layer.config({
-        extend: 'extend/layer.ext.js'
+        extend: 'layer/extend/layer.ext.js'
     });
     msg = {
         reply: function(chat_id, nick_name){

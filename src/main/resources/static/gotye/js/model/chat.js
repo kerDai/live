@@ -207,7 +207,13 @@ Gotye.Chat = (function(win) {
 		bindSendmsg: function(){
 			var self=this;
 			$("#sendbtn").click(function(){
-				self.sendMsg();
+
+				var auth = Tool.getCookie("users");
+				if(auth == null){
+					window.top.layer.msg('请登录！');
+				}else {
+					self.sendMsg();
+				}
 			});
 		},
 		//获取历史记录

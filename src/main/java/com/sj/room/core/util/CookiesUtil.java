@@ -29,8 +29,9 @@ public class CookiesUtil {
 	
 	public static void setCookie(HttpServletResponse response, String key, String value){
 		Cookie cookie = new Cookie(key, value);
-		cookie.setMaxAge((int)(24*60*60));
+		cookie.setMaxAge((int)(8*60*60));
 		cookie.setPath("/");
+		response.setCharacterEncoding("UTF-8");
 		response.addCookie(cookie);
 	}
 	

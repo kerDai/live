@@ -2,6 +2,7 @@ package com.sj.room.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sj.room.core.base.AjaxDataResponse;
 import com.sj.room.core.util.CookiesUtil;
 import com.sj.room.entity.domain.User;
 import com.sj.room.service.ILoginService;
@@ -18,6 +19,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 
 /**
  * 登录
@@ -37,20 +40,20 @@ public class LoginController {
 
     @PostMapping(value = "/user/sign")
     public Object login(String mobile, String password, HttpServletRequest req, HttpServletResponse resp){
-//        String token = CookiesUtil.getCookie(req, "users");
         User user = loginService.login(mobile, password);
-//        JSONObject.fromObject(user)
         if(user != null){
             try {
                 String obj = mapper.writeValueAsString(user);
                 CookiesUtil.setCookie(resp, "users", obj);
+                CookiesUtil.setCookie(resp, "headUrl", user.getAvatar());
+//                CookiesUtil.setCookie(resp, "nickname", user.getNickname());
+//                CookiesUtil.setCookie(resp, "nickname", URLEncoder.encode(user.getNickname(), "UTF-8"));
                 req.getSession().setAttribute("loginSession", user);
 //                req.setAttribute("loginSession", user);
-                return "success";
-            } catch (JsonProcessingException e) {
+                return new AjaxDataResponse<>(user);
+            } catch (Exception e) {
                 e.printStackTrace();
             }
-
         }
         return "error";
     }

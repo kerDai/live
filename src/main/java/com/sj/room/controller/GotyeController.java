@@ -148,8 +148,8 @@ public class GotyeController {
 			req = new AccessTokenReq();
 			req.setAccount(StringUtils.isEmpty(account)?UUID.randomUUID().toString().replace("-", ""):account);
 			//登录名称
-			if("游客".equals(nickName)){
-				req.setNickName("游客—" + NameLib.generateName());
+			if("0".equals(nickName)){
+				req.setNickName("游客(" + NameLib.generateName()+")");
 			}else {
 				req.setNickName(StringUtils.isEmpty(nickName)? NameLib.generateName():nickName);
 			}
