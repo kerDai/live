@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(value = "/anchor")
 public class AnchorController {
 
-
     private static final Logger logger = LoggerFactory.getLogger(AnchorController.class);
 
     @Autowired

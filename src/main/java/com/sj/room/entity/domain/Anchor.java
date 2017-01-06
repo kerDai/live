@@ -2,8 +2,7 @@ package com.sj.room.entity.domain;
 
 import com.sj.room.core.base.IdEntity;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  * 申请主播资料
@@ -35,8 +34,21 @@ public class Anchor  extends IdEntity {
     private String mobile;
     private String job;
     //直播类型
-    private Integer liveClassifyId;
-    //直播简介
+//    private Integer liveClassifyId;
+
+    @OneToOne(targetEntity = LiveClassify.class)
+    @JoinColumn(name = "live_classify_sid", referencedColumnName = "id")
+    private LiveClassify liveClassify;
+
+    public LiveClassify getLiveClassify() {
+        return liveClassify;
+    }
+
+    public void setLiveClassify(LiveClassify liveClassify) {
+        this.liveClassify = liveClassify;
+    }
+
+    //个人简介
     private String profile;
     //申请理由
     private String reason;
@@ -116,13 +128,13 @@ public class Anchor  extends IdEntity {
         this.job = job;
     }
 
-    public Integer getLiveClassifyId() {
-        return liveClassifyId;
-    }
-
-    public void setLiveClassifyId(Integer liveClassifyId) {
-        this.liveClassifyId = liveClassifyId;
-    }
+    //    public Integer getLiveClassifyId() {
+//        return liveClassifyId;
+//    }
+//
+//    public void setLiveClassifyId(Integer liveClassifyId) {
+//        this.liveClassifyId = liveClassifyId;
+//    }
 
     public String getProfile() {
         return profile;
