@@ -5551,7 +5551,7 @@ Gotye.Live = (function(g) {
                                 if(Tool.getCookie("nickname") == null){
                                     nickname = w.nickname;
                                 }else {
-                                    nickname = Tool.getNickname("nickname");
+                                    nickname = decodeURI(Tool.getCookie("nickname"))
                                 }
                                 p.loginUser = {
                                     account: w.account,

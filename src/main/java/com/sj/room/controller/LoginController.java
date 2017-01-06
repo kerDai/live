@@ -46,8 +46,7 @@ public class LoginController {
                 String obj = mapper.writeValueAsString(user);
                 CookiesUtil.setCookie(resp, "users", obj);
                 CookiesUtil.setCookie(resp, "headUrl", user.getAvatar());
-//                CookiesUtil.setCookie(resp, "nickname", user.getNickname());
-//                CookiesUtil.setCookie(resp, "nickname", URLEncoder.encode(user.getNickname(), "UTF-8"));
+                CookiesUtil.setCookie(resp, "nickname", URLEncoder.encode(user.getNickname(), "UTF-8"));
                 req.getSession().setAttribute("loginSession", user);
 //                req.setAttribute("loginSession", user);
                 return new AjaxDataResponse<>(user);

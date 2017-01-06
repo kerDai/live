@@ -1,0 +1,29 @@
+.bread-crum {
+    height: 24px;
+    line-height: 24px;
+    margin: 13px 0;
+}
+.cnt-bg {
+    background-color: #F4F4F4;
+}
+
+.cnt-bg td {
+    vertical-align: top;
+}
+.cnt {
+    margin-bottom: 10px;
+}
+.cnt-right {
+    border: 1px solid #ccc;
+    width: 799px;
+    background-color: #fff;
+    padding: 30px 60px;
+}
+.cnt .cnt-title {
+    font-size: 16px;
+    font-weight: bold;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 20px;
+    text-align: left;
+}

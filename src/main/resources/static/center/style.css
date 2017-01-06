@@ -1,0 +1,338 @@
+body {
+    font-family: "Microsoft YaHei", "Consolas", "Monaco", "Bitstream Vera Sans Mono", "Courier New", Courier, monospace;
+    font-size: 14px;
+    line-height: normal;
+    word-wrap: break-word;
+    word-break: break-all;
+}
+.input_error{
+    background: #f7d5d8;
+}
+/* °´Å¥ */
+.u-btn {
+    display: inline-block;
+    *display: inline;
+    *zoom: 1;
+    *overflow: visible;
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+    padding: 0 12px;
+    height: 28px;
+    line-height: 28px;
+    border: 1px solid #d94432;
+    font-size: 12px;
+    letter-spacing: 1px;
+    word-spacing: normal;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+    background: #d94432;
+    font-family: "Microsoft YaHei", "Consolas", "Monaco", "Bitstream Vera Sans Mono", "Courier New", Courier, monospace;
+    transition: .3s
+}
+
+button.u-btn {
+    *height: 30px;
+    _line-height: 25px;
+}
+
+.u-btn, .u-btn:hover {
+    color: #fff;
+    text-decoration: none;
+}
+
+.u-btn:hover, .u-btn:focus {
+    background: #f36857;
+    border-color: #f36857
+}
+
+.u-btn::-moz-focus-inner {
+    padding: 0;
+    margin: 0;
+    border: 0;
+}
+
+.u-btn .btntxt {
+    margin-right: 3px;
+    _vertical-align: middle;
+}
+
+.u-btn .btnsel {
+    display: inline-block;
+    *display: inline;
+    *zoom: 1;
+    width: 0;
+    height: 0;
+    overflow: hidden;
+    vertical-align: middle;
+    border-style: solid dashed dashed;
+    border-width: 4px 4px 0;
+    border-color: #fff transparent transparent;
+}
+
+/* ´óºÅ°´Å¥ */
+.u-btn-lg {
+    padding: 0 15px;
+    height: 36px;
+    line-height: 36px;
+    font-size: 18px;
+}
+
+button.u-btn-lg {
+    *height: 38px;
+    _line-height: 33px;
+}
+
+.u-btn-lg .btnsel {
+    border-width: 5px 5px 0;
+}
+
+/* Ð¡ºÅ°´Å¥ */
+.u-btn-sm {
+    padding: 0 10px;
+    height: 22px;
+    line-height: 22px;
+}
+
+button.u-btn-sm {
+    *height: 24px;
+    _line-height: 19px;
+}
+
+/* ±íµ¥ */
+.u-ipt {
+    width: 214px;
+    padding: 5px;
+    height: 17px;
+    border: 1px solid #D9D9D9;
+    border-top-color: #c0c0c0;
+    line-height: 17px;
+    font-size: 14px;
+    color: #777;
+    background: #f8fdbc;
+}
+
+.u-ipt-1 {
+    width: 90px;
+}
+
+.u-ipt-err {
+    border-color: #c00 #e00 #e00;
+}
+
+/*footer start*/
+.my-footer {
+    background: #f8f8f8;
+    padding: 26px 0;
+}
+
+.my-footer .icon {
+    display: inline-block;
+    background: url("../img/foot_icon.png") no-repeat;
+    height: 28px;
+    width: 28px;
+}
+
+.my-footer .icon1 {background-position: 0 0;}
+
+.my-footer .icon2 {
+    background-position: -28px 0;
+}
+
+.my-footer .icon3 {
+    background-position: -57px 0;
+}
+
+.my-footer .icon4 {
+    background-position: -85px 0;
+}
+
+.my-footer div.f-tac {
+    padding: 0 26px;
+    border-right: 1px solid #e4e4e4;
+    height: 230px;
+}
+
+.my-footer div.f-tac:first-child {
+    padding-left: 0;
+}
+
+.my-footer div.f-tal {
+    padding-left: 26px;
+}
+
+.my-footer h2 {
+    font-weight: 400;
+    color: rgb(51, 51, 51);
+    font-size: 16px;
+    margin: 12px auto;
+}
+
+.my-footer p {
+    color: rgb(98, 98, 98);
+    font-size: 12px;
+    line-height: 24px;
+}
+
+.my-footer a:hover {
+    color: #D94432;
+}
+
+.my-footer .hot-line h2 {
+    margin: 0;
+}
+
+.my-footer .hot-line p {
+    font-size: 14px;
+}
+
+.my-footer .hot-line a {
+    vertical-align: top;
+}
+
+.my-bottom {
+    padding: 24px 0;
+}
+
+.my-bottom a {
+    margin: 0 20px;
+}
+
+.my-bottom span, .my-bottom img {
+    vertical-align: middle;
+}
+
+.my-bottom img {
+    height: 42px;
+}
+
+/*footer end*/
+
+.g-doc {
+    width: 1100px;
+    margin: 0 auto;
+    position: relative;
+}
+
+/* tab选项卡切换 start */
+.m-hd {
+    height: 35px;
+    line-height: 35px;
+    padding: 1px 0 0;
+    border-bottom: 1px solid #ddd;
+    background-color: #f8f8f8;
+}
+
+.m-hd h2, .m-hd li {
+    float: left;
+    display: inline;
+}
+
+.m-hd h2 {
+    margin: 0 20px 0 0;
+    font-size: 16px;
+}
+
+.m-hd ul {
+    margin-left: -2px;
+}
+
+.m-hd li {
+    position: relative;
+    margin: -2px 0 0 2px;
+}
+
+.m-hd li a, .m-hd li a:hover {
+    text-decoration: none;
+    color: #666;
+}
+
+.m-hd li a {
+    float: left;
+    padding: 0 15px;
+    border-bottom: 0;
+    text-align: center;
+    font-size: 14px;
+    background: #f8f8f8;
+}
+
+.m-hd li a:hover {
+    color: #E65341;
+}
+
+.m-hd .z-crt {
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+}
+
+.m-hd li.z-crt a {
+    position: relative;
+    padding-bottom: 1px;
+    margin-bottom: -1px;
+    background: #fff;
+    border-top: 3px solid #E65341;
+}
+
+.m-hd-sl li a {
+    border-radius: 0;
+    font-size: 15px;
+}
+
+/* tab选项卡切换 end */
+
+/* 分页器 start */
+.m-page {
+    margin: 10px auto;
+    text-align: center;
+}
+
+.m-page a {
+    display: inline-block;
+    height: 20px;
+    text-align: center;
+    border: 1px solid #aaa;
+    margin: 10px 2px;
+    padding: 3px 10px;
+    color: dimgray;
+}
+
+.m-page a:hover {
+    border-color: #E65341;
+}
+
+.m-page .current {
+    display: inline-block;
+    margin: 10px 2px;
+    padding: 3px 10px;
+    color: #222;
+    font-weight: 500;
+    border: none;
+}
+
+/* 分页器 end */
+
+
+
+/*银行logo start*/
+.m-bank-logo {background:url("../img/banks.jpg");border: 1px solid #ccc;display: inline-block;height: 36px;width: 150px;}
+.m-bank-logo-ABC {background-position: 0 0;}
+.m-bank-logo-ICBC {background-position: 0 -36px;}
+.m-bank-logo-CCB {background-position: 0 -72px;}
+.m-bank-logo-PSBC {background-position: 0 -108px;}
+.m-bank-logo-BOC {background-position: 0 -144px;}
+.m-bank-logo-CMB {background-position: 0 -180px;}
+.m-bank-logo-BOCOM {background-position: 0 -216px;}
+.m-bank-logo-SPDB {background-position: 0 -252px;}
+.m-bank-logo-CEB {background-position: 0 -288px;}
+.m-bank-logo-CITIC {background-position: 0 -324px;}
+.m-bank-logo-PINGAN {background-position: 0 -360px;}
+.m-bank-logo-CMBC {background-position: 0 -396px;}
+.m-bank-logo-CGB {background-position: 0 -432px;}
+.m-bank-logo-HUAXIA {background-position: 0 -468px;}
+.m-bank-logo-XINGYE {background-position: 0 -504px;}
+.m-bank-logo-BOB {background-position: 0 -540px;}
+.m-bank-logo-BOS {background-position: 0 -576px;}
+.m-bank-logo-NONGSHANG {background-position: 0 -612px;}
+/*银行logo end*/
+

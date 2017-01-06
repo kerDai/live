@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>个人资料-个人中心-实盘直播-傻瓜理财</title>
+
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <link href="../center/reset.css" rel="stylesheet" type="text/css">
+    <link href="../center/function.css" rel="stylesheet" type="text/css">
+    <link href="../center/style.css" rel="stylesheet" type="text/css">
+    <script src="../center/hm.js"></script>
+    <script src="../center/jquery.min.js"></script>
+    <script src="../center/validform_v5.3.2_min.js"></script>
+    <script src="../center/common.js"></script>
+
+    <link href="../center/userframe.css" rel="stylesheet" type="text/css">
+    <script src="../center/validform_v5.3.2_min.js"></script>
+    <style>
+        .my-inputLists li {
+            padding: 10px 0;
+
+        }
+
+        .my-inputLists li em,
+        .my-inputLists li input,
+        .my-inputLists li span,
+        .my-inputLists li select,
+        .my-inputLists li .my-label {
+            vertical-align: middle;
+        }
+
+        .my-inputLists li em {
+            display: inline-block;
+            width: 64px;
+            text-align: right;
+            font-size: 14px;
+            font-weight: 400;
+            margin-right: 10px;
+        }
+
+        .my-inputLists li input {
+            border: 1px solid #ccc;
+            font-size: 14px;
+            height: 24px;
+            line-height: 24px;
+            padding: 2px 5px;
+            width: 248px;
+        }
+
+        .my-inputLists li input[type="checkbox"],
+        .my-inputLists li input[type="radio"] {
+            width: 10px;
+        }
+
+        .my-inputLists li span {
+            display: inline-block;
+            margin-left: 10px;
+            background: #f4f4f4;
+            border: 1px solid #ddd;
+            color: #333;
+            font-size: 12px;
+            line-height: 24px;
+            padding: 2px 10px;
+        }
+
+        .my-inputLists li select {
+            border: 1px solid #ccc;
+            font-size: 14px;
+            line-height: 30px;
+            width: 124px;
+            height: 30px;
+            margin-right: 10px;
+        }
+
+        .my-inputLists li select option {
+            margin: 4px 0;
+        }
+
+        .my-inputLists li .my-label {
+            margin-right: 15px;
+        }
+
+        textarea {
+            border: 1px solid #ccc;
+            font-size: 14px;
+            height: 108px;
+            width: 258px;
+            padding: 5px;
+        }
+
+        .my-inputLists li input:focus,
+        .my-inputLists li textarea:focus {
+            border: 1px solid #69f
+        }
+
+        .my-inputLists li.my-inputlist-last em {
+            vertical-align: top;
+        }
+
+        .u-btn {
+            width: 112px;
+            font-size: 16px;
+        }
+
+        .my-inputLists li span.errSpan {
+            border: 1px solid #d94432;
+            color: #d94432;
+        }
+    </style>
+    <link type="text/css" rel="stylesheet" href="../center/laydate.css">
+    <link type="text/css" rel="stylesheet" href="../center/laydate(1).css" id="LayDateSkin">
+</head>
+<body>
+<style>
+    .my-site-top-temp {
+        position: relative;
+        /*height: 60px;*/
+    }
+
+    .my-site-top {
+        background: #d94432;
+        /*position: fixed;*/
+        z-index: 11;
+        width: 100%;
+        top: 0;
+        left: 0;
+    }
+
+    .my-site-top-logo {
+        background: url("http://static.91fool.com.cn/passport/img/img.png") no-repeat 0 -973px;
+        float: left;
+        height: 60px;
+        margin-right: 24px;
+        width: 223px;
+    }
+
+    .my-site-top .u-btn {
+        float: left;
+        text-align: left;
+        height: 32px;
+        width: 218px;
+        margin: 14px 0 0 10px;
+        background: #fff;
+        color: #000;
+        cursor: auto;
+        font-size: 14px;
+    }
+
+    .my-site-search {
+        background: #fff url("http://static.91fool.com.cn/passport/img/img.png") no-repeat scroll 100% -446px;
+        display: block;
+        float: left;
+        height: 30px;
+        overflow: hidden;
+        width: 30px;
+        margin-left: -32px;
+        margin-top: 16px;
+    }
+
+    .my-site-btn {
+        background: url("http://static.91fool.com.cn/passport/img/repeater.jpg") repeat-x scroll 0 0;
+        color: #fff;
+        font-size: 16px;
+        height: 29px;
+        line-height: 29px;
+        margin-top: 14px;
+        padding: 0 15px;
+        border: 1px solid #b2281c;
+        border-radius: 2px;
+        cursor: pointer;
+        display: inline-block;
+        text-align: center;
+        text-decoration: none;
+        vertical-align: middle;
+        margin-right: 35px;
+    }
+
+    .my-site-btn:hover {
+        background-position: 0 -29px;
+        color: #fff;
+    }
+
+    .my-site-userId {
+        display: inline-block;
+        height: 31px;
+        line-height: 31px;
+        margin-top: 14px;
+        vertical-align: middle;
+        color: #fff;
+        background: rgba(0, 0, 0, 0) url("http://static.91fool.com.cn/passport/img/arrow-down.png") no-repeat scroll 100% 13px;
+        padding-right: 20px;
+    }
+
+    .my-site-userId:hover {
+        color: #fff;
+    }
+
+    .my-site-userId-cnt {
+        position: absolute;
+        right: 0;
+        top: 50px;
+        background: #fff none repeat scroll 0 0;
+        border: 1px solid #ccc;
+        z-index: 11;
+        display: none;
+    }
+
+    .my-site-userId-cnt a {
+        color: #565656;
+        display: block;
+        height: 30px;
+        line-height: 30px;
+        margin-left: 0;
+        padding: 0 10px;
+        width: 90px;
+    }
+
+    .my-site-userId-cnt a:hover {
+        background: #ccc;
+        color: #fff;
+    }
+</style>
+<div class="my-site-top-temp"></div>
+<!--登录后-->
+<div class="my-site-top f-cb">
+    <div class="g-doc">
+        <a class="my-site-top-logo" href="http://www.shagualicai.cn/"></a>
+        <form action="http://passport.shagualicai.cn/search" class="sw" name="sw" method="GET">
+            <!--<input type="text" class="f-fl" id="sk" name="key" autocomplete="off" placeholder="直播室号/直播室名" />-->
+            <!--<a onclick="checkSword();" id="btnSearch" class="btn-search f-fr">找老师</a>-->
+        </form>
+        <form action="http://www.shagualicai.cn/search" class="sw" name="sw" method="GET">
+            <input type="text" class="u-btn" id="sk" name="key" autocomplete="off" placeholder="直播室号/直播室名">
+            <a onclick="checkSword();" id="btnSearch" class="my-site-search"></a>
+        </form>
+        <div class="f-fr f-pr">
+            <a class="my-site-btn" href="http://passport.shagualicai.cn/user_studio/apply">申请成为老师</a>
+            <a class="my-site-btn" href="http://passport.shagualicai.cn/pay/recharge.shtml">充值</a>
+            <a class="my-site-userId" id="siteUserId">kerdai</a>
+            <ul class="my-site-userId-cnt" id="siteUserIdCnt">
+                <li><a href="http://passport.shagualicai.cn/ucenter/userprofile.shtml">用户中心</a></li>
+                <li><a href="http://passport.shagualicai.cn/public/logout.shtml">退出</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<script>
+    $(function () {
+        $("#btnSearch").click(function () {
+            if ($.trim($("#sk").val()) != '') {
+                $(".sw").submit();
+            } else {
+                layer.msg('请输入关键字后再搜索！');
+            }
+        });
+    });
+</script>
+<script>
+    $(document).ready(function () {
+        $("#siteUserId").on("mouseenter", function () {
+            $(this).addClass("hover");
+            $("#siteUserIdCnt").show();
+        });
+        $("#siteUserIdCnt").on("mouseleave", function () {
+            $("#siteUserIdCnt").hide();
+            $("#siteUserId").removeClass("hover")
+        })
+    });
+</script>
+
+<style>
+</style>
+<div class="g-doc">
+    <div class="bread-crum">
+        <a href="http://passport.shagualicai.cn/">首页</a> &gt; <a href="http://passport.shagualicai.cn/ucenter">个人中心</a>
+        &gt; 个人资料
+    </div>
+    <div class="cnt">
+        <form id="main_form" method="post">
+            <table class="cnt-bg">
+                <tbody>
+                <tr>
+                    <td>
+                        <style>
+                            .g-side {
+                                width: 171px;
+                                float: left;
+                                background-color: #F4F4F4;
+                            }
+
+                            .g-side ul {
+                                padding: 10px 0;
+                                margin: 0;
+                            }
+
+                            .g-side li {
+                                width: 171px;
+                                height: 35px;
+                                line-height: 35px;
+                                font-size: 14px;
+                                text-align: center;
+                                list-style: none;
+                                cursor: pointer;
+                            }
+
+                            .g-side a {
+                                display: inline-block;
+                                width: 171px;
+                                height: 35px;
+                                text-decoration: none;
+                                color: #666;
+                            }
+
+                            .g-side li a:hover {
+                                color: #e35442;
+                            }
+
+                            .g-side .side-title {
+                                font-size: 16px;
+                            }
+
+                            .g-side .side-title1, .side-title2, .side-title3 {
+                                background: url('http://static.91fool.com.cn/passport/img/icon.png') no-repeat;
+                            }
+
+                            .g-side .side-title1 {
+                                background-position: 10px -70px;
+                            }
+
+                            .g-side .side-title2 {
+                                background-position: 10px -105px;
+                            }
+
+                            .g-side .side-title3 {
+                                background-position: 10px -200px;
+                            }
+
+                            .g-side .selected {
+                                position: relative;
+                                z-index: 1;
+                                width: 170px;
+                                border-left: 2px solid #c00;
+                                font-weight: bold;
+                                color: #666;
+                                border-top: 1px solid #ccc;
+                                border-bottom: 1px solid #ccc;
+                                background-color: #fff;
+                            }
+
+                            .g-side .split {
+                                height: 2px;
+                                background: url('http://static.91fool.com.cn/passport/img/split.jpg') 50% 50% no-repeat;
+                                margin: 10px 0;
+                            }
+                        </style>
+                        <!-- 用户个人中心左侧选项导航 -->
+                        <div class="g-side">
+                            <ul id="sideNav">
+                                <li class="side-title side-title1">账号设置</li>
+                                <li><a class="selected" href="center/personal.html">个人资料</a></li>
+                                <li><a href="center/password.html">修改密码</a></li>
+                                <li><a href="center/avatar.html">修改头像</a></li>
+                                <li class="split"></li>
+                                <li class="side-title side-title2">用户中心</li>
+                                <li><a href="center/apply.html">申请成为播主</a></li>
+                                <li><a href="center/remember.html">我的关注</a></li>
+                                <li><a href="center/quest.html">我的提问</a></li>
+                            </ul>
+                        </div>
+                    </td>
+                    <td class="cnt-right">
+                        <div>
+                            <p class="cnt-title">个人资料</p>
+                            <ul class="my-inputLists">
+                                <li>
+                                    <em>真实姓名</em>
+                                    <input type="text" value="" name="real_name" datatype="s2-10" errormsg="请正确填写姓名！">
+                                    <span class="errSpan" style="display:none;"></span>
+                                </li>
+                                <li>
+                                    <em>性别</em>
+                                    <input style="height: auto;" type="radio" name="sex" id="sex1" value="1" checked="">
+                                    <label class="my-label" for="sex1">男</label>
+                                    <input style="height: auto;" type="radio" name="sex" id="sex2" value="0">
+                                    <label class="my-label" for="sex2">女</label>
+                                    <input style="height: auto;" type="radio" name="sex" id="sex3" value="-1">
+                                    <label class="my-label" for="sex3">保密</label>
+                                </li>
+                                <li>
+                                    <em>出生日期</em>
+                                    <input type="text" id="birthday" name="birthday" value="">
+                                </li>
+                                <li>
+                                    <em>所在城市</em>
+                                    <select id="s_province" name="s_province">
+                                        <option name="10" value="10">请选择</option>
+                                        <option name="31" value="31">上海</option>
+                                        <option name="11" value="11">北京</option>
+                                        <option name="12" value="12">天津</option>
+                                        <option name="32" value="32">江苏</option>
+                                        <option name="33" value="33">浙江</option>
+                                        <option name="34" value="34">安徽</option>
+                                        <option name="13" value="13">河北</option>
+                                        <option name="14" value="14">山西</option>
+                                        <option name="15" value="15">内蒙古</option>
+                                        <option name="21" value="21">辽宁</option>
+                                        <option name="22" value="22">吉林</option>
+                                        <option name="23" value="23">黑龙江</option>
+                                        <option name="35" value="35">福建</option>
+                                        <option name="36" value="36">江西</option>
+                                        <option name="37" value="37">山东</option>
+                                        <option name="41" value="41">河南</option>
+                                        <option name="42" value="42">湖北</option>
+                                        <option name="43" value="43">湖南</option>
+                                        <option name="44" value="44">广东</option>
+                                        <option name="45" value="45">广西</option>
+                                        <option name="46" value="46">海南</option>
+                                        <option name="50" value="50">重庆</option>
+                                        <option name="51" value="51">四川</option>
+                                        <option name="52" value="52">贵州</option>
+                                        <option name="53" value="53">云南</option>
+                                        <option name="54" value="54">西藏</option>
+                                        <option name="61" value="61">陕西</option>
+                                        <option name="62" value="62">甘肃</option>
+                                        <option name="63" value="63">青海</option>
+                                        <option name="64" value="64">宁夏</option>
+                                        <option name="65" value="65">新疆</option>
+                                        <option name="71" value="71">台湾</option>
+                                        <option name="81" value="81">香港</option>
+                                        <option name="82" value="82">澳门</option>
+                                        <option name="100" value="100">其他</option>
+                                        <option name="400" value="400">海外</option>
+                                    </select>&nbsp;&nbsp;
+                                    <select id="s_city" name="s_city">
+
+                                        <option name="1001" value="1001">请选择</option>
+                                    </select>&nbsp;&nbsp;
+                                </li>
+                                <li>
+                                    <em>邮箱</em>
+                                    <input type="email" name="email" value="" datatype="e" errormsg="请填写正确的邮箱！"
+                                           ignore="ignore">
+                                    <span class="errSpan" style="display:none;"></span>
+
+                                </li>
+                                <li>
+                                    <em>手机</em>
+                                    <input type="text" name="mobile" value="" datatype="m" errormsg="请填写正确的手机！">
+                                    <span class="errSpan" style="display:none;"></span>
+                                </li>
+                                <li>
+                                    <em>QQ</em>
+                                    <input type="text" name="qq" value="" datatype="n6-12" errormsg="请填写正确的QQ号码！"
+                                           ignore="ignore">
+                                    <span class="errSpan" style="display:none;"></span>
+                                </li>
+                                <li>
+                                    <em>教育程度</em>
+                                    <select name="education">
+                                        <option value="0">不清楚</option>
+                                        <option value="3">初中</option>
+                                        <option value="4">高中</option>
+                                        <option value="5">大专</option>
+                                        <option value="6">本科</option>
+                                        <option value="7">硕士</option>
+                                        <option value="8">博士</option>
+                                        <option value="9">更高</option>
+                                    </select>
+                                    <span class="errSpan" style="display:none;"></span>
+                                </li>
+                                <li>
+                                    <em>从事行业</em>
+                                    <select name="occupation">
+                                        <option value="-1">请选择</option>
+                                        <option value="0">不清楚</option>
+                                        <option value="1">IT行业</option>
+                                        <option value="2">金融行业</option>
+                                        <option value="3">政府机关/团体</option>
+                                        <option value="4">教育/研究</option>
+                                        <option value="5">法律相关行业</option>
+                                        <option value="6">传播媒体</option>
+                                        <option value="7">其他行业</option>
+                                    </select>
+                                    <span class="errSpan" style="display:none;"></span>
+                                </li>
+                                <li>
+                                    <em>执政编号</em>
+                                    <input type="text" name="practicing_number" value="">
+                                </li>
+                                <li>
+                                    <em>所在机构</em>
+                                    <input type="text" name="institution" value="">
+                                </li>
+
+                                <li>
+                                    <em>资金状况</em>
+                                    <select name="financial_status">
+                                        <option value="0">不清楚</option>
+                                        <option value="1">5万以下</option>
+                                        <option value="2">5～10万</option>
+                                        <option value="3">10～20万</option>
+                                        <option value="4">20～50万</option>
+                                        <option value="5">50～100万</option>
+                                        <option value="6">100万以上</option>
+                                    </select>
+                                </li>
+
+                                <li>
+                                    <em>操作风格</em>
+                                    <select name="operation_style">
+                                        <option value="0">不清楚</option>
+                                        <option value="1">超短线（T+0或T+1）</option>
+                                        <option value="2">短中线（T+5～20）</option>
+                                        <option value="3">中长线（T+20以上）</option>
+                                    </select>
+                                </li>
+
+                                <li>
+                                    <em>选股风格</em>
+                                    <select name="stock_style">
+                                        <option value="0">不清楚</option>
+                                        <option value="1">基本面选股</option>
+                                        <option value="2">技术面选股</option>
+                                        <option value="3">消息面选股</option>
+                                    </select>
+                                </li>
+
+                                <li>
+                                    <em>投资经验</em>
+                                    <select name="invest_experience">
+                                        <option value="0">不清楚</option>
+                                        <option value="1">1年以下</option>
+                                        <option value="2">1～3年</option>
+                                        <option value="3">3～5年</option>
+                                        <option value="4">5～10年</option>
+                                        <option value="5">10年以上</option>
+                                    </select>
+                                </li>
+                                <li>
+                                    <em>投资品种</em>
+                                    <input type="checkbox" id="investProducts1" name="invest_products[]" value="1">
+                                    <label class="my-label" for="investProducts1">股票</label>
+                                    <input type="checkbox" id="investProducts2" name="invest_products[]" value="2">
+                                    <label class="my-label" for="investProducts2">基金</label>
+                                    <input type="checkbox" id="investProducts3" name="invest_products[]" value="3">
+                                    <label class="my-label" for="investProducts3">外汇</label>
+                                    <input type="checkbox" id="investProducts4" name="invest_products[]" value="4">
+                                    <label class="my-label" for="investProducts4">债券</label>
+                                    <input type="checkbox" id="investProducts5" name="invest_products[]" value="5">
+                                    <label class="my-label" for="investProducts5">黄金</label>
+                                    <input type="checkbox" id="investProducts6" name="invest_products[]" value="6">
+                                    <label class="my-label" for="investProducts6">期货</label>
+                                </li>
+                                <li class="my-inputlist-last">
+                                    <em>个人简介</em>
+                                    <textarea name="personal_profile"></textarea>
+                                    <span class="errSpan" style="display:none;"></span>
+                                </li>
+                                <li class="my-inputlist-last">
+                                    <em></em>
+                                    <input type="submit" class="u-btn" value="保 存">
+                                </li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </form>
+    </div>
+</div>
+<script src="../center/laydate.js"></script>
+<script src="../center/jquery.city.select.js"></script>
+<script src="../center/jquery.city.data.js"></script>
+<script>
+    $(function () {
+        $("textarea[name='personal_profile']").change(function () {
+            var content = $(this).val();
+        });
+        /*日期插件*/
+        laydate({
+            elem: '#birthday',
+            event: 'focus'
+        });
+
+        $("#main_form").Validform({
+            ajaxPost: true,
+            tiptype: function (msg, o, cssctl) {
+                if (o.type == 2) {
+                    msgspan = o.obj.next();
+                    msgspan.text("");
+                    msgspan.hide();
+                } else {
+
+                    msgspan = o.obj.next();
+                    msgspan.text(msg);
+                    msgspan.show();
+                }
+            },
+            beforeSubmit: function (curform) {
+                var content = $("textarea[name='personal_profile']").val();
+                var flag = true;
+                $("textarea[name='personal_profile']").next(".errSpan").empty();
+                if (content.length < 10) {
+                    flag = false;
+                    $("textarea[name='personal_profile']").next(".errSpan").html("至少10字符");
+                    $("textarea[name='personal_profile']").next(".errSpan").show();
+                } else if (content.length > 300) {
+                    flag = false;
+                    $("textarea[name='personal_profile']").next(".errSpan").html("请输入少于300字");
+                    $("textarea[name='personal_profile']").next(".errSpan").show();
+                }
+                return flag;
+            },
+            callback: function (data) {
+                layer.msg(data.info, {
+                    time: 1000
+                }, function () {
+                    if (data.code == "1") {
+                        location.reload();
+                    }
+                });
+            }
+        });
+
+        /*城市联动*/
+        $("#s_province, #s_city").citylist({
+            data: cityData,
+            id: "id",
+            children: 'citys',
+            name: 'name',
+            metaTag: 'name',
+            selected: [Math.floor(10 / 100), 10]
+        });
+    });
+</script>
+<script>
+    var _hmt = _hmt || [];
+    (function () {
+        var hm = document.createElement("script");
+        hm.src = "//hm.baidu.com/hm.js?4e544208853f635bd056188b6c5272a3";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+<div class="my-footer f-cb">
+    <div class="g-doc f-cb">
+        <div class="f-fl f-tac">
+            <i class="icon icon1"></i>
+            <h2>帮助中心</h2>
+            <p><a href="http://www.shagualicai.cn/help?tab=1">如何注册</a></p>
+            <p><a href="http://www.shagualicai.cn/help?tab=2">如何充值</a></p>
+            <p><a href="http://www.shagualicai.cn/help?tab=3">修改密码</a></p>
+            <p><a href="http://www.shagualicai.cn/help?tab=4">如何提问</a></p>
+            <p><a href="http://www.shagualicai.cn/help?tab=5">如何送礼</a></p>
+            <p><a href="http://www.shagualicai.cn/help?tab=6">股市讲堂</a></p>
+        </div>
+        <div class="f-fl f-tac">
+            <i class="icon icon2"></i>
+            <h2>安全保障</h2>
+            <p><a href="http://www.shagualicai.cn/about?tab=7">资金安全</a></p>
+            <p><a href="http://www.shagualicai.cn/about?tab=7">信息安全</a></p>
+            <p><a href="http://www.shagualicai.cn/about?tab=7">交易安全</a></p>
+        </div>
+        <div class="f-fl f-tac">
+            <i class="icon icon3"></i>
+            <h2>关注我们</h2>
+            <p><a href="http://widget.weibo.com/dialog/follow.php?fuid=5249093745" target="_blank">新浪微博</a></p>
+            <p><a>官方微信</a></p>
+            <p class="f-mt10"><img src="../center/foot_weixin.jpg" alt="微信二维码"></p>
+        </div>
+        <div class="f-fl f-tac">
+            <i class="icon icon4"></i>
+            <h2>了解傻瓜理财</h2>
+            <p><a href="http://www.shagualicai.cn/about?tab=1">公司介绍</a></p>
+            <p><a href="http://www.shagualicai.cn/about?tab=2">合作伙伴</a></p>
+            <p><a href="http://www.shagualicai.cn/about?tab=3">招聘信息</a></p>
+            <p><a href="http://www.shagualicai.cn/about?tab=4">商务合作</a></p>
+            <p><a href="http://www.shagualicai.cn/about?tab=5">联系我们</a></p>
+            <p><a href="http://www.shagualicai.cn/about?tab=6">投诉建议</a></p>
+        </div>
+        <div class="f-fl f-tal hot-line">
+            <h2>全国客服热线</h2>
+            <p><span class="f-fs20">010</span><span class="f-fs24">-53342637</span></p>
+            <p>商务合作</p>
+            <p>010-53342639</p>
+            <p>周一至周五&nbsp;8:30-18:00</p>
+            <p class="f-mt15">在线客服小秘书QQ</p>
+            <p class="f-mt5"><img src="../center/foot_qq.png"> <a
+                    href="http://wpa.qq.com/msgrd?v=3&amp;uin=443561285&amp;site=qq&amp;menu=yes" target="_blank">443561285</a>
+            </p>
+            <p><img src="../center/foot_qq.png"> <a
+                    href="http://wpa.qq.com/msgrd?v=3&amp;uin=2944920795&amp;site=qq&amp;menu=yes" target="_blank">2944920795</a>
+            </p>
+        </div>
+        <div class="f-fr f-tar">
+            <p><a href="http://www.shagualicai.cn/"><img src="../center/foot_logo.png" alt="傻瓜理财logo"></a></p>
+            <p>傻瓜理财所载文章、数据仅供参考,</p>
+            <p>使用前请仔细阅读法律声明，风险自负。 </p>
+            <p>Copyright©2015 shagualicai.cn</p>
+            <p>All Rights Reserved</p>
+            <p><a href="http://www.miibeian.gov.cn/" target="_blank">京ICP备 14036695号</a></p>
+        </div>
+    </div>
+</div>
+<div class="g-doc f-tac my-bottom">
+    <span>权威机构安全认证</span>
+    <a href="http://passport.shagualicai.cn/ucenter/userprofile.shtml" target="_blank"><img src="../center/report1.jpg"
+                                                                                            alt=""></a>
+    <a href="http://passport.shagualicai.cn/ucenter/userprofile.shtml" target="_blank"><img src="../center/report2.jpg"
+                                                                                            alt=""></a>
+    <a href="http://passport.shagualicai.cn/ucenter/userprofile.shtml" target="_blank"><img src="../center/report3.jpg"
+                                                                                            alt=""></a>
+    <a href="http://passport.shagualicai.cn/ucenter/userprofile.shtml" target="_blank"><img src="../center/report4.jpg"
+                                                                                            alt=""></a>
+    <a href="http://passport.shagualicai.cn/ucenter/userprofile.shtml" target="_blank"><img src="../center/report5.jpg"
+                                                                                            alt=""></a>
+</div>
+
+
+</body>
+</html>

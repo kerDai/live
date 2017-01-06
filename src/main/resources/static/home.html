@@ -182,10 +182,9 @@ $(function () {
         var temp = JSON.parse(obj);
         $('#grzx').show();
         $('#denglu').hide();
-        var nickname = Tool.getNickname("nickname");
-//        var a = decodeURIComponent(nickname)
+//        var nickname = Tool.getNickname("nickname");
+        var nickname = decodeURI(Tool.getCookie("nickname"));
         $('#nicknameV').html(nickname);
-//        $('#nicknameV').html(temp.nickname)
         $('#logout').html('<a href="/logout/'+temp.id+'">退出</a>');
         $("#avatar").attr('src',temp.avatar);
     }
@@ -221,13 +220,13 @@ $(function () {
             <img align="" src="/room_files/slogo.png">
         </div>
         <ul class="f-fl">
-            <li><a href="http://www.shagualicai.cn/">首页</a></li>
-            <li><a href="http://www.shagualicai.cn/rank.shtml">高手</a></li>
-            <li><a href="http://www.shagualicai.cn/video.shtml">视频讲堂</a></li>
+            <li><a href="/index.html">首页</a></li>
+            <li><a href="/index.html">直播</a></li>
+           <!-- <li><a href="http://www.shagualicai.cn/video.shtml">视频讲堂</a></li>
             <li><a href="http://lcb.shagualicai.cn/">理财宝</a></li>
             <li><a href="http://www.shagualicai.cn/course.shtml">课程</a></li>
             <li><a href="http://www.shagualicai.cn/investor/newsflash.shtml">快讯</a></li>
-            <li><a href="http://www.shagualicai.cn/investor.shtml">内参</a></li>
+            <li><a href="http://www.shagualicai.cn/investor.shtml">内参</a></li>-->
         </ul>
     </div>
     <div class="f-fr f-cb f-mr20 f-fs12">
