@@ -53,7 +53,7 @@ public class AnchorServiceImpl implements IAnchorService {
         anchorRepository.updateStatus(id, status);
         if(status == 1){
             Anchor anchor = anchorRepository.findOne(id);
-//            userRepository.updateTag(1, anchor.getUserId());
+            userRepository.updateTag(1, anchor.getUser().getId());
         }
     }
 

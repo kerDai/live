@@ -16,9 +16,6 @@ public class Anchor  extends IdEntity {
 
     private static final long serialVersionUID = -8723264167417988266L;
 
-
-    private long userId;
-
     private String realName;
 
     private Integer sex;
@@ -40,6 +37,18 @@ public class Anchor  extends IdEntity {
     @JoinColumn(name = "live_classify_sid", referencedColumnName = "id")
     private LiveClassify liveClassify;
 
+    @OneToOne(targetEntity = User.class)
+    @JoinColumn(name = "live_user_sid", referencedColumnName = "id")
+    private User user;
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     public LiveClassify getLiveClassify() {
         return liveClassify;
     }
@@ -55,14 +64,6 @@ public class Anchor  extends IdEntity {
 
     //0 待审核  1 审核通过  2 不通过
     private Integer status;
-
-    public long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(long userId) {
-        this.userId = userId;
-    }
 
     public String getRealName() {
         return realName;

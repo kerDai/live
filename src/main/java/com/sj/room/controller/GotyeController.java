@@ -1,5 +1,6 @@
 package com.sj.room.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sj.room.api.gotye.model.*;
 import com.sj.room.core.util.ApiCall;
@@ -16,6 +17,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -217,18 +219,47 @@ public class GotyeController {
 		}
 		return room;
 	}
-	
+
+
 	/**
-	 * 微信浏览器
-	 * @param req
+	 * 创建直播间
+	 * @param request
 	 * @return
 	 */
-	private Boolean isWexin(HttpServletRequest req){
-		String ua = req.getHeader("user-agent").toLowerCase();
-	    if (ua.indexOf("micromessenger") > 0) {// 是微信浏览器
-	        return true; 
-	    }else{
-	    	return false;
-	    }
+	@RequestMapping(method = RequestMethod.GET, value = "/createRoom")
+	@ResponseBody
+	public CreateRoom createRoom(HttpServletRequest request){
+		User user = (User) request.getSession().getAttribute("loginSession");
+		CreateRoom createRoom = new CreateRoom();
+		if(user != null){
+			try {
+				String url = apiUrl + "/CreateRoom";
+				String reqJson = "";
+				String respStr = "";
+				accessAppToken();
+				String token = appAccessToken.getAccessToken();
+				GetCreateRoomReq req = new GetCreateRoomReq();
+				req.setRoomName("主播室名称");
+				req.setAnchorPwd("000000");
+				req.setAssistPwd("111111");
+				req.setUserPwd("222222");
+				req.setAnchorDesc("主播描述");
+				req.setContentDesc("内容描述");
+				req.setThirdRoomId("12346");
+				req.setCreator("创建者");
+				req.setMaxOnlineNum(200);
+				req.setFirstIndustry("金融");
+				req.setSecondIndustry("财经");
+				reqJson = mapper.writeValueAsString(req);
+				Map<String, String> headers = new HashMap<String, String>();
+				headers.put("Authorization", token);
+				respStr = ApiCall.post(url, reqJson, headers);
+				GetCreateRoomResp resp = mapper.readValue(respStr, GetCreateRoomResp.class);
+				createRoom = resp.getEntity();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return createRoom;
 	}
 }
