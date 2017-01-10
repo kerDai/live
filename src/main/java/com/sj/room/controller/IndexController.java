@@ -17,59 +17,59 @@ import javax.servlet.http.HttpServletRequest;
 @Controller
 public class IndexController {
 
-    @GetMapping(value = "/web/center")
-    public String center(HttpServletRequest req) {
-        User user = (User) req.getSession().getAttribute("loginSession");
-        if (user != null) {
-            return "/web/center";
-        }
-        return "/login";
-    }
-
-    @GetMapping(value = "/web/password")
-    public String password(HttpServletRequest req) {
-        User user = (User) req.getSession().getAttribute("loginSession");
-        if (user != null) {
-            return "/web/password";
-        }
-        return "/login";
-    }
-
-    @GetMapping(value = "/web/avatar")
-    public String avatar(HttpServletRequest req) {
-        User user = (User) req.getSession().getAttribute("loginSession");
-        if (user != null) {
-            return "/web/avatar";
-        }
-        return "/login";
-    }
-
-    @GetMapping(value = "/web/apply")
-    public String apply(HttpServletRequest req) {
-        User user = (User) req.getSession().getAttribute("loginSession");
-        if (user != null) {
-            return "/web/apply";
-        }
-        return "/login";
-    }
-
-    @GetMapping(value = "/web/remember")
-    public String remember(HttpServletRequest req) {
-        User user = (User) req.getSession().getAttribute("loginSession");
-        if (user != null) {
-            return "/web/remember";
-        }
-        return "/login";
-    }
-
-    @GetMapping(value = "/web/quest")
-    public String quest(HttpServletRequest req) {
-        User user = (User) req.getSession().getAttribute("loginSession");
-        if (user != null) {
-            return "/web/quest";
-        }
-        return "/login";
-    }
+//    @GetMapping(value = "/member/center")
+//    public String center(HttpServletRequest req) {
+//        User user = (User) req.getSession().getAttribute("loginSession");
+//        if (user != null) {
+//            return "/member/center";
+//        }
+//        return "/login";
+//    }
+//
+//    @GetMapping(value = "/member/password")
+//    public String password(HttpServletRequest req) {
+//        User user = (User) req.getSession().getAttribute("loginSession");
+//        if (user != null) {
+//            return "/web/password";
+//        }
+//        return "/login";
+//    }
+//
+//    @GetMapping(value = "/member/avatar")
+//    public String avatar(HttpServletRequest req) {
+//        User user = (User) req.getSession().getAttribute("loginSession");
+//        if (user != null) {
+//            return "/web/avatar";
+//        }
+//        return "/login";
+//    }
+//
+//    @GetMapping(value = "/member/apply")
+//    public String apply(HttpServletRequest req) {
+//        User user = (User) req.getSession().getAttribute("loginSession");
+//        if (user != null) {
+//            return "/web/apply";
+//        }
+//        return "/login";
+//    }
+//
+//    @GetMapping(value = "/member/remember")
+//    public String remember(HttpServletRequest req) {
+//        User user = (User) req.getSession().getAttribute("loginSession");
+//        if (user != null) {
+//            return "/web/remember";
+//        }
+//        return "/login";
+//    }
+//
+//    @GetMapping(value = "/member/quest")
+//    public String quest(HttpServletRequest req) {
+//        User user = (User) req.getSession().getAttribute("loginSession");
+//        if (user != null) {
+//            return "/web/quest";
+//        }
+//        return "/login";
+//    }
 
 
 }

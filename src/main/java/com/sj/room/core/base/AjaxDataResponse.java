@@ -20,6 +20,14 @@ public class AjaxDataResponse<T> extends AjaxResponse {
         }
     }
 
+    public AjaxDataResponse(int status, String message, T data) {
+        super(status, message);
+        this.data = data;
+        if (data instanceof Boolean) {
+            setSuccess((Boolean) data);
+        }
+    }
+
     public T getData() {
         return data;
     }

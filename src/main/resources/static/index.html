@@ -110,21 +110,35 @@
     $(document).ready(function(){
         var users = Tool.getCookie("users");
         if(users == null){
-            $('#loginV').html('<a target="_blank" href="" class="list-first">登录</a><a target="_blank" href="">免费注册</a>');
+            $('#loginV').html('<a target="_blank" href="" class="list-first">登录</a><a target="_blank" href="/register/register.html">免费注册</a>');
         }else {
             var obj = JSON.parse(users);
             var temp = JSON.parse(obj);
-            var username = '<a target="_blank" href="" class="list-first f-cl1">'+decodeURI(Tool.getCookie("nickname"))+'</a>';
-            var center = '<a target="_blank" href="/web/center.html?'+temp.id+'" class=""><u>个人管理中心</u></a>';
-            var quit = '<a target="_blank" href="" class="">退出</a>';
-
-            $('#loginV').html(username + center + quit);
+            $.ajax({
+                type: "GET",
+                url:"/user/"+temp.id+"/findOne",
+                success: function(msg) {
+                    if(msg.status == 200){
+                        var username = '<a target="_blank" href="" class="list-first f-cl1">'+msg.data.nickname+'</a>';
+                        var center = '<a target="_blank" href="/member/center.html" class=""><u>个人管理中心</u></a>';
+                        var quit = '<a target="_blank" href="" id="logoutId" class="">退出</a>';
+                        $('#loginV').html(username + center + quit);
+                    }else {
+                        layer.msg("登录超时,请重新登录！", {
+                            time: 3000
+                        }, function () {
+                            window.location.href='/index.html';
+//                            location.reload();
+                        });
+                    }
+                },
+                error: function(error){alert(error);}
+            });
         }
 
         $.ajax({
             type: "GET",
             url:"/anchor",
-//            data:$('#sign').serialize(),
             success: function(msg) {
                 if(msg.totalElements > 0){
                     var temp = '';
@@ -154,6 +168,20 @@
             error: function(error){alert(error);}
         });
 
+        $("#logoutId").click(function(){
+            $.ajax({
+                type: "GET",
+                url:"/user/logout",
+                success: function(msg) {
+                    if(msg.status == 200){
+//                        location.reload();
+                        document.location.reload();
+                    }
+                },
+                error: function(error){alert(error);}
+            });
+        });
+
 
 //        $("#headerUser").on("mouseenter",function(){
 //            $(this).addClass("hover");
@@ -168,30 +196,6 @@
 <div class="my-header">
     <div class="g-doc f-cb">
         <div class="f-fl my-header-list" id="loginV">
-            <!--<a target="_blank" href="" class="list-first">登录</a>&nbsp;&nbsp;&nbsp;
-            <a target="_blank" href="">免费注册</a>-->
-
-            <!--<a id="headerUser" class="list-first hover">kerdai <img src="index/userinfo-dropdown-arrow.png"></a>
-            <div id="userInfoShow" class="my-userInfo-showOut" style="display: block;">
-                <div class="f-cb my-user-settings">
-                    <a href="http://www.shagualicai.cn/rank.shtml#" class="f-fl img-warp"><img src="http://navatar.shagualicai.cn/uid/161230010109325318"></a>
-                    <div class="f-fl f-ml10">
-                        <p class="f-cb my-user-settings-cnt">
-                            <a target="_blank" href="http://passport.shagualicai.cn/ucenter/userprofile.shtml" class="f-fl">个人管理中心</a>
-                            <a target="_blank" href="http://passport.shagualicai.cn/public/logout.shtml" class="f-fr">退出</a>
-                        </p>
-                        <p class="f-mt15">
-                            <a target="_blank" href="http://passport.shagualicai.cn/user_studio/apply.shtml">申请成为老师</a>
-                        </p>
-                    </div>
-                </div>
-                <div class="my-button-wrap">
-                    <p>
-                        <a target="_blank" href="http://passport.shagualicai.cn/pay/recharge.shtml" class="u-btn my-header-cz">充值</a>
-                        <a target="_blank" href="http://passport.shagualicai.cn/user_studio/apply.shtml" class="u-btn my-header-sq">成为播主</a>
-                    </p>
-                </div>
-            </div>-->
         </div>
         <div class="f-fr my-header-list">
             <a target="_blank" href="http://www.shagualicai.cn/loadapp/loadapp.shtml" class="f-cl1"><img class="f-vam"
@@ -232,7 +236,7 @@
 <div class="rank-list">
     <div class="g-doc f-cb">
         <div class="rank-list-nav" style="height: 100%;">
-            <h2>直播分类</h2>
+            <h2>分类</h2>
 
             <div class="rank-list-nav-item cur">
                 <a href="index.html">
@@ -277,168 +281,32 @@
                 <li>状态</li>
             </ul>
             <span id="liveList">
-            <!--<div class="rank-list-con-item f-cb">
-                <a href="live/239138">
-                    <div class="rank-list-con-item-1">
-                        <img src="index/140814010117602393">
-                        <p class="rank-list-con-name"><span>白银</span><i class="f-cl2">魅仙儿炒股秘籍</i></p>
-                        <div class="rank-list-con-des">专挖翻倍牛股 ，慧眼看大盘，精准判点位，狙击涨停板。实盘操作. . .</div>
-                    </div>
-                    <div class="rank-list-con-item-2">
-                        <i class="f-fs14 f-cl2">1月挑战锦囊特价抢购中</i>
-                    </div>
-                    <div class="rank-list-con-item-3">
-                        <p class="f-mt10"><span class="f-cl1 f-fs20">正在直播</span></p>
-                    </div>
-                </a>
-            </div>
-            <div class="rank-list-con-item f-cb">
-                <a href="live/239138">
-                    <div class="rank-list-con-item-1">
-                        <img src="index/150114010113075389">
-                        <p class="rank-list-con-name"><span>股</span><i class="f-cl2">寻食者</i></p>
-                        <div class="rank-list-con-des">寻食者，银河证券仓位择时炒股大赛全国亚军得主，傻瓜理财网独家. . .</div>
-                    </div>
-                    <div class="rank-list-con-item-2">
-                        <i class="f-fs14 f-cl2">涨停板战法+尾盘一阳三线</i>
-                    </div>
-                    <div class="rank-list-con-item-3">
-                        <p class="f-mt10"><span class="f-cl1 f-fs20">正在直播</span></p>
-                    </div>
-                </a>
-            </div>
-            <div class="rank-list-con-item f-cb">
-                <a href="http://www.shagualicai.cn/210">
-                    <div class="rank-list-con-item-1">
-                        <img src="index/150623010121421175">
-                        <p class="rank-list-con-name"><span>股</span><i class="f-cl2">股魔希</i></p>
-                        <div class="rank-list-con-des">职业操盘手，DDE决策分析师。擅长用DDE结合K线组合挑选爆. . .</div>
-                    </div>
-                    <div class="rank-list-con-item-2">
-                        <i class="f-fs14 f-cl2">魔股战略，2016年收益翻翻！</i>
-                    </div>
-                    <div class="rank-list-con-item-3">
-                        <p class="f-mt10"><span class="f-cl1 f-fs20">正在直播</span></p>
-                    </div>
-                </a>
-            </div>
-            <div class="rank-list-con-item f-cb">
-                <a href="http://www.shagualicai.cn/888">
-                    <div class="rank-list-con-item-1">
-                        <img src="index/140814010173680544">
-                        <p class="rank-list-con-name"><span>股</span><i class="f-cl2">宇辉战舰</i></p>
-                        <div class="rank-list-con-des">2014年傻瓜理财首届十大股市领跑者票选冠军，多知名财经网2. . .</div>
-                    </div>
-                    <div class="rank-list-con-item-2">
-                        <i class="f-fs14 f-cl2">蔼蔼溪流慢，缓缓起路长</i>
-                    </div>
-                    <div class="rank-list-con-item-3">
-                        <p class="f-mt10"><span class="f-cl1 f-fs20">正在直播</span></p>
-                    </div>
-                </a>
-            </div>
-            <div class="rank-list-con-item f-cb">
-                <a href="http://www.shagualicai.cn/519">
-                    <div class="rank-list-con-item-1">
-                        <img src="index/160503010114282929">
-                        <p class="rank-list-con-name"><span>股</span><i class="f-cl2">高山</i></p>
-                        <div class="rank-list-con-des">技到，心未到， 亦不远矣；心到，技未到，易成空谈。空谈误国，. . .</div>
-                    </div>
-                    <div class="rank-list-con-item-2">
-                        <i class="f-fs14 f-cl2">山高人为峰！</i>
-                    </div>
-                    <div class="rank-list-con-item-3">
-                        <p class="f-mt10"><span class="f-cl1 f-fs20">正在直播</span></p>
-                    </div>
-                </a>
-            </div>
-            <div class="rank-list-con-item f-cb">
-                <a href="http://www.shagualicai.cn/318">
-                    <div class="rank-list-con-item-1">
-                        <img src="index/150922010117012662">
-                        <p class="rank-list-con-name"><span>股</span><i class="f-cl2">闪电黑马狂奔</i></p>
-                        <div class="rank-list-con-des">闪电黑马狂奔战法创始人，开盘寻牛战法创始人；坚决反对马后炮；. . .</div>
-                    </div>
-                    <div class="rank-list-con-item-2">
-                        <i class="f-fs14 f-cl2">内参000923，2日获利9.3%</i>
-                    </div>
-                    <div class="rank-list-con-item-3">
-                        <p class="f-mt10"><span class="f-cl1 f-fs20">正在直播</span></p>
-                    </div>
-                </a>
-            </div>
-
-            <div class="rank-list-con-item f-cb">
-                <a href="http://www.shagualicai.cn/518">
-                    <div class="rank-list-con-item-1">
-                        <img src="index/140904010142280997">
-                        <p class="rank-list-con-name"><span>股</span><i class="f-cl2">丁大卫直播室</i></p>
-                        <div class="rank-list-con-des">丁大卫，财经名博、国家经济师、CCTV证券资讯频道特约评论员. . .</div>
-                    </div>
-                    <div class="rank-list-con-item-2">
-                        <i class="f-fs14 f-cl2">★★【与主力共进退】★★</i>
-                    </div>
-                    <div class="rank-list-con-item-3">
-                        <p class="f-mt10"><span class="f-cl1 f-fs20">正在直播</span></p>
-                    </div>
-                </a>
-            </div>
-
-            <div class="rank-list-con-item f-cb">
-                <a href="http://www.shagualicai.cn/282">
-                    <div class="rank-list-con-item-1">
-                        <img src="index/150828010119181977">
-                        <p class="rank-list-con-name"><span>股</span><i class="f-cl2">君子</i></p>
-                        <div class="rank-list-con-des">精准捕捉当日领涨板块的领涨龙头，分享股市超短线操盘的最高境界. . .</div>
-                    </div>
-                    <div class="rank-list-con-item-2">
-                        <i class="f-fs14 f-cl2">知行合一、龙头不败</i>
-                    </div>
-                    <div class="rank-list-con-item-3">
-                        <p class="f-mt10"><span class="f-cl1 f-fs20">正在直播</span></p>
-                    </div>
-                </a>
-            </div>
-            <div class="rank-list-con-item f-cb">
-                <a href="http://www.shagualicai.cn/245">
-                    <div class="rank-list-con-item-1">
-                        <img src="index/150720010107490422">
-                        <p class="rank-list-con-name"><span>股</span><i class="f-cl2">金股圣手直播室</i></p>
-                        <div class="rank-list-con-des">趋势操作，顺势而为，牛市操作，熊市冬眠！</div>
-                    </div>
-                    <div class="rank-list-con-item-2">
-                        <i class="f-fs14 f-cl2">静待大盘反抽3140点一带！</i>
-                    </div>
-                    <div class="rank-list-con-item-3">
-                        <p class="f-mt10"><span class="f-cl1 f-fs20">正在直播</span></p>
-                    </div>
-                </a>
-            </div>
-            <div class="rank-list-con-item f-cb">
-                <a href="http://www.shagualicai.cn/211">
-                    <div class="rank-list-con-item-1">
-                        <img src="index/150623010121053894">
-                        <p class="rank-list-con-name"><span>股</span><i class="f-cl2">独股九剑</i></p>
-                        <div class="rank-list-con-des">个人简介：
-                            原名朱时磊，知名财经博主，九剑战法创始人，媒体撰. . .
+                <!--<div class="rank-list-con-item f-cb">
+                    <a href="live/239138">
+                        <div class="rank-list-con-item-1">
+                            <img src="index/140814010117602393">
+                            <p class="rank-list-con-name"><span>白银</span><i class="f-cl2">魅仙儿炒股秘籍</i></p>
+                            <div class="rank-list-con-des">专挖翻倍牛股 ，慧眼看大盘，精准判点位，狙击涨停板。实盘操作. . .</div>
                         </div>
-                    </div>
-                    <div class="rank-list-con-item-2">
-                        <i class="f-fs14 f-cl2">【独股九剑】★财经名博直播室★</i>
-                    </div>
-                    <div class="rank-list-con-item-3">
-                        <p class="f-mt10"><span class="f-cl1 f-fs20">正在直播</span></p>
-                    </div>
-                </a>
-            </div>-->
+                        <div class="rank-list-con-item-2">
+                            <i class="f-fs14 f-cl2">1月挑战锦囊特价抢购中</i>
+                        </div>
+                        <div class="rank-list-con-item-3">
+                            <p class="f-mt10"><span class="f-cl1 f-fs20">正在直播</span></p>
+                        </div>
+                    </a>
+                </div>
+                -->
             </span>
 
             <div class="m-page">
-                <div><span class="current">1</span><a class="num"
-                                                      href="http://www.shagualicai.cn/rank/index-type-5-p-2.shtml">2</a><a
-                        class="num" href="http://www.shagualicai.cn/rank/index-type-5-p-3.shtml">3</a><a class="num"
-                                                                                                         href="http://www.shagualicai.cn/rank/index-type-5-p-4.shtml">4</a>
-                    <a class="next" href="http://www.shagualicai.cn/rank/index-type-5-p-2.shtml">下一页</a></div>
+                <div>
+                    <span class="current">1</span>
+                    <a class="num" href="http://www.shagualicai.cn/rank/index-type-5-p-2.shtml">2</a>
+                    <a class="num" href="http://www.shagualicai.cn/rank/index-type-5-p-3.shtml">3</a>
+                    <a class="num" href="http://www.shagualicai.cn/rank/index-type-5-p-4.shtml">4</a>
+                    <a class="next" href="http://www.shagualicai.cn/rank/index-type-5-p-2.shtml">下一页</a>
+                </div>
             </div>
         </div>
     </div>

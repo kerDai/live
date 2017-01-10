@@ -34,6 +34,10 @@ public interface UserRepository extends JpaRepository<User, Long>, JpaSpecificat
     @Query("update User u set u.status = ?1 where u.id = ?2")
     void updateStatus(Integer status, Long id);
 
+    @Modifying
+    @Query("update User u set u.nickname = ?1 where u.id = ?2")
+    void updateNickname(String nickname, Long id);
+
 
     /**
      * 修改头像

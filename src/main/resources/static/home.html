@@ -180,13 +180,20 @@ $(function () {
     }else {
         var obj = JSON.parse(users);
         var temp = JSON.parse(obj);
-        $('#grzx').show();
-        $('#denglu').hide();
-//        var nickname = Tool.getNickname("nickname");
-        var nickname = decodeURI(Tool.getCookie("nickname"));
-        $('#nicknameV').html(nickname);
-        $('#logout').html('<a href="/logout/'+temp.id+'">退出</a>');
-        $("#avatar").attr('src',temp.avatar);
+        $.ajax({
+            type: "GET",
+            url:"/user/"+temp.id+"/findOne",
+            success: function(msg) {
+                if(msg.status == 200){
+                    $('#grzx').show();
+                    $('#denglu').hide();
+                    var nickname = msg.data.nickname;
+                    $('#nicknameV').html(nickname);
+                    $("#avatar").attr('src',temp.avatar);
+                }
+            },
+            error: function(error){alert(error);}
+        });
     }
 
     $('#loginBut').click(function(){
@@ -201,15 +208,26 @@ $(function () {
                     $("#loginalert").hide();
                     $(".loginmask").hide();
                     Tool.setNickname('nickname', msg.data.nickname, null);
-                    $('#nickname').val(msg.data.nickname);
                     $('#nicknameV').html(msg.data.nickname);
-                    $('#logout').html('<a href="/logout/'+msg.data.id+'">退出</a>');
                     $("#avatar").attr('src',msg.data.avatar);
                 }
             },
             error: function(error){alert(error);}
         });
-    })
+    });
+
+    $("#logoutId").click(function(){
+        $.ajax({
+            type: "GET",
+            url:"/user/logout",
+            success: function(msg) {
+                if(msg.status == 200){
+                    document.location.reload();
+                }
+            },
+            error: function(error){alert(error);}
+        });
+    });
 })
 </script>
 
@@ -238,37 +256,27 @@ $(function () {
         <p class="f-fl">
             客服：<span class="f-fs16">010-53342637</span>
         </p>
-        <div class="s-search f-fl f-ml10">
-            <i class="f-fl"></i>
-            <form action="http://www.shagualicai.cn/search" method="get" class="room-search-form">
-            <input type="text" name="key" placeholder="直播室号/直播室名" value="">
-            </form>
-        </div>
-
         <div class="s-user-header f-ml20 f-fl" id="denglu">
             <p class="f-fl">
                 <a class="openlogin" href="" onclick="return false;">登录</a>
                 <a class="reg" href="" onclick="return false;">注册</a>
             </p>
         </div>
-
         <div class="s-user-header f-ml20 f-fl" id="grzx">
             <img class="f-fl f-mr10" id="avatar" alt="" src="">
             <p class="f-fl">
                 <a><span id="nicknameV"></span></a>
-            </p><div class="user-more-icon">
-            <i></i>
-            <div class="f-fs14 f-cl9 user-more">
-                <!--<i></i>-->
-                <ul>
-                    <li><a href="http://passport.shagualicai.cn/ucenter/userprofile.shtml">个人管理中心</a></li>
-                    <!--<li><a href="http://passport.shagualicai.cn/user_studio/apply.shtml">申请成为老师</a></li>-->
-                    <li><a href="http://passport.shagualicai.cn/master_studio.shtml">直播管理</a></li>
-                    <li id="logout"></li>
-                </ul>
+            </p>
+            <div class="user-more-icon">
+                <i></i>
+                <div class="f-fs14 f-cl9 user-more">
+                    <ul>
+                        <li><a href="">个人管理中心</a></li>
+                        <!--<li><a href="">直播管理</a></li>-->
+                        <li><a href="" id="logoutId">退出</a></li>
+                    </ul>
+                </div>
             </div>
-            </div>
-            <p></p>
         </div>
         
     </div>

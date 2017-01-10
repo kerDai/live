@@ -23,6 +23,60 @@ public class UserCondition extends PageAndSortCondition {
      */
     private Integer status;
 
+    private String mobile;
+    private String nickname;
+    private String avatar;
+    private String password;
+    private String rePassword;
+    private String verifyNo;
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getRePassword() {
+        return rePassword;
+    }
+
+    public void setRePassword(String rePassword) {
+        this.rePassword = rePassword;
+    }
+
+    public String getVerifyNo() {
+        return verifyNo;
+    }
+
+    public void setVerifyNo(String verifyNo) {
+        this.verifyNo = verifyNo;
+    }
 
     @Override
     protected String getDefaultSort() {

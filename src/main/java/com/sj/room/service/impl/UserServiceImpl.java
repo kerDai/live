@@ -17,7 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
  * Time: 10:23
  */
 @Service
-public class UserServiceImpl  implements IUserService {
+public class UserServiceImpl implements IUserService {
 
 
     private final static org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(UserServiceImpl.class);
@@ -36,6 +36,11 @@ public class UserServiceImpl  implements IUserService {
     }
 
     @Override
+    public User findOne(Long id) {
+        return userRepository.findOne(id);
+    }
+
+    @Override
     @Transactional
     public void updateTag(Integer tag, Long id) {
         userRepository.updateTag(tag, id);
@@ -45,6 +50,13 @@ public class UserServiceImpl  implements IUserService {
     @Transactional
     public void updateStatus(Integer status, Long id) {
         userRepository.updateStatus(status, id);
+    }
+
+    @Override
+    @Transactional
+    public User updateNickname(String nickname, Long id) {
+        userRepository.updateNickname(nickname, id);
+        return userRepository.findOne(id);
     }
 
     @Override

@@ -19,8 +19,6 @@ public class User extends IdEntity {
 
     private static final long serialVersionUID = -5179498387222264177L;
 
-    private String username;
-
     private String nickname;
 
     private String password;
@@ -36,6 +34,7 @@ public class User extends IdEntity {
     @Column(name="tag",columnDefinition="tinyint default 0")
     private Integer tag = 0;
 
+    @Column(name="status",columnDefinition="tinyint default 1")
     private Integer status;
 
     public String getAvatar() {
@@ -44,14 +43,6 @@ public class User extends IdEntity {
 
     public void setAvatar(String avatar) {
         this.avatar = avatar;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
     }
 
     public String getNickname() {

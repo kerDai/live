@@ -13,6 +13,8 @@ public interface IUserService {
 
     User save(User user);
 
+    User findOne(Long id);
+
 
     /**
      * 修改用户身份
@@ -31,11 +33,20 @@ public interface IUserService {
 
 
     /**
+     * 修改昵称
+     * @param nickname
+     * @param id
+     */
+    User updateNickname(String nickname, Long id);
+
+    /**
      * 修改头像
      * @param id
      * @param avatar
      */
     void avatar(Long id, String avatar);
+
+
 
     /**
      * 修改密码
