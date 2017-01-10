@@ -352,6 +352,7 @@
                             <li class="split"></li>
                             <li class="side-title side-title2">用户中心</li>
                             <li><a class="selected" href="/member/apply.html">申请成为播主</a></li>
+                            <div id="goLive"></div>
                             <li><a href="/member/remember.html">我的关注</a></li>
                             <li><a href="/member/quest.html">我的提问</a></li>
                         </ul>
@@ -560,6 +561,10 @@
                     if(msg.status == 200){
                         var nickname = msg.data.nickname;
                         $('#siteUserId').html(nickname);
+                        //判断是否主播
+                        if(msg.data.tag == 1){
+                            $('#goLive').html('<li><a class="" href="/member/seeding.html">发起直播</a></li>');
+                        }
                         if(msg.data.avatar != null){
                             $('#favorite').attr('src', msg.data.avatar);
                         }else {
