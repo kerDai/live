@@ -57,6 +57,11 @@ public class AnchorServiceImpl implements IAnchorService {
         }
     }
 
+    @Override
+    public Anchor findOne(long id) {
+        return anchorRepository.findOne(id);
+    }
+
     private Specification<Anchor> toSpecification(final AnchorCondition cond) {
         return new Specification<Anchor>() {
 

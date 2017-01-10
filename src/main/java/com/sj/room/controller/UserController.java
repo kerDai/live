@@ -1,11 +1,10 @@
 package com.sj.room.controller;
 
-import com.sj.room.api.aliyun.AliyunImage;
 import com.sj.room.core.base.AjaxDataResponse;
 import com.sj.room.core.base.AjaxResponse;
-import com.sj.room.core.util.CookiesUtil;
 import com.sj.room.entity.condition.UserCondition;
 import com.sj.room.entity.domain.User;
+import com.sj.room.entity.dto.PasswordDTO;
 import com.sj.room.service.IUserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,12 +12,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 
 /**
  * 用户
@@ -40,36 +37,38 @@ public class UserController {
 
     /**
      * 上传头像
-     *
-     * @param file
-     * @param userId
-     * @param request
+     * @param avatar
+     * @param id
+     * @param req
      * @return
      */
-    @PostMapping(value = "/{userId}/avatar")
-    public Object avatar(@RequestParam("file") MultipartFile file, @PathVariable long userId, HttpServletRequest request) {
-//        MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
-//        MultipartFile file = multipartRequest.getFile("imgFile");
-        String imgPath = AliyunImage.uploadAliyun(file);
-        userService.avatar(userId, imgPath);
-        return "success";
+    @PostMapping(value = "/update/avatar")
+    public Object avatar(@RequestParam("avatar") String avatar,@RequestParam("id") Long id, HttpServletRequest req) {
+        User user = (User) req.getSession().getAttribute("loginSession");
+        if (user != null) {
+            userService.avatar(id, avatar);
+            return trueMessage(null);
+        }
+        return noLoginMessage();
     }
 
     /**
      * 修改密码
-     *
-     * @param userId
-     * @param oldPassword
-     * @param newPassword
+     * @param dto
      * @return
      */
-    @PostMapping(value = "/{userId}/changepwd")
-    public Object changepwd(@PathVariable long userId, String oldPassword, String newPassword) {
-        boolean result = userService.changepwd(userId, oldPassword, newPassword);
-        if (!result) {
-            return this.messageSource.getMessage("message.user.changepwd.nosame", new Object[]{}, LocaleContextHolder.getLocale());
+    @PostMapping(value = "/update/changepwd")
+    public Object changepwd(PasswordDTO dto, HttpServletRequest req) {
+        User user = (User) req.getSession().getAttribute("loginSession");
+        if (user != null) {
+            boolean result = userService.changepwd(dto.getId(), dto.getOldpass(), dto.getNewtwopass());
+            if (result) {
+                return trueMessage(null);
+            }
+            String message = this.messageSource.getMessage("message.user.changepwd.nosame", new Object[]{}, LocaleContextHolder.getLocale());
+            return new AjaxResponse(201, message);
         }
-        return "success";
+        return noLoginMessage();
     }
 
     /**
@@ -83,15 +82,19 @@ public class UserController {
         User user = (User) req.getSession().getAttribute("loginSession");
         if (user != null) {
             User u = userService.updateNickname(condition.getNickname(), condition.getId());
-            CookiesUtil.clearCookie(req, resp, "nickname");
-            CookiesUtil.setCookie(resp, "nickname", URLEncoder.encode(user.getNickname(), "UTF-8"));
-            String message = this.messageSource.getMessage("message.user.update.nickname.success", new Object[]{}, LocaleContextHolder.getLocale());
-            return new AjaxDataResponse<>(200, message, u);
+//            CookiesUtil.clearCookie(req, resp, "nickname");
+//            CookiesUtil.setCookie(resp, "nickname", URLEncoder.encode(user.getNickname(), "UTF-8"));
+            return trueMessage(u);
         }
-        String error = this.messageSource.getMessage("message.user.login.error", new Object[]{}, LocaleContextHolder.getLocale());
-        return new AjaxResponse(999, error);
+        return noLoginMessage();
     }
 
+    /**
+     * 根据ID获取用户信息
+     * @param userId
+     * @param req
+     * @return
+     */
     @GetMapping(value = "/{userId}/findOne")
     public Object findOne(@PathVariable long userId, HttpServletRequest req) {
         User user = (User) req.getSession().getAttribute("loginSession");
@@ -99,8 +102,19 @@ public class UserController {
             User u = userService.findOne(userId);
             return new AjaxDataResponse<>(u);
         }
+        return noLoginMessage();
+    }
+
+    private Object noLoginMessage() {
         String error = this.messageSource.getMessage("message.user.login.error", new Object[]{}, LocaleContextHolder.getLocale());
         return new AjaxResponse(999, error);
     }
+
+    private Object trueMessage(Object u) {
+        String message = this.messageSource.getMessage("message.user.success", new Object[]{}, LocaleContextHolder.getLocale());
+        return new AjaxDataResponse<>(200, message, u);
+    }
+
+
 
 }

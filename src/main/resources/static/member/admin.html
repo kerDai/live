@@ -34,7 +34,7 @@
 
         .my-inputLists li em {
             display: inline-block;
-            width: 70px;
+            width: 64px;
             text-align: right;
             font-size: 14px;
             font-weight: 400;
@@ -229,12 +229,12 @@
     <div class="g-doc">
         <a class="my-site-top-logo" href="http://www.shagualicai.cn/"></a>
         <div class="f-fr f-pr">
-            <a class="my-site-btn" href="/member/apply.html">申请成为主播</a>
+            <a class="my-site-btn" href="http://passport.shagualicai.cn/user_studio/apply">申请成为主播</a>
             <span class="my-site-userId"><img src="" id="favorite" style="width: 40px;height: 35px;"></span>
-            <span class="my-site-userId" id="siteUserId"></span>
+            <a class="my-site-userId" id="siteUserId"></a>
             <ul class="my-site-userId-cnt" id="siteUserIdCnt">
-                <li><a href="/member/center.html">用户中心</a></li>
-                <li><a href="" id="logoutId">退出</a></li>
+                <li><a href="http://passport.shagualicai.cn/ucenter/userprofile.shtml">用户中心</a></li>
+                <li><a href="http://passport.shagualicai.cn/public/logout.shtml">退出</a></li>
             </ul>
         </div>
     </div>
@@ -242,10 +242,10 @@
 <div class="g-doc">
     <div class="bread-crum">
         <a href="/index.html">首页</a> &gt; <span>个人中心</span>
-        &gt; 修改密码
+        &gt; 个人资料
     </div>
     <div class="cnt">
-        <form id="main_form" method="post" action="/user/update/changepwd">
+        <form id="main_form" method="post" action="/user/update/nickname">
             <table class="cnt-bg">
                 <tbody>
                 <tr>
@@ -325,41 +325,45 @@
                         <!-- 用户个人中心左侧选项导航 -->
                         <div class="g-side">
                             <ul id="sideNav">
-                                <li class="side-title side-title1">账号设置</li>
-                                <li><a href="/member/center.html">个人资料</a></li>
-                                <li><a class="selected" href="/member/password.html">修改密码</a></li>
-                                <li><a href="/member/avatar.html">修改头像</a></li>
                                 <li class="split"></li>
-                                <li class="side-title side-title2">用户中心</li>
-                                <li><a href="/member/apply.html">申请成为播主</a></li>
-                                <li><a href="/member/remember.html">我的关注</a></li>
-                                <li><a href="/member/quest.html">我的提问</a></li>
+                                <li class="side-title side-title3">管理中心</li>
+                                <li><a href="http://passport.shagualicai.cn/pay/coupon.shtml">用户记录</a></li>
+                                <li><a href="http://passport.shagualicai.cn/pay/recharge.shtml">主播管理</a></li>
+                                <li><a href="http://passport.shagualicai.cn/pay/account.shtml">主播审核</a></li>
+                                <li><a href="http://passport.shagualicai.cn/pay/help.shtml">直播中心</a></li>
+                                <li><a href="http://passport.shagualicai.cn/pay/help.shtml">直播分类</a></li>
                             </ul>
                         </div>
                     </td>
                     <td class="cnt-right">
                         <div>
-                            <p class="cnt-title">修改密码</p>
+                            <p class="cnt-title">个人资料</p>
                             <ul class="my-inputLists">
                                 <li>
-                                    <em>您的旧密码</em>
-                                    <input type="password" name="oldpass" datatype="*6-32" errormsg="请填写旧密码！">
+                                    <em>手机</em>
+                                    <span id="mobile" style="margin-left: 0px;">13917466694</span>
+                                </li>
+                                <li>
+                                    <em>昵称</em>
+                                    <input type="text" value="" name="nickname" id="nickname" datatype="s2-10" errormsg="请正确填写昵称！" style="width: 140px;">
                                     <span class="errSpan" style="display:none;"></span>
                                 </li>
                                 <li>
-                                    <em>您的新密码</em>
-                                    <input type="password" name="newpass" datatype="*6-32" errormsg="密码范围在6~15位之间！">
-                                    <span class="errSpan" style="display:none;"></span>
+                                    <em>头像</em>
+                                    <img id="avatar" style="height: 100px; width: 150px;">
                                 </li>
                                 <li>
-                                    <em>确认新密码</em>
-                                    <input type="password" name="newtwopass" datatype="*" recheck="newpass" errormsg="您两次输入的账号密码不一致！">
-                                    <span class="errSpan" style="display:none;"></span>
+                                    <em>身份</em>
+                                    <span id="tag" style="margin-left: 0px;">主播</span>
+                                </li>
+                                <li>
+                                    <em style="display:none;">出生日期</em>
+                                    <input type="hidden" id="birthday" value="">
                                     <input type="hidden" id="id" name="id" value="">
                                 </li>
                                 <li class="my-inputlist-last">
                                     <em></em>
-                                    <input type="submit" class="u-btn" value="保 存">
+                                    <input type="submit" class="u-btn" value="保 存" style="width: 140px;">
                                 </li>
                             </ul>
                         </div>
@@ -390,10 +394,17 @@
                     if(msg.status == 200){
                         var nickname = msg.data.nickname;
                         $('#siteUserId').html(nickname);
+                        $('#nickname').val(nickname);
+                        $('#mobile').html(msg.data.mobile);
                         if(msg.data.avatar != null){
-                            $('#favorite').attr('src', msg.data.avatar);
+                            $('#avatar').attr('src', msg.data.avatar);
                         }else {
-                            $('#favorite').attr('src', '/center/default-avatar.jpg');
+                            $('#avatar').attr('src', '/center/default-avatar.jpg');
+                        }
+                        if(msg.data.tag == 1){
+                            $('#tag').html("主播");
+                        }else {
+                            $('#tag').html("普通用户");
                         }
                     }else {
                         layer.msg("登录超时,请重新登录！", {
@@ -414,7 +425,7 @@
         $("#siteUserIdCnt").on("mouseleave", function () {
             $("#siteUserIdCnt").hide();
             $("#siteUserId").removeClass("hover")
-        });
+        })
 
         $("#main_form").Validform({
             ajaxPost: true,
@@ -434,24 +445,17 @@
                 return flag;
             },
             callback: function (data) {
-                if(data.status != 999){
-                    layer.msg(data.message, {
-                        time: 2000
-                    }, function () {
-                        if(data.status == 200){
-                            location.reload();
-                        }
-                    });
-                }else {
-                    layer.msg("登录超时,请重新登录！", {
-                        time: 2000
-                    }, function () {
-                        window.location.href='/index.html';
-                    });
-                }
+                layer.msg(data.message, {
+                    time: 1000
+                }, function () {
+                    if (data.code == "1") {
+                        location.reload();
+                    }
+                });
             }
         });
 
+        //退出
         $("#logoutId").click(function(){
             $.ajax({
                 type: "GET",
@@ -464,7 +468,6 @@
                 error: function(error){alert(error);}
             });
         });
-
     });
 </script>
 <div class="my-footer f-cb">
@@ -511,10 +514,10 @@
             <p>周一至周五&nbsp;8:30-18:00</p>
             <p class="f-mt15">在线客服小秘书QQ</p>
             <p class="f-mt5"><img src="/center/foot_qq.png"> <a
-                    href="http://wpa.qq.com/msgrd?v=3&amp;uin=353180316&amp;site=qq&amp;menu=yes" target="_blank">443561285</a>
+                    href="http://wpa.qq.com/msgrd?v=3&amp;uin=443561285&amp;site=qq&amp;menu=yes" target="_blank">443561285</a>
             </p>
             <p><img src="/center/foot_qq.png"> <a
-                    href="http://wpa.qq.com/msgrd?v=3&amp;uin=353180316&amp;site=qq&amp;menu=yes" target="_blank">2944920795</a>
+                    href="http://wpa.qq.com/msgrd?v=3&amp;uin=2944920795&amp;site=qq&amp;menu=yes" target="_blank">2944920795</a>
             </p>
         </div>
         <div class="f-fr f-tar">

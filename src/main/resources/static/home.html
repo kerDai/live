@@ -189,7 +189,13 @@ $(function () {
                     $('#denglu').hide();
                     var nickname = msg.data.nickname;
                     $('#nicknameV').html(nickname);
-                    $("#avatar").attr('src',temp.avatar);
+                    if(msg.data.avatar != null){
+                        $("#avatar").attr('src', msg.data.avatar);
+                    } else {
+                        $("#avatar").attr('src', '/center/default-avatar.jpg');
+                    }
+                }else {
+                    $('#grzx').hide();
                 }
             },
             error: function(error){alert(error);}
@@ -209,7 +215,11 @@ $(function () {
                     $(".loginmask").hide();
                     Tool.setNickname('nickname', msg.data.nickname, null);
                     $('#nicknameV').html(msg.data.nickname);
-                    $("#avatar").attr('src',msg.data.avatar);
+                    if(msg.data.avatar != null){
+                        $("#avatar").attr('src', msg.data.avatar);
+                    } else {
+                        $("#avatar").attr('src', '/center/default-avatar.jpg');
+                    }
                 }
             },
             error: function(error){alert(error);}

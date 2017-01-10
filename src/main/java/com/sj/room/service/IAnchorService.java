@@ -20,4 +20,6 @@ public interface IAnchorService {
     Anchor findByMobile(String mobile);
 
     void updateStatus(long id, Integer status);
+
+    Anchor findOne(long id);
 }

@@ -1,13 +1,20 @@
 package com.sj.room.controller;
 
+import com.sj.room.core.base.AjaxDataResponse;
+import com.sj.room.core.base.AjaxResponse;
 import com.sj.room.entity.condition.AnchorCondition;
 import com.sj.room.entity.domain.Anchor;
 import com.sj.room.entity.domain.Live;
+import com.sj.room.entity.domain.User;
 import com.sj.room.service.IAnchorService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * 主播申请
@@ -24,13 +31,28 @@ public class AnchorController {
     @Autowired
     private IAnchorService anchorService;
 
+    @Autowired
+    private MessageSource messageSource;
+
     @PostMapping
-    public Object save(Anchor anchor){
-        Anchor temp = anchorService.findByMobile(anchor.getMobile());
-        if(temp == null){
-            anchorService.save(anchor);
+    public Object save(Anchor anchor, HttpServletRequest req){
+        String message = "";
+        User user = (User) req.getSession().getAttribute("loginSession");
+        if (user != null) {
+            if(user.getMobile().equals(anchor.getMobile())){
+                Anchor temp = anchorService.findByMobile(anchor.getMobile());
+                if(temp == null){
+                    anchor.setStatus(0);
+                    anchorService.save(anchor);
+                    return trueMessage(null);
+                }
+                message = this.messageSource.getMessage("message.anchor.register.repeat", new Object[]{}, LocaleContextHolder.getLocale());
+                return new AjaxResponse(201, message);
+            }
+            message = this.messageSource.getMessage("message.anchor.register.mobile.nosame", new Object[]{}, LocaleContextHolder.getLocale());
+            return new AjaxResponse(202, message);
         }
-        return "";
+        return noLoginMessage();
     }
 
     @GetMapping
@@ -39,8 +61,33 @@ public class AnchorController {
     }
 
     @GetMapping(value = "/{id}/{status}")
-    public void updateStatus(@PathVariable long id, @PathVariable Integer status){
+    public Object updateStatus(@PathVariable long id, @PathVariable Integer status){
         anchorService.updateStatus(id, status);
+        return null;
+    }
+
+    @GetMapping(value = "/{mobile}/findMobile")
+    public Object findMobile(@PathVariable String mobile){
+        Anchor anchor = anchorService.findByMobile(mobile);
+        return new AjaxDataResponse<>(anchor);
+    }
+
+
+    @GetMapping(value = "/{id}/findOne")
+    public Object findOne(@PathVariable long id){
+        Anchor anchor = anchorService.findOne(id);
+        return new AjaxDataResponse<>(anchor);
+    }
+
+
+    private Object noLoginMessage() {
+        String error = this.messageSource.getMessage("message.user.login.error", new Object[]{}, LocaleContextHolder.getLocale());
+        return new AjaxResponse(999, error);
+    }
+
+    private Object trueMessage(Object u) {
+        String message = this.messageSource.getMessage("message.user.success", new Object[]{}, LocaleContextHolder.getLocale());
+        return new AjaxDataResponse<>(200, message, u);
     }
 
 }

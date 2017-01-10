@@ -9,16 +9,31 @@
     <link href="/center/reset.css" rel="stylesheet" type="text/css">
     <link href="/center/function.css" rel="stylesheet" type="text/css">
     <link href="/center/style.css" rel="stylesheet" type="text/css">
+    <link href="/center/userframe.css" rel="stylesheet" type="text/css">
     <script src="/center/hm.js"></script>
     <script src="/center/jquery.min.js"></script>
     <script src="/center/validform_v5.3.2_min.js"></script>
     <script src="/center/common.js"></script>
-
-    <link href="/center/userframe.css" rel="stylesheet" type="text/css">
     <script src="/center/validform_v5.3.2_min.js"></script>
     <script src="/center/layer.js"></script>
     <script src="/gotye/js/model/live.play.js"></script>
     <style>
+        .image-plus-box{
+            position: relative;
+            display: inline-block;
+        }
+
+        .image-plus{
+            font-size: 155px;
+            color: #fff;
+            position: absolute;
+            background: rgba(0,0,0,0.3) url('http://static.91fool.com.cn/passport/img/iconfont-plus.png') center no-repeat;
+            width: 100%;
+            height: 100%;
+            display: none;
+            cursor: pointer;
+        }
+
         .my-inputLists li {
             padding: 10px 0;
 
@@ -110,8 +125,8 @@
             color: #d94432;
         }
     </style>
-    <link type="text/css" rel="stylesheet" href="/center/laydate.css">
-    <link type="text/css" rel="stylesheet" href="/center/laydate(1).css" id="LayDateSkin">
+    <link type="text/css" rel="stylesheet" href="../center/laydate.css">
+    <link type="text/css" rel="stylesheet" href="../center/laydate(1).css" id="LayDateSkin">
 </head>
 <body>
 <style>
@@ -239,13 +254,15 @@
         </div>
     </div>
 </div>
+
+
 <div class="g-doc">
     <div class="bread-crum">
         <a href="/index.html">首页</a> &gt; <span>个人中心</span>
-        &gt; 修改密码
+        &gt; 修改头像
     </div>
     <div class="cnt">
-        <form id="main_form" method="post" action="/user/update/changepwd">
+        <form id="main_form" method="post" action="/user/update/avatar">
             <table class="cnt-bg">
                 <tbody>
                 <tr>
@@ -327,8 +344,8 @@
                             <ul id="sideNav">
                                 <li class="side-title side-title1">账号设置</li>
                                 <li><a href="/member/center.html">个人资料</a></li>
-                                <li><a class="selected" href="/member/password.html">修改密码</a></li>
-                                <li><a href="/member/avatar.html">修改头像</a></li>
+                                <li><a href="/member/password.html">修改密码</a></li>
+                                <li><a class="selected" href="/member/avatar.html">修改头像</a></li>
                                 <li class="split"></li>
                                 <li class="side-title side-title2">用户中心</li>
                                 <li><a href="/member/apply.html">申请成为播主</a></li>
@@ -339,29 +356,20 @@
                     </td>
                     <td class="cnt-right">
                         <div>
-                            <p class="cnt-title">修改密码</p>
-                            <ul class="my-inputLists">
-                                <li>
-                                    <em>您的旧密码</em>
-                                    <input type="password" name="oldpass" datatype="*6-32" errormsg="请填写旧密码！">
-                                    <span class="errSpan" style="display:none;"></span>
-                                </li>
-                                <li>
-                                    <em>您的新密码</em>
-                                    <input type="password" name="newpass" datatype="*6-32" errormsg="密码范围在6~15位之间！">
-                                    <span class="errSpan" style="display:none;"></span>
-                                </li>
-                                <li>
-                                    <em>确认新密码</em>
-                                    <input type="password" name="newtwopass" datatype="*" recheck="newpass" errormsg="您两次输入的账号密码不一致！">
-                                    <span class="errSpan" style="display:none;"></span>
-                                    <input type="hidden" id="id" name="id" value="">
-                                </li>
-                                <li class="my-inputlist-last">
-                                    <em></em>
-                                    <input type="submit" class="u-btn" value="保 存">
-                                </li>
-                            </ul>
+                            <p class="cnt-title">修改头像</p>
+                            <div class="f-cb">
+                                <div class="f-fl my-upload-head">
+                                    <input type="hidden" name="avatar" id="avatar" value="">
+                                    <div class="image-plus-box">
+                                        <div class="image-plus" style="display: block;"></div>
+                                        <img src="/center/default-avatar.jpg" alt="" id="showAv" rel="avatar" class="am-img-thumbnail file-upload" style="height: 200px; width: 200px;">
+                                        <input type="hidden" id="id" name="id" value="">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="f-cb">
+                                <input class="u-btn" type="submit" value="保存">
+                            </div>
                         </div>
                     </td>
                 </tr>
@@ -372,6 +380,7 @@
 </div>
 <script>
     $(function () {
+
         var users = Tool.getCookie("users");
         if(users == null){
             layer.msg("登录超时,请重新登录！", {
@@ -395,6 +404,9 @@
                         }else {
                             $('#favorite').attr('src', '/center/default-avatar.jpg');
                         }
+                        if(msg.data.avatar != null){
+                            $('#showAv').attr("src", msg.data.avatar);
+                        }
                     }else {
                         layer.msg("登录超时,请重新登录！", {
                             time: 2000
@@ -407,40 +419,60 @@
             });
         };
 
-        $("#siteUserId").on("mouseenter", function () {
-            $(this).addClass("hover");
-            $("#siteUserIdCnt").show();
-        });
-        $("#siteUserIdCnt").on("mouseleave", function () {
-            $("#siteUserIdCnt").hide();
-            $("#siteUserId").removeClass("hover")
+        $(".image-plus-box").on("mouseover", function(){
+            $(this).find(".image-plus").show();
+        }).on("mouseout", function(){
+            $(this).find(".image-plus").hide();
+        }).on("click", function () {
+            var upload_host = "http://nupload.shagualicai.cn";
+            var img_obj = $(this).find(".file-upload");
+            var obj_id = img_obj.attr('rel');
+            var thislayer = layer.open({
+                type: 1,
+                title: '上传',
+                area: ['500px', '150px'],
+                shadeClose: true,
+                content: '<form id= "uploadForm' + obj_id + '" enctype="multipart/form-data" class="m-form" >' +
+                '<div style="padding: 15px;">' +
+                '<input type="file" name="file" style="height: 35px;line-height: 35px;font-size: 16px;">' +
+                '<input type="button" class="submit u-btn" value="上传"/>' +
+                '</div>' +
+                '<div style="padding: 0 20px 20px 20px;">提示：支持1M以下的gif,jpg,png等格式文件</div>' +
+                '</form>',
+                success: function (layero, index) {
+                    $("#uploadForm" + obj_id).find(".submit").click(function () {
+                        var formData = new FormData($("#uploadForm" + obj_id)[0]);
+                        $.ajax({
+                            url : '/upload',
+                            type: 'POST',
+                            data: formData,
+                            dataType: 'json',
+                            async: false,
+                            cache: false,
+                            contentType: false,
+                            processData: false,
+                            success: function (data) {
+                                layer.msg("上传成功");
+                                $("input[name="+obj_id+"]").val(data.url);
+                                img_obj.attr("src", data.url);
+                                layer.close(thislayer);
+                            },
+                            error: function (returndata) {
+                                layer.msg(returndata);
+                            }
+                        });
+                    });
+                }
+            });
         });
 
         $("#main_form").Validform({
             ajaxPost: true,
-            tiptype: function (msg, o, cssctl) {
-                if (o.type == 2) {
-                    msgspan = o.obj.next();
-                    msgspan.text("");
-                    msgspan.hide();
-                } else {
-                    msgspan = o.obj.next();
-                    msgspan.text(msg);
-                    msgspan.show();
-                }
-            },
-            beforeSubmit: function (curform) {
-                var flag = true;
-                return flag;
-            },
             callback: function (data) {
-                if(data.status != 999){
+                if(data.status == 200){
                     layer.msg(data.message, {
                         time: 2000
                     }, function () {
-                        if(data.status == 200){
-                            location.reload();
-                        }
                     });
                 }else {
                     layer.msg("登录超时,请重新登录！", {
@@ -450,6 +482,15 @@
                     });
                 }
             }
+        });
+
+        $("#siteUserId").on("mouseenter", function () {
+            $(this).addClass("hover");
+            $("#siteUserIdCnt").show();
+        });
+        $("#siteUserIdCnt").on("mouseleave", function () {
+            $("#siteUserIdCnt").hide();
+            $("#siteUserId").removeClass("hover")
         });
 
         $("#logoutId").click(function(){

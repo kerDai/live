@@ -19,6 +19,7 @@
     <script type="text/javascript" src="index/validform_v5.3.2_min.js"></script>
     <script type="text/javascript" src="index/jquery.cookie.js"></script>
     <script type="text/javascript" src="index/common.js"></script>
+    <script src="/center/layer.js"></script>
     <script src="/gotye/js/model/live.play.js"></script>
 
 </head>
@@ -124,10 +125,12 @@
                         var quit = '<a target="_blank" href="" id="logoutId" class="">退出</a>';
                         $('#loginV').html(username + center + quit);
                     }else {
+                        $('#loginV').html('<a target="_blank" href="" class="list-first">登录</a><a target="_blank" href="/register/register.html">免费注册</a>');
                         layer.msg("登录超时,请重新登录！", {
                             time: 3000
                         }, function () {
-                            window.location.href='/index.html';
+
+//                            window.location.href='/index.html';
 //                            location.reload();
                         });
                     }

@@ -145,18 +145,7 @@
         </div>
     </div>
 </div>
-<script>
-    $(document).ready(function () {
-        $("#siteUserId").on("mouseenter", function () {
-            $(this).addClass("hover");
-            $("#siteUserIdCnt").show();
-        });
-        $("#siteUserIdCnt").on("mouseleave", function () {
-            $("#siteUserIdCnt").hide();
-            $("#siteUserId").removeClass("hover")
-        })
-    });
-</script>
+
 
 <style>
 
@@ -358,109 +347,71 @@
                     <div class="g-side">
                         <ul id="sideNav">
                             <li class="side-title side-title1">账号设置</li>
-                            <li><a href="center/personal.html">个人资料</a></li>
-                            <li><a href="center/password.html">修改密码</a></li>
-                            <li><a href="center/avatar.html">修改头像</a></li>
+                            <li><a href="/member/center.html">个人资料</a></li>
+                            <li><a href="/member/password.html">修改密码</a></li>
+                            <li><a href="/member/avatar.html">修改头像</a></li>
                             <li class="split"></li>
                             <li class="side-title side-title2">用户中心</li>
-                            <li><a class="selected" href="apply.html">申请成为播主</a></li>
-                            <li><a href="center/remember.html">我的关注</a></li>
-                            <li><a href="center/quest.html">我的提问</a></li>
+                            <li><a class="selected" href="/member/apply.html">申请成为播主</a></li>
+                            <li><a href="/member/remember.html">我的关注</a></li>
+                            <li><a href="/member/quest.html">我的提问</a></li>
                         </ul>
-                    </div>
+                    </div>      
                 </td>
                 <!-- 右侧核心内容 -->
                 <td class="cnt-right">
-                    <p class="cnt-title">申请成为播主</p>
+                    <p class="cnt-title">主播资料信息</p>
                     <div class="open-live-inner">
-                        <p class="desc f-mt20">上金互动直播间是播主与网友的网上交流平台，播主通过自己的专属直播室，即时发布对股市的最新观点，网友通过交流平台与播主实时进行交流互动。 </p>
-                        <div class="note f-mt20">
-                            开播后第一周为试播期，一周后直播内容符合实盘直播标准，可签署平台进行直播合作协议。<br>
-                            <p class=" f-mt5">真实资料有助审核快速开启直播室，您的资料不会透露给任何人。</p>
-                        </div>
-                        <!--<h2 class="f-mt30">基本信息<span></span></h2>-->
-                        <div class="form f-mt30">
-                            <form name="apply" method="POST" id="apply" action="/anchor">
+                        <div class="form">
+                            <form name="apply" method="POST" id="apply">
                                 <ul class="my-inputLists">
                                     <li>
                                         <em><i class="f-c14">*</i>真实姓名</em>
-                                        <input type="text" datatype="*" name="realName" nullmsg="真实姓名不能为空">
-                                        <input type="hidden" name="user" id="user">
-                                        <span class="errSpan"></span>
+                                        <span id="realName"></span>
                                     </li>
                                     <li>
                                         <em><i class="f-c14">*</i>性别</em>
-                                        <input class="f-mr10" type="radio" name="sex" value="1" checked="">男
-                                        <input class="f-ml30 f-mr10" type="radio" value="2" name="sex">女
+                                        <span id="sex"></span>
                                     </li>
                                     <li>
                                         <em><i class="f-c14">*</i>年龄</em>
-                                        <input type="text" datatype="n2-2" name="age" nullmsg="年龄不能为空"
-                                               errormsg="请填写正确的年龄">
-                                        <span class="errSpan"></span>
+                                        <span id="age"></span>
                                     </li>
                                     <li>
                                         <em><i class="f-c14">*</i>股龄</em>
-                                        <input type="text" name="tradeAge" datatype="*" nullmsg="股龄不能为空">
-                                        <span class="errSpan"></span>
+                                        <span id="tradeAge"></span>
                                     </li>
                                     <li>
                                         <em>邮箱</em>
-                                        <input type="input" name="email" datatype="e" ignore="ignore"
-                                               errormsg="邮箱账号格式不正确">
-                                        <span class="errSpan"></span>
+                                        <span id="email"></span>
                                     </li>
                                     <li>
                                         <em><i class="f-c14">*</i>移动电话</em>
-                                        <input type="text" name="mobile" datatype="m" nullmsg="手机号码不能为空"
-                                               errormsg="请输入正确的手机号码"><span class="errSpan"></span>
+                                        <span id="mobile"></span>
                                     </li>
                                     <li>
                                         <em><i class="f-c14">*</i>QQ</em>
-                                        <input type="text" name="qq" datatype="n5-11" nullmsg="QQ号码不能为空"
-                                               errormsg="请输入正确的QQ号">
-                                        <span class="errSpan"></span>
+                                        <span id="qq"></span>
                                     </li>
                                     <li>
-                                        <em>所在机构(公司)</em><input name="company" type="text">
+                                        <em>所在机构(公司)</em>
+                                        <span id="company"></span>
                                     </li>
                                     <li>
                                         <em><i class="f-c14">*</i>职业</em>
-                                        <input type="text" name="job" datatype="*" nullmsg="职业不能为空">
-                                        <span class="errSpan"></span>
+                                        <span id="job"></span>
                                     </li>
-                                    <!--<li>
-                                        <em><i class="f-c14">*</i>直播室名称</em>
-                                        <input type="text" datatype="*" name="roomName" nullmsg="直播室名称不能为空">
-                                        <span class="errSpan"></span>
-                                    </li>-->
                                     <li>
                                         <em><i class="f-c14">*</i>直播室类型</em>
-                                        <select name="liveClassify">
-                                            <option value="0">选择类型</option>
-                                            <option value="1">股票</option>
-                                            <option value="2">黄金</option>
-                                            <option value="3">白银</option>
-                                            <option value="4">财经</option>
-                                        </select>
+                                        <span id="liveClassify"></span>
                                     </li>
-                                    <li class="f-vat">
+                                    <li>
                                         <em><i class="f-c14">*</i>个人简介</em>
-                                        <textarea datatype="*" name="profile" nullmsg="个人简介为必填项"></textarea>
-                                        <span class="errSpan"></span>
+                                        <span id="profile" ></span>
                                     </li>
-                                    <li class="f-vat">
+                                    <li>
                                         <em>申请理由</em>
-                                        <textarea name="reason"></textarea>
-                                    </li>
-                                    <li><em></em>郑重声明:本人保证以上所填资料属实，否则一切后果愿意自负</li>
-                                    <li><em></em><input type="checkbox" name="rules" class="f-mr10"
-                                                        checked="">本人已阅读并同意<a target="_blank" class="f-cl3"
-                                                                              href="">《直播间守则》</a>
-                                    </li>
-                                    <li><em></em>
-                                        <input style="width: 60px;" class="u-btn" type="submit" value="提交">
-                                        <input class="u-btn f-ml10" type="reset" value="重置">
+                                        <span id="reason"></span>
                                     </li>
                                 </ul>
                             </form>
@@ -564,7 +515,7 @@
         }else {
             var obj = JSON.parse(users);
             var temp = JSON.parse(obj);
-            $('#user').val(temp.id);
+//            $('#id').val(temp.id);
             $.ajax({
                 type: "GET",
                 url:"/user/"+temp.id+"/findOne",
@@ -589,81 +540,41 @@
             });
         };
 
+        $("#siteUserId").on("mouseenter", function () {
+            $(this).addClass("hover");
+            $("#siteUserIdCnt").show();
+        });
+        $("#siteUserIdCnt").on("mouseleave", function () {
+            $("#siteUserIdCnt").hide();
+            $("#siteUserId").removeClass("hover")
+        });
+
+
         $.ajax({
-            type: "GET",
-            url:"/anchor/"+temp.mobile+"/findMobile",
-            success: function(msg) {
-                if(msg.data != null){
-
-                    if(msg.data.status == 0){
-                        window.location.href='/member/apply-0.html';  //正在审核中
-                    }else if(msg.data.status == 1){
-                        window.location.href='/member/apply-1.html';  //审核通过
-                    }else if(msg.data.status == 2){
-                        window.location.href='/member/apply-2.html';  //驳回审核
-                    }else if(msg.data.status == 3){
-                        window.location.href='/member/apply-3.html';  //审核不通过
+                type: "GET",
+                url:"/anchor/"+temp.mobile+"/findMobile",
+                success: function(msg) {
+                    $('#realName').html(msg.data.realName);
+                    if(msg.data.sex == 1){
+                        $('#sex').html('男');
+                    }else{
+                        $('#sex').html('女');
                     }
+                    $('#age').html(msg.data.age);
+                    $('#tradeAge').html(msg.data.tradeAge);
+                    $('#email').html(msg.data.email);
+                    $('#mobile').html(msg.data.mobile);
+                    $('#qq').html(msg.data.qq);
+                    $('#company').html(msg.data.company);
+                    $('#job').html(msg.data.job);
+                    $('#liveClassify').html(msg.data.liveClassify.title);
+                    $('#profile').html(msg.data.profile);
+                    $('#reason').html(msg.data.reason);
+                   
+                },
+                error: function(error){alert(error);}
+            });
 
-                }
-            },
-            error: function(error){alert(error);}
-        });
-
-
-
-        $("#apply").Validform({
-            ajaxPost: true,
-            tiptype: function (msg, o, cssctl) {
-                if (o.type == 2) {
-                    msgspan = o.obj.next();
-                    msgspan.text("");
-                    msgspan.hide();
-                } else {
-                    msgspan = o.obj.next();
-                    msgspan.text(msg);
-                    msgspan.show();
-                }
-            },
-            beforeSubmit: function (curform) {
-                var flag = true;
-                var rules = $("input[type='checkbox']").is(':checked');
-                var category = $("select[name='category']").val();
-                if (flag == true) {
-                    if (category == 0) {
-                        layer.msg('请选择直播室类型！', {
-                            time: 2000
-                        });
-                    } else {
-                        if (rules == true) {
-                            return true;
-                        } else {
-                            layer.msg('请勾选《博主守则》', {
-                                time: 2000
-                            });
-                        }
-                    }
-                }
-                return false;
-            },
-            callback: function (data) {
-                if(data.status != 999){
-                    layer.msg(data.message, {
-                        time: 2000
-                    }, function () {
-                        if(data.status == 200){
-                            window.location.href='/member/apply-0.html';
-                        }
-                    });
-                }else {
-                    layer.msg("登录超时,请重新登录！", {
-                        time: 2000
-                    }, function () {
-                        window.location.href='/index.html';
-                    });
-                }
-            }
-        });
 
         $("#logoutId").click(function(){
             $.ajax({

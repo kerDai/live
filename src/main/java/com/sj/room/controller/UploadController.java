@@ -3,6 +3,7 @@ package com.sj.room.controller;
 import com.sj.room.api.aliyun.AliyunImage;
 import net.sf.json.JSONObject;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -20,10 +21,10 @@ public class UploadController {
 
 
     @PostMapping(value = "/upload")
-    public Object uploadImage(HttpServletRequest request){
+    public Object uploadImage(@RequestParam("file") MultipartFile file, HttpServletRequest request){
         JSONObject obj = new JSONObject();
-        MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
-        MultipartFile file = multipartRequest.getFile("imgFile");
+//        MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
+//        MultipartFile file = multipartRequest.getFile("imgFile");
         String imgPath = AliyunImage.uploadAliyun(file);
         obj.put("error", 0);
         obj.put("url", imgPath);

@@ -29,6 +29,7 @@ public class Anchor  extends IdEntity {
 
     private String email;
     private String mobile;
+    private String company;
     private String job;
     //直播类型
 //    private Integer liveClassifyId;
@@ -62,8 +63,17 @@ public class Anchor  extends IdEntity {
     //申请理由
     private String reason;
 
-    //0 待审核  1 审核通过  2 不通过
+    //0 待审核  1 审核通过  2 驳回  3 不通过
+    @Column(name="status",columnDefinition="tinyint default 0")
     private Integer status;
+
+    public String getCompany() {
+        return company;
+    }
+
+    public void setCompany(String company) {
+        this.company = company;
+    }
 
     public String getRealName() {
         return realName;

@@ -145,18 +145,6 @@
         </div>
     </div>
 </div>
-<script>
-    $(document).ready(function () {
-        $("#siteUserId").on("mouseenter", function () {
-            $(this).addClass("hover");
-            $("#siteUserIdCnt").show();
-        });
-        $("#siteUserIdCnt").on("mouseleave", function () {
-            $("#siteUserIdCnt").hide();
-            $("#siteUserId").removeClass("hover")
-        })
-    });
-</script>
 
 <style>
 
@@ -358,16 +346,16 @@
                     <div class="g-side">
                         <ul id="sideNav">
                             <li class="side-title side-title1">账号设置</li>
-                            <li><a href="center/personal.html">个人资料</a></li>
-                            <li><a href="center/password.html">修改密码</a></li>
-                            <li><a href="center/avatar.html">修改头像</a></li>
+                            <li><a href="/member/center.html">个人资料</a></li>
+                            <li><a href="/member/password.html">修改密码</a></li>
+                            <li><a href="/member/avatar.html">修改头像</a></li>
                             <li class="split"></li>
                             <li class="side-title side-title2">用户中心</li>
-                            <li><a class="selected" href="apply.html">申请成为播主</a></li>
-                            <li><a href="center/remember.html">我的关注</a></li>
-                            <li><a href="center/quest.html">我的提问</a></li>
+                            <li><a class="selected" href="/member/apply.html">申请成为播主</a></li>
+                            <li><a href="/member/remember.html">我的关注</a></li>
+                            <li><a href="/member/quest.html">我的提问</a></li>
                         </ul>
-                    </div>
+                    </div>      
                 </td>
                 <!-- 右侧核心内容 -->
                 <td class="cnt-right">
@@ -610,6 +598,14 @@
             error: function(error){alert(error);}
         });
 
+        $("#siteUserId").on("mouseenter", function () {
+            $(this).addClass("hover");
+            $("#siteUserIdCnt").show();
+        });
+        $("#siteUserIdCnt").on("mouseleave", function () {
+            $("#siteUserIdCnt").hide();
+            $("#siteUserId").removeClass("hover")
+        })
 
 
         $("#apply").Validform({
