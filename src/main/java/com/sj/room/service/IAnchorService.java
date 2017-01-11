@@ -22,4 +22,6 @@ public interface IAnchorService {
     void updateStatus(long id, Integer status);
 
     Anchor findOne(long id);
+
+    void updateRoomNo(long id, String roomNo);
 }

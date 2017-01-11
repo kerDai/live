@@ -1,26 +1,23 @@
 package com.sj.room.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sj.room.api.gotye.model.*;
-import com.sj.room.core.util.ApiCall;
-import com.sj.room.core.util.CookiesUtil;
-import com.sj.room.core.util.LIVE_ROLE;
-import com.sj.room.core.util.NameLib;
+import com.sj.room.core.base.AjaxDataResponse;
+import com.sj.room.core.base.AjaxResponse;
+import com.sj.room.core.util.*;
+import com.sj.room.entity.domain.Anchor;
 import com.sj.room.entity.domain.User;
+import com.sj.room.service.IAnchorService;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -47,6 +44,38 @@ public class GotyeController {
 
 	@Value("${GOTYE_ACCESS_SECRET}")
 	private String GOTYE_ACCESS_SECRET;
+
+	@Autowired
+	private IAnchorService anchorService;
+
+	@Autowired
+	private MessageSource messageSource;
+
+
+	/**
+	 * 主播申请 审核功能
+	 * @param id
+	 * @param status
+	 * @param req
+	 * @return
+	 */
+	@GetMapping(value = "/check/{id}/{status}")
+	@ResponseBody
+	public Object updateStatus(@PathVariable long id, @PathVariable Integer status, HttpServletRequest req){
+		User user = (User) req.getSession().getAttribute("loginSession");
+		if (user != null) {
+			anchorService.updateStatus(id, status);
+			if(status == 1){
+				Anchor anchor = anchorService.findOne(id);
+				CreateRoom createRoom = CreateLiveRoom(user, anchor);
+
+				anchorService.updateRoomNo(id, createRoom.getRoomId()+"");
+			}
+			return trueMessage(null);
+		}
+		return noLoginMessage();
+	}
+
 	
 	/**
 	 * 页面进入
@@ -58,7 +87,7 @@ public class GotyeController {
 	 */
 	@RequestMapping(method = RequestMethod.GET, value = "/live/{roomId}")
 	public String liveOnlineEnter(@PathVariable Long roomId, HttpServletRequest req, HttpServletResponse resp, ModelMap map) throws IOException {
-		roomId = Long.valueOf(239138);
+//		roomId = Long.valueOf(239138);
 		String path = req.getScheme()+"://"+req.getServerName() + ":" + req.getServerPort()+ req.getContextPath() + "/live";
 		req.setAttribute("_path_", path);
 		req.setAttribute("roomId", roomId);
@@ -226,10 +255,14 @@ public class GotyeController {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping(method = RequestMethod.GET, value = "/createRoom")
-	@ResponseBody
-	public CreateRoom createRoom(HttpServletRequest request){
-		User user = (User) request.getSession().getAttribute("loginSession");
+//	@RequestMapping(method = RequestMethod.GET, value = "/createRoom")
+//	@ResponseBody
+//	public CreateRoom createRoom(HttpServletRequest request){
+//		User user = (User) request.getSession().getAttribute("loginSession");
+//		return CreateLiveRoom(user, an);
+//	}
+
+	private CreateRoom CreateLiveRoom(User user, Anchor anchor) {
 		CreateRoom createRoom = new CreateRoom();
 		if(user != null){
 			try {
@@ -239,14 +272,14 @@ public class GotyeController {
 				accessAppToken();
 				String token = appAccessToken.getAccessToken();
 				GetCreateRoomReq req = new GetCreateRoomReq();
-				req.setRoomName("主播室名称");
+				req.setRoomName(anchor.getRealName());
 				req.setAnchorPwd("000000");
 				req.setAssistPwd("111111");
 				req.setUserPwd("222222");
 				req.setAnchorDesc("主播描述");
 				req.setContentDesc("内容描述");
-				req.setThirdRoomId("12346");
-				req.setCreator("创建者");
+				req.setThirdRoomId(RandomUtils.getRandomFileName());
+				req.setCreator(anchor.getRealName());
 				req.setMaxOnlineNum(200);
 				req.setFirstIndustry("金融");
 				req.setSecondIndustry("财经");
@@ -261,5 +294,15 @@ public class GotyeController {
 			}
 		}
 		return createRoom;
+	}
+
+	private Object noLoginMessage() {
+		String error = this.messageSource.getMessage("message.user.login.error", new Object[]{}, LocaleContextHolder.getLocale());
+		return new AjaxResponse(999, error);
+	}
+
+	private Object trueMessage(Object u) {
+		String message = this.messageSource.getMessage("message.user.success", new Object[]{}, LocaleContextHolder.getLocale());
+		return new AjaxDataResponse<>(200, message, u);
 	}
 }

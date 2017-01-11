@@ -17,19 +17,9 @@ public class LiveClassify extends IdEntity{
 
     private static final long serialVersionUID = -4169265002502610978L;
 
-    private String code;
-
     private String title;
 
     private Integer status;// 1:正常 2:已删除
-
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
 
     public String getTitle() {
         return title;

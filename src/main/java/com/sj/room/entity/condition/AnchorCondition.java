@@ -1,6 +1,7 @@
 package com.sj.room.entity.condition;
 
 import com.sj.room.core.base.PageAndSortCondition;
+import com.sj.room.entity.domain.LiveClassify;
 
 /**
  * 用户代理类
@@ -19,10 +20,21 @@ public class AnchorCondition extends PageAndSortCondition {
     //0 待审核  1 审核通过  2 驳回  3 不通过
     private Integer status;
 
+    private Long classifyId;
+
+    public Long getClassifyId() {
+        return classifyId;
+    }
+
+    public void setClassifyId(Long classifyId) {
+        this.classifyId = classifyId;
+    }
+
     @Override
     protected String getDefaultSort() {
         return "id_1";
     }
+
 
     public Integer getStatus() {
         return status;

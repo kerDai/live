@@ -17,6 +17,10 @@ public interface AnchorRepository extends JpaRepository<Anchor, Long>, JpaSpecif
     @Query("update Anchor a set a.status = ?2 where a.id = ?1")
     void updateStatus(long id, Integer status);
 
+    @Modifying
+    @Query("update Anchor a set a.roomNo = ?2 where a.id = ?1")
+    void updateRoomNo(long id, String roomNo);
+
     Anchor findByMobile(String mobile);
 
 }

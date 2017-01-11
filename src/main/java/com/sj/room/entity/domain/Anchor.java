@@ -31,6 +31,12 @@ public class Anchor  extends IdEntity {
     private String mobile;
     private String company;
     private String job;
+
+    //房间号
+    private String roomNo;
+
+    private String roomName;
+
     //直播类型
 //    private Integer liveClassifyId;
 
@@ -68,6 +74,22 @@ public class Anchor  extends IdEntity {
     //0 待审核  1 审核通过  2 驳回  3 不通过
     @Column(name="status",columnDefinition="tinyint default 0")
     private Integer status;
+
+    public String getRoomName() {
+        return roomName;
+    }
+
+    public void setRoomName(String roomName) {
+        this.roomName = roomName;
+    }
+
+    public String getRoomNo() {
+        return roomNo;
+    }
+
+    public void setRoomNo(String roomNo) {
+        this.roomNo = roomNo;
+    }
 
     public String getCompany() {
         return company;

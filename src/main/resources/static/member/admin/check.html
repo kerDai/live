@@ -361,7 +361,7 @@
                     </td>
                     <td class="cnt-right" >
                         <div>
-                            <p class="cnt-title">我的策略</p>
+                            <p class="cnt-title">主播审核</p>
                             <div class="m-hd m-hd-rt m-hd-sl">
                                 <ul>
                                     <li class="z-crt"><a href="/member/admin/check.html">未审核</a></li>
@@ -495,7 +495,7 @@
     function passOK(id) {
         $.ajax({
             type: "GET",
-            url: "/anchor/"+id+"/"+1,
+            url: "/check/"+id+"/"+1,
             success: function(msg) {
                 if(msg.status == 200){
                     layer.msg("审核通过！", {
@@ -517,7 +517,7 @@
     function passNO(id){
         $.ajax({
             type: "GET",
-            url: "/anchor/"+id+"/"+2,
+            url: "/check/"+id+"/"+2,
             success: function(msg) {
                 if(msg.status == 200){
                     layer.msg("已被驳回！", {

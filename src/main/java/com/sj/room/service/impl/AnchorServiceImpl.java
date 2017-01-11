@@ -2,6 +2,7 @@ package com.sj.room.service.impl;
 
 import com.sj.room.entity.condition.AnchorCondition;
 import com.sj.room.entity.domain.Anchor;
+import com.sj.room.entity.domain.LiveClassify;
 import com.sj.room.repository.AnchorRepository;
 import com.sj.room.repository.UserRepository;
 import com.sj.room.service.IAnchorService;
@@ -62,6 +63,12 @@ public class AnchorServiceImpl implements IAnchorService {
         return anchorRepository.findOne(id);
     }
 
+    @Override
+    @Transactional
+    public void updateRoomNo(long id, String roomNo) {
+        anchorRepository.updateRoomNo(id, roomNo);
+    }
+
     private Specification<Anchor> toSpecification(final AnchorCondition cond) {
         return new Specification<Anchor>() {
 
@@ -70,11 +77,16 @@ public class AnchorServiceImpl implements IAnchorService {
                 Path<String> realName = root.get("realName");
                 Path<String> mobile = root.get("mobile");
                 Path<Long> id = root.get("id");
+                Path<Long> classifyId = root.get("liveClassify");
                 Path<Integer> status = root.get("status");
 
                 Set<Predicate> predicates = new HashSet<>();
                 if (cond.getId() != null) {
                     predicates.add(cb.equal(id, cond.getId()));
+                }
+
+                if (cond.getClassifyId() != null) {
+                    predicates.add(cb.equal(classifyId, cond.getClassifyId()));
                 }
 
                 if (cond.getStatus() != null) {

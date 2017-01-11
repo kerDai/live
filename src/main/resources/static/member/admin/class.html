@@ -359,22 +359,24 @@
                             </ul>
                         </div>
                     </td>
-                    <td class="cnt-right" >
+                    <td class="cnt-right">
                         <div>
-                            <p class="cnt-title">我的策略</p>
-                            <div class="m-hd m-hd-rt m-hd-sl">
-                                <ul>
-                                    <li class="z-crt"><a href="/member/admin/user.html">全部用户</a></li>
-                                    <li><a href="/member/admin/user-1.html">禁用用户</a></li>
+                            <p class="cnt-title">直播分类</p>
+                            <form action="">
+                                <ul class="my-inputLists">
+                                    <li>
+                                        <em>分类标题:</em>
+                                        <input type="text" value="" name="title" id="title" datatype="s2-10" errormsg="请正确填写标题！">
+                                        <span class="errSpan" style="display:none;"></span>
+                                        <button class="u-btn" style="width: 30px; font-size: 14px; padding: 0px 7px;" type="button" onclick="save()">添加</button>
+                                    </li>
                                 </ul>
-                            </div>
+
+                            </form>
                             <table class="tactics-list">
                                     <tr>
-                                        <th style="width:300px;">日期</th>
-                                        <th style="width:100px;">昵称</th>
-                                        <th style="width:200px;">手机号</th>
-                                        <th style="width:150px;">身份</th>
-                                        <th style="width:200px;">操作</th>
+                                        <th style="width:500px;">日期</th>
+                                        <th style="width:500px">标题</th>
                                     </tr>
                                     <tbody id="checkValue">
 
@@ -431,31 +433,21 @@
 
         $.ajax({
             type: "GET",
-            url: "/user?status=0",
+            url: "/classify",
             success: function(msg) {
                 if(msg.totalElements > 0){
                     $('#checkValue').empty();
                     var html = '';
                     var data = msg.content;
                     $.each(data, function(index, obj){
-                        var tag;
-                        if(obj.tag == 1){
-                            tag = "主播";
-                        }else {
-                            tag = "普通用户";
-                        }
                         html += '<tr>'+
                                 '<td class="f-fs12">'+obj.createTime+'</td>'+
-                                '<td>'+obj.nickname+'</td>'+
-                                '<td>'+obj.mobile+'</td>'+
-                                '<td>'+tag+'</td>'+
-                                '<td class="f-cb"><button class="u-btn" style="width: 30px; font-size: 14px; padding: 0px 7px;" type="button" onclick="enables(\'' + obj.id + '\')">禁用</button>&nbsp;&nbsp;&nbsp;' +
-                                '</td>'+
+                                '<td>'+obj.title+'</td>'+
                                 '</tr>';
                     });
                     $('#checkValue').html(html);
                 }else {
-                    $('#checkValue').html('<td colspan="5">暂无用户记录</td>');
+                    $('#checkValue').html('<td colspan="2">暂无直播分类记录</td>');
                 }
             },
             error: function(error){alert(error);}
@@ -485,35 +477,40 @@
         });
     });
 
-    function enables(id) {
-        layer.msg('你确定要禁用该用户主播吗？', {
-            time: 0 //不自动关闭
-            ,btn: ['确定', '取消']
-            ,yes: function(index){
-                layer.close(index);
-                $.ajax({
-                    type: "POST",
-                    url: "/user/"+id+"/"+1+"/status",
-                    success: function(msg) {
-                        if(msg.status == 200){
-                            layer.msg("禁用成功！", {
-                                time: 1000
-                            }, function () {
-                                window.location.href='/member/admin/user.html';
-                            });
-                        }else {
-                            layer.msg("登录超时,请重新登录！", {
-                                time: 2000
-                            }, function () {
-                                window.location.href='/index.html';
-                            });
-                        }
-                    }
-                })
-            }
-        });
-    };
+    function save(){
 
+        var title = $('#title').val();
+        if(title == null){
+            layer.msg("分类标题不能为空", {
+                time: 2000
+            }, function () {
+
+            });
+        }else {
+            $.ajax({
+                type: "POST",
+                url:"/classify",
+                data: {'title': title},
+                dataType: "json",
+                success: function(msg) {
+                    if(msg.status == 200){
+                        layer.msg(msg.message, {
+                            time: 1000
+                        }, function () {
+                            window.location.href='/member/admin/class.html';
+                        });
+                    }else {
+                        layer.msg("您没有访问权限！", {
+                            time: 2000
+                        }, function () {
+                            window.location.href='/index.html';
+                        });
+                    }
+                },
+                error: function(error){alert(error);}
+            });
+        }
+    }
 </script>
 <div class="my-footer f-cb">
     <div class="g-doc f-cb">

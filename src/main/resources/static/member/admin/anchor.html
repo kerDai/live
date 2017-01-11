@@ -361,7 +361,7 @@
                     </td>
                     <td class="cnt-right" >
                         <div>
-                            <p class="cnt-title">我的策略</p>
+                            <p class="cnt-title">主播管理</p>
                             <div class="m-hd m-hd-rt m-hd-sl">
                                 <ul>
                                     <li class="z-crt"><a href="/member/admin/anchor.html">全部主播</a></li>
@@ -374,6 +374,7 @@
                                         <th style="width:200px;">手机号</th>
                                         <th style="width:150px;">性别/年龄</th>
                                         <th style="width:150px;">直播类型</th>
+                                        <th style="width:150px;">房间号</th>
                                         <!--<th style="width:250px;">机构公司</th>
                                         <th style="width:180px;">职业/行龄</th>
                                         <th style="width:350px;">个人简介</th>
@@ -454,6 +455,7 @@
                                 '<td>'+obj.mobile+'</td>'+
                                 '<td>'+sex +'/'+obj.age+'</td>'+
                                 '<td>'+obj.liveClassify.title+'</td>'+
+                                '<td>'+obj.roomNo+'</td>'+
                                 /*'<td>'+obj.company+'</td>'+
                                 '<td>'+obj.job+'/'+obj.tradeAge+'</td>'+
                                 '<td>'+obj.profile+'</td>'+
@@ -463,7 +465,7 @@
                     });
                     $('#checkValue').html(html);
                 }else {
-                    $('#checkValue').html('<td colspan="10">暂无主播记录</td>');
+                    $('#checkValue').html('<td colspan="7">暂无主播记录</td>');
                 }
             },
             error: function(error){alert(error);}

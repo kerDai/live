@@ -142,14 +142,20 @@
         $.ajax({
             type: "GET",
             url:"/anchor",
+            data:{'status':1},
             success: function(msg) {
                 if(msg.totalElements > 0){
                     var temp = '';
                     $.each(msg.content, function(i, item){
+                        var roomNO = "live/"+item.roomNo;
+                        var avatar = item.user.avatar;
+                        if(avatar == null){
+                            avatar = "/center/default-avatar.jpg";
+                        }
                         temp += '<div class="rank-list-con-item f-cb">'+
-                                    '<a href="live/239138">'+
+                                    '<a href="'+roomNO+'">'+
                                         '<div class="rank-list-con-item-1">'+
-                                            '<img src="index/140814010117602393">'+
+                                            '<img src="'+avatar+'">'+
                                             '<p class="rank-list-con-name">' +
                                                 '<span>'+item.liveClassify.title+'</span>' +
                                                 '<i class="f-cl2">'+item.user.nickname+'</i>' +
@@ -157,7 +163,7 @@
                                             '<div class="rank-list-con-des">'+item.profile+'</div>'+
                                         '</div>'+
                                         '<div class="rank-list-con-item-2">'+
-                                            '<i class="f-fs14 f-cl2">1月挑战锦囊特价抢购中</i>'+
+                                            '<i class="f-fs14 f-cl2">'+item.roomName+'</i>'+
                                         '</div>'+
                                         '<div class="rank-list-con-item-3">'+
                                             '<p class="f-mt10"><span class="f-cl1 f-fs20">正在直播</span></p>'+
@@ -214,8 +220,8 @@
 <div class="head-nav">
     <div class="g-doc">
         <ul class="head-nav-list f-cb">
-            <li><a target="_blank" href="http://www.shagualicai.cn/">首页</a></li>
-            <li><a target="_blank" href="http://www.shagualicai.cn/rank.shtml" class="cur">直播</a></li>
+            <li><a target="_blank" href="/index.html">首页</a></li>
+            <li><a target="_blank" href="/index.html" class="cur">直播</a></li>
             <!--
 			<li><a target="_blank" href="http://www.shagualicai.cn/video/index.shtml">视频讲堂</a></li>
             <li><a target="_blank" href="http://lcb.shagualicai.cn/">理财宝</a></li>
@@ -302,7 +308,7 @@
                 -->
             </span>
 
-            <div class="m-page">
+            <!--<div class="m-page">
                 <div>
                     <span class="current">1</span>
                     <a class="num" href="http://www.shagualicai.cn/rank/index-type-5-p-2.shtml">2</a>
@@ -310,7 +316,7 @@
                     <a class="num" href="http://www.shagualicai.cn/rank/index-type-5-p-4.shtml">4</a>
                     <a class="next" href="http://www.shagualicai.cn/rank/index-type-5-p-2.shtml">下一页</a>
                 </div>
-            </div>
+            </div>-->
         </div>
     </div>
 
