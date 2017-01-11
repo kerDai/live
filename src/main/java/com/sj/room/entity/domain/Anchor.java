@@ -59,8 +59,10 @@ public class Anchor  extends IdEntity {
     }
 
     //个人简介
+    @Column(length=1000)
     private String profile;
     //申请理由
+    @Column(length=1000)
     private String reason;
 
     //0 待审核  1 审核通过  2 驳回  3 不通过

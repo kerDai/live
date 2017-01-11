@@ -1,14 +1,20 @@
 package com.sj.room.service.impl;
 
 import com.sj.room.core.util.EncryptUtil;
+import com.sj.room.entity.condition.UserCondition;
 import com.sj.room.entity.domain.User;
 import com.sj.room.repository.UserRepository;
 import com.sj.room.service.IUserService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.MessageSource;
-import org.springframework.context.i18n.LocaleContextHolder;
+import org.springframework.data.domain.Page;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.persistence.criteria.*;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * 用户实现类
@@ -24,10 +30,6 @@ public class UserServiceImpl implements IUserService {
 
     @Autowired
     private UserRepository userRepository;
-
-    @Autowired
-    private MessageSource messageSource;
-
 
     @Override
     @Transactional
@@ -75,8 +77,36 @@ public class UserServiceImpl implements IUserService {
             userRepository.changepwd(id, newpwd);
             return true;
         }
-
         return false;
+    }
 
+    @Override
+    public Page<User> findPage(UserCondition condition) {
+        return userRepository.findAll(this.toSpecification(condition), condition.toPageable());
+    }
+
+    private Specification<User> toSpecification(final UserCondition cond) {
+        return new Specification<User>() {
+
+            @Override
+            public Predicate toPredicate(Root<User> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
+                Path<String> mobile = root.get("mobile");
+                Path<Long> id = root.get("id");
+                Path<Integer> status = root.get("status");
+
+                Set<Predicate> predicates = new HashSet<>();
+                if (cond.getId() != null) {
+                    predicates.add(cb.equal(id, cond.getId()));
+                }
+
+                if (cond.getStatus() != null) {
+                    predicates.add(cb.equal(status, cond.getStatus()));
+                }
+                if (StringUtils.isNotBlank(cond.getMobile())) {
+                    predicates.add(cb.equal(mobile, "%" + cond.getMobile() + "%"));
+                }
+                return cb.and(predicates.toArray(new Predicate[predicates.size()]));
+            }
+        };
     }
 }

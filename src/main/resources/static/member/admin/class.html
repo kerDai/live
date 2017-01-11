@@ -9,31 +9,16 @@
     <link href="/center/reset.css" rel="stylesheet" type="text/css">
     <link href="/center/function.css" rel="stylesheet" type="text/css">
     <link href="/center/style.css" rel="stylesheet" type="text/css">
-    <link href="/center/userframe.css" rel="stylesheet" type="text/css">
     <script src="/center/hm.js"></script>
     <script src="/center/jquery.min.js"></script>
     <script src="/center/validform_v5.3.2_min.js"></script>
     <script src="/center/common.js"></script>
+
+    <link href="/center/userframe.css" rel="stylesheet" type="text/css">
     <script src="/center/validform_v5.3.2_min.js"></script>
     <script src="/center/layer.js"></script>
     <script src="/gotye/js/model/live.play.js"></script>
     <style>
-        .image-plus-box{
-            position: relative;
-            display: inline-block;
-        }
-
-        .image-plus{
-            font-size: 155px;
-            color: #fff;
-            position: absolute;
-            background: rgba(0,0,0,0.3) url('http://static.91fool.com.cn/passport/img/iconfont-plus.png') center no-repeat;
-            width: 100%;
-            height: 100%;
-            display: none;
-            cursor: pointer;
-        }
-
         .my-inputLists li {
             padding: 10px 0;
 
@@ -49,7 +34,7 @@
 
         .my-inputLists li em {
             display: inline-block;
-            width: 70px;
+            width: 64px;
             text-align: right;
             font-size: 14px;
             font-weight: 400;
@@ -125,11 +110,37 @@
             color: #d94432;
         }
     </style>
-    <link type="text/css" rel="stylesheet" href="../center/laydate.css">
-    <link type="text/css" rel="stylesheet" href="../center/laydate(1).css" id="LayDateSkin">
+    <link type="text/css" rel="stylesheet" href="/center/laydate.css">
+    <link type="text/css" rel="stylesheet" href="/center/laydate(1).css" id="LayDateSkin">
 </head>
 <body>
 <style>
+
+    .tactics-list{
+        margin: 20px 0;
+    }
+    .tactics-list tr th,td{
+        border-bottom: 1px solid #e6e6e6;
+        text-align: center;
+        height: 24px;
+    }
+    .tactics-list tr th{
+        border-bottom: 2px solid #aaa;
+        background: url('http://static.91fool.com.cn/passport/img/table-th.jpg') 100% 0 no-repeat;
+    }
+    .tactics-list tr th:last-child{
+        background: none;
+    }
+    .tactics-list tr td{
+        /*padding-top: 5px;*/
+        padding: 10px 0px 5px 0px;
+        font-size: 13px;
+        margin: 3px 0;
+    }
+    .tactics-list .link{
+        color: #315aaa;
+    }
+
     .my-site-top-temp {
         position: relative;
         /*height: 60px;*/
@@ -254,15 +265,12 @@
         </div>
     </div>
 </div>
-
-
-<div class="g-doc">
+<div class="g-doc" >
     <div class="bread-crum">
         <a href="/index.html">首页</a> &gt; <span>个人中心</span>
-        &gt; 修改头像
+        &gt; 主播审核
     </div>
     <div class="cnt">
-        <form id="main_form" method="post" action="/user/update/avatar">
             <table class="cnt-bg">
                 <tbody>
                 <tr>
@@ -342,46 +350,47 @@
                         <!-- 用户个人中心左侧选项导航 -->
                         <div class="g-side">
                             <ul id="sideNav">
-                                <li class="side-title side-title1">账号设置</li>
-                                <li><a href="/member/center.html">个人资料</a></li>
-                                <li><a href="/member/password.html">修改密码</a></li>
-                                <li><a class="selected" href="/member/avatar.html">修改头像</a></li>
                                 <li class="split"></li>
-                                <li class="side-title side-title2">用户中心</li>
-                                <li><a href="/member/apply.html">申请成为播主</a></li>
-                                <div id="goLive"></div>
-                                <li><a href="/member/remember.html">我的关注</a></li>
-                                <li><a href="/member/quest.html">我的提问</a></li>
+                                <li class="side-title side-title3">管理中心</li>
+                                <li><a href="/member/admin/user.html">用户记录</a></li>
+                                <li><a href="/member/admin/anchor.html">主播管理</a></li>
+                                <li><a href="/member/admin/check.html">主播审核</a></li>
+                                <li><a class="selected" href="/member/admin/class.html">直播分类</a></li>
                             </ul>
                         </div>
                     </td>
-                    <td class="cnt-right">
+                    <td class="cnt-right" >
                         <div>
-                            <p class="cnt-title">修改头像</p>
-                            <div class="f-cb">
-                                <div class="f-fl my-upload-head">
-                                    <input type="hidden" name="avatar" id="avatar" value="">
-                                    <div class="image-plus-box">
-                                        <div class="image-plus" style="display: block;"></div>
-                                        <img src="/center/default-avatar.jpg" alt="" id="showAv" rel="avatar" class="am-img-thumbnail file-upload" style="height: 200px; width: 200px;">
-                                        <input type="hidden" id="id" name="id" value="">
-                                    </div>
-                                </div>
+                            <p class="cnt-title">我的策略</p>
+                            <div class="m-hd m-hd-rt m-hd-sl">
+                                <ul>
+                                    <li class="z-crt"><a href="/member/admin/user.html">全部用户</a></li>
+                                    <li><a href="/member/admin/user-1.html">禁用用户</a></li>
+                                </ul>
                             </div>
-                            <div class="f-cb">
-                                <input class="u-btn" type="submit" value="保存">
-                            </div>
+                            <table class="tactics-list">
+                                    <tr>
+                                        <th style="width:300px;">日期</th>
+                                        <th style="width:100px;">昵称</th>
+                                        <th style="width:200px;">手机号</th>
+                                        <th style="width:150px;">身份</th>
+                                        <th style="width:200px;">操作</th>
+                                    </tr>
+                                    <tbody id="checkValue">
+
+                                    </tbody>
+
+                            </table>
+                            <div class="page"></div>
                         </div>
                     </td>
                 </tr>
                 </tbody>
             </table>
-        </form>
     </div>
 </div>
 <script>
     $(function () {
-
         var users = Tool.getCookie("users");
         if(users == null){
             layer.msg("登录超时,请重新登录！", {
@@ -398,95 +407,58 @@
                 url:"/user/"+temp.id+"/findOne",
                 success: function(msg) {
                     if(msg.status == 200){
+                        if(msg.data.mobile != "admin"){
+                            layer.msg("您没有访问权限！", {
+                                time: 2000
+                            }, function () {
+                                window.location.href='/index.html';
+                            });
+                        }
                         var nickname = msg.data.nickname;
                         $('#siteUserId').html(nickname);
-                        //判断是否主播
-                        if(msg.data.tag == 1){
-                            $('#goLive').html('<li><a class="" href="/member/seeding.html">发起直播</a></li>');
-                        }
                         if(msg.data.avatar != null){
                             $('#favorite').attr('src', msg.data.avatar);
                         }else {
                             $('#favorite').attr('src', '/center/default-avatar.jpg');
                         }
-                        if(msg.data.avatar != null){
-                            $('#showAv').attr("src", msg.data.avatar);
-                        }
                     }else {
-                        layer.msg("登录超时,请重新登录！", {
-                            time: 2000
-                        }, function () {
-                            window.location.href='/index.html';
-                        });
+                        window.location.href='/index.html';
                     }
                 },
                 error: function(error){alert(error);}
             });
         };
 
-        $(".image-plus-box").on("mouseover", function(){
-            $(this).find(".image-plus").show();
-        }).on("mouseout", function(){
-            $(this).find(".image-plus").hide();
-        }).on("click", function () {
-            var upload_host = "http://nupload.shagualicai.cn";
-            var img_obj = $(this).find(".file-upload");
-            var obj_id = img_obj.attr('rel');
-            var thislayer = layer.open({
-                type: 1,
-                title: '上传',
-                area: ['500px', '150px'],
-                shadeClose: true,
-                content: '<form id= "uploadForm' + obj_id + '" enctype="multipart/form-data" class="m-form" >' +
-                '<div style="padding: 15px;">' +
-                '<input type="file" name="file" style="height: 35px;line-height: 35px;font-size: 16px;">' +
-                '<input type="button" class="submit u-btn" value="上传"/>' +
-                '</div>' +
-                '<div style="padding: 0 20px 20px 20px;">提示：支持1M以下的gif,jpg,png等格式文件</div>' +
-                '</form>',
-                success: function (layero, index) {
-                    $("#uploadForm" + obj_id).find(".submit").click(function () {
-                        var formData = new FormData($("#uploadForm" + obj_id)[0]);
-                        $.ajax({
-                            url : '/upload',
-                            type: 'POST',
-                            data: formData,
-                            dataType: 'json',
-                            async: false,
-                            cache: false,
-                            contentType: false,
-                            processData: false,
-                            success: function (data) {
-                                layer.msg("上传成功");
-                                $("input[name="+obj_id+"]").val(data.url);
-                                img_obj.attr("src", data.url);
-                                layer.close(thislayer);
-                            },
-                            error: function (returndata) {
-                                layer.msg(returndata);
-                            }
-                        });
+        $.ajax({
+            type: "GET",
+            url: "/user?status=0",
+            success: function(msg) {
+                if(msg.totalElements > 0){
+                    $('#checkValue').empty();
+                    var html = '';
+                    var data = msg.content;
+                    $.each(data, function(index, obj){
+                        var tag;
+                        if(obj.tag == 1){
+                            tag = "主播";
+                        }else {
+                            tag = "普通用户";
+                        }
+                        html += '<tr>'+
+                                '<td class="f-fs12">'+obj.createTime+'</td>'+
+                                '<td>'+obj.nickname+'</td>'+
+                                '<td>'+obj.mobile+'</td>'+
+                                '<td>'+tag+'</td>'+
+                                '<td class="f-cb"><button class="u-btn" style="width: 30px; font-size: 14px; padding: 0px 7px;" type="button" onclick="enables(\'' + obj.id + '\')">禁用</button>&nbsp;&nbsp;&nbsp;' +
+                                '</td>'+
+                                '</tr>';
                     });
-                }
-            });
-        });
-
-        $("#main_form").Validform({
-            ajaxPost: true,
-            callback: function (data) {
-                if(data.status == 200){
-                    layer.msg(data.message, {
-                        time: 2000
-                    }, function () {
-                    });
+                    $('#checkValue').html(html);
                 }else {
-                    layer.msg("登录超时,请重新登录！", {
-                        time: 2000
-                    }, function () {
-                        window.location.href='/index.html';
-                    });
+                    $('#checkValue').html('<td colspan="5">暂无用户记录</td>');
                 }
-            }
+            },
+            error: function(error){alert(error);}
         });
 
         $("#siteUserId").on("mouseenter", function () {
@@ -496,8 +468,9 @@
         $("#siteUserIdCnt").on("mouseleave", function () {
             $("#siteUserIdCnt").hide();
             $("#siteUserId").removeClass("hover")
-        });
+        })
 
+        //退出
         $("#logoutId").click(function(){
             $.ajax({
                 type: "GET",
@@ -510,8 +483,37 @@
                 error: function(error){alert(error);}
             });
         });
-
     });
+
+    function enables(id) {
+        layer.msg('你确定要禁用该用户主播吗？', {
+            time: 0 //不自动关闭
+            ,btn: ['确定', '取消']
+            ,yes: function(index){
+                layer.close(index);
+                $.ajax({
+                    type: "POST",
+                    url: "/user/"+id+"/"+1+"/status",
+                    success: function(msg) {
+                        if(msg.status == 200){
+                            layer.msg("禁用成功！", {
+                                time: 1000
+                            }, function () {
+                                window.location.href='/member/admin/user.html';
+                            });
+                        }else {
+                            layer.msg("登录超时,请重新登录！", {
+                                time: 2000
+                            }, function () {
+                                window.location.href='/index.html';
+                            });
+                        }
+                    }
+                })
+            }
+        });
+    };
+
 </script>
 <div class="my-footer f-cb">
     <div class="g-doc f-cb">
@@ -557,10 +559,10 @@
             <p>周一至周五&nbsp;8:30-18:00</p>
             <p class="f-mt15">在线客服小秘书QQ</p>
             <p class="f-mt5"><img src="/center/foot_qq.png"> <a
-                    href="http://wpa.qq.com/msgrd?v=3&amp;uin=353180316&amp;site=qq&amp;menu=yes" target="_blank">443561285</a>
+                    href="http://wpa.qq.com/msgrd?v=3&amp;uin=443561285&amp;site=qq&amp;menu=yes" target="_blank">443561285</a>
             </p>
             <p><img src="/center/foot_qq.png"> <a
-                    href="http://wpa.qq.com/msgrd?v=3&amp;uin=353180316&amp;site=qq&amp;menu=yes" target="_blank">2944920795</a>
+                    href="http://wpa.qq.com/msgrd?v=3&amp;uin=2944920795&amp;site=qq&amp;menu=yes" target="_blank">2944920795</a>
             </p>
         </div>
         <div class="f-fr f-tar">

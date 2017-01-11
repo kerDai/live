@@ -1,7 +1,9 @@
 package com.sj.room.service;
 
 
+import com.sj.room.entity.condition.UserCondition;
 import com.sj.room.entity.domain.User;
+import org.springframework.data.domain.Page;
 
 /**
  * ${DESCRIPTION}
@@ -55,4 +57,6 @@ public interface IUserService {
      * @param newPassword
      */
     boolean changepwd(Long id, String oldPassword, String newPassword);
+
+    Page<User> findPage(UserCondition condition);
 }

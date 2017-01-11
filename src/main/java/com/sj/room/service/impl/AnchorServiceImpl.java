@@ -70,11 +70,17 @@ public class AnchorServiceImpl implements IAnchorService {
                 Path<String> realName = root.get("realName");
                 Path<String> mobile = root.get("mobile");
                 Path<Long> id = root.get("id");
+                Path<Integer> status = root.get("status");
 
                 Set<Predicate> predicates = new HashSet<>();
                 if (cond.getId() != null) {
                     predicates.add(cb.equal(id, cond.getId()));
                 }
+
+                if (cond.getStatus() != null) {
+                    predicates.add(cb.equal(status, cond.getStatus()));
+                }
+
                 if (StringUtils.isNotBlank(cond.getRealName())) {
                     predicates.add(cb.equal(realName, "%" + cond.getRealName() + "%"));
                 }

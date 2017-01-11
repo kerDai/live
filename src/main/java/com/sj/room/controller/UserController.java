@@ -2,6 +2,7 @@ package com.sj.room.controller;
 
 import com.sj.room.core.base.AjaxDataResponse;
 import com.sj.room.core.base.AjaxResponse;
+import com.sj.room.entity.condition.AnchorCondition;
 import com.sj.room.entity.condition.UserCondition;
 import com.sj.room.entity.domain.User;
 import com.sj.room.entity.dto.PasswordDTO;
@@ -35,6 +36,11 @@ public class UserController {
     @Autowired
     private IUserService userService;
 
+    @GetMapping
+    public Object findPage(UserCondition condition){
+        return userService.findPage(condition);
+    }
+
     /**
      * 上传头像
      * @param avatar
@@ -43,10 +49,27 @@ public class UserController {
      * @return
      */
     @PostMapping(value = "/update/avatar")
-    public Object avatar(@RequestParam("avatar") String avatar,@RequestParam("id") Long id, HttpServletRequest req) {
+    public Object avatar(@RequestParam("avatar") String avatar, @RequestParam("id") Long id, HttpServletRequest req) {
         User user = (User) req.getSession().getAttribute("loginSession");
         if (user != null) {
             userService.avatar(id, avatar);
+            return trueMessage(null);
+        }
+        return noLoginMessage();
+    }
+
+    /**
+     * 修改用户状态
+     * @param id
+     * @param status
+     * @param req
+     * @return
+     */
+    @PostMapping(value = "/{id}/{status}/status")
+    public Object updateStatus(@PathVariable long id, @PathVariable Integer status, HttpServletRequest req) {
+        User user = (User) req.getSession().getAttribute("loginSession");
+        if (user != null) {
+            userService.updateStatus(status, id);
             return trueMessage(null);
         }
         return noLoginMessage();

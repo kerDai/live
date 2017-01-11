@@ -34,7 +34,10 @@ public class User extends IdEntity {
     @Column(name="tag",columnDefinition="tinyint default 0")
     private Integer tag = 0;
 
-    @Column(name="status",columnDefinition="tinyint default 1")
+    /**
+     * 1 禁用
+     */
+    @Column(name="status",columnDefinition="tinyint default 0")
     private Integer status;
 
     public String getAvatar() {

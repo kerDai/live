@@ -60,10 +60,21 @@ public class AnchorController {
         return anchorService.findPage(condition);
     }
 
+    /**
+     * 主播申请 审核功能
+     * @param id
+     * @param status
+     * @param req
+     * @return
+     */
     @GetMapping(value = "/{id}/{status}")
-    public Object updateStatus(@PathVariable long id, @PathVariable Integer status){
-        anchorService.updateStatus(id, status);
-        return null;
+    public Object updateStatus(@PathVariable long id, @PathVariable Integer status, HttpServletRequest req){
+        User user = (User) req.getSession().getAttribute("loginSession");
+        if (user != null) {
+            anchorService.updateStatus(id, status);
+            return trueMessage(null);
+        }
+        return noLoginMessage();
     }
 
     @GetMapping(value = "/{mobile}/findMobile")

@@ -16,9 +16,20 @@ public class AnchorCondition extends PageAndSortCondition {
 
     private String mobile;
 
+    //0 待审核  1 审核通过  2 驳回  3 不通过
+    private Integer status;
+
     @Override
     protected String getDefaultSort() {
         return "id_1";
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 
     public Long getId() {
