@@ -189,10 +189,13 @@ $(function () {
                     $('#denglu').hide();
                     var nickname = msg.data.nickname;
                     $('#nicknameV').html(nickname);
+                    $('#yonghuming').html(nickname);
                     if(msg.data.avatar != null){
                         $("#avatar").attr('src', msg.data.avatar);
+                        $("#touxiang").attr('src', msg.data.avatar);
                     } else {
                         $("#avatar").attr('src', '/center/default-avatar.jpg');
+                        $("#touxiang").attr('src', '/center/default-avatar.jpg');
                     }
                 }else {
                     $('#grzx').hide();
@@ -217,8 +220,10 @@ $(function () {
                     $('#nicknameV').html(msg.data.nickname);
                     if(msg.data.avatar != null){
                         $("#avatar").attr('src', msg.data.avatar);
+                        $("#touxiang").attr('src', msg.data.avatar);
                     } else {
                         $("#avatar").attr('src', '/center/default-avatar.jpg');
+                        $("#touxiang").attr('src', '/center/default-avatar.jpg');
                     }
                 }
             },
@@ -296,11 +301,11 @@ $(function () {
         <div class="f-cb toggle-show-box" style="display: block;">
             <div class="f-fl f-cb">
                 <div class="f-fl t-pic">
-                    <img alt="至柔若水" src="http://navatar.shagualicai.cn/uid/141004010146502706">
+                    <img id="touxiang" src="">
                 </div>
                 <div class="f-fl f-ml30 s-t-brief">
                     <div class="f-cb">
-                        <span class="f-fl f-fs28" style="width: 250px;position: relative;top: -8px;">至柔若水</span>
+                        <span class="f-fl f-fs28" style="width: 250px;position: relative;top: -8px;" id="yonghuming"></span>
                                                 <div class="f-fr">
                                                         <a class="u-btn focus-btn" data-sid="31">+ 关注</a>
                                                         <a class="u-btn ask-btn pop-windows" popsize="500px*200px" href="javascript:void(0);" title="向 至柔若水 提问" _href="http://passport.shagualicai.cn/user_quest/addask-sid-31.shtml">提问</a>
