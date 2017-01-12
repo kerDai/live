@@ -21,6 +21,8 @@ public interface ILiveService {
 
     void save(Live live);
 
+    void saveDetail(Long userId, String content);
+
     List<Live> getList(LiveCondition condition);
 
     /**
@@ -36,6 +38,6 @@ public interface ILiveService {
      * @param pageable
      * @return
      */
-    Page<Live> findClassifyPage(Long classifyId, Pageable pageable);
+//    Page<Live> findClassifyPage(Long classifyId, Pageable pageable);
 
 }

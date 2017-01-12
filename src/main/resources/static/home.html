@@ -173,6 +173,15 @@
 
 </div>
 <script>
+
+    function getUrlParam(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+        var r = window.location.search.substr(1).match(reg);  //匹配目标参数
+        if (r != null) return unescape(r[2]); return null; //返回参数值
+    }
+    var uuid = getUrlParam('index');
+    var usid = getUrlParam('uid');
+
     var users = Tool.getCookie("users");
 $(function () {
     if(users == null){
@@ -189,13 +198,13 @@ $(function () {
                     $('#denglu').hide();
                     var nickname = msg.data.nickname;
                     $('#nicknameV').html(nickname);
-                    $('#yonghuming').html(nickname);
+//                    $('#yonghuming').html(nickname);
                     if(msg.data.avatar != null){
                         $("#avatar").attr('src', msg.data.avatar);
-                        $("#touxiang").attr('src', msg.data.avatar);
+//                        $("#touxiang").attr('src', msg.data.avatar);
                     } else {
                         $("#avatar").attr('src', '/center/default-avatar.jpg');
-                        $("#touxiang").attr('src', '/center/default-avatar.jpg');
+//                        $("#touxiang").attr('src', '/center/default-avatar.jpg');
                     }
                 }else {
                     $('#grzx').hide();
@@ -203,7 +212,28 @@ $(function () {
             },
             error: function(error){alert(error);}
         });
-    }
+    };
+
+    $.ajax({
+        type: "GET",
+        url:"/anchor/"+uuid+"/findOne",
+        success: function(msg) {
+            var nickname = msg.data.user.nickname;
+            $('#yonghuming').html(nickname);
+            $('#yonghuming1').html(nickname);
+            $('#titleRoom').html(msg.data.roomName);
+            $('#roomNo').html(msg.data.roomNo);
+            if(msg.data.user.avatar != null){
+                $("#touxiang").attr('src', msg.data.user.avatar);
+                $("#touxiang1").attr('src', msg.data.user.avatar);
+            } else {
+                $("#touxiang").attr('src', '/center/default-avatar.jpg');
+                $("#touxiang1").attr('src', '/center/default-avatar.jpg');
+            }
+        },
+        error: function(error){alert(error);}
+    });
+
 
     $('#loginBut').click(function(){
         $.ajax({
@@ -278,7 +308,7 @@ $(function () {
             </p>
         </div>
         <div class="s-user-header f-ml20 f-fl" id="grzx">
-            <img class="f-fl f-mr10" id="avatar" alt="" src="">
+            <img class="f-fl f-mr10" id="avatar" alt="" src="/center/default-avatar.jpg">
             <p class="f-fl">
                 <a><span id="nicknameV"></span></a>
             </p>
@@ -301,17 +331,18 @@ $(function () {
         <div class="f-cb toggle-show-box" style="display: block;">
             <div class="f-fl f-cb">
                 <div class="f-fl t-pic">
-                    <img id="touxiang" src="">
+                    <img id="touxiang" src="/center/default-avatar.jpg">
                 </div>
                 <div class="f-fl f-ml30 s-t-brief">
                     <div class="f-cb">
-                        <span class="f-fl f-fs28" style="width: 250px;position: relative;top: -8px;" id="yonghuming"></span>
-                                                <div class="f-fr">
-                                                        <a class="u-btn focus-btn" data-sid="31">+ 关注</a>
-                                                        <a class="u-btn ask-btn pop-windows" popsize="500px*200px" href="javascript:void(0);" title="向 至柔若水 提问" _href="http://passport.shagualicai.cn/user_quest/addask-sid-31.shtml">提问</a>
+                        <span class="f-fl f-fs28" style="width: 250px;position: relative;top: -8px;" id="yonghuming" ></span>
+                        <div class="f-fr">
+                            <a class="u-btn focus-btn" data-sid="31" title="开发中，敬请期待" disabled="disabled">+ 关注</a>
+                            <a class="u-btn ask-btn" popsize="500px*200px" title="开发中，敬请期待" disabled="disabled">提问</a>
+                                <!--<a class="u-btn ask-btn pop-windows" popsize="500px*200px" href="javascript:void(0);" title="开发中，敬请期待" _href="">提问</a>-->
                         </div>
-                                            </div>
-                    <p class="num-list f-mt10">人气：1284&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;粉丝：279&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;直播室号：31</p>
+                    </div>
+                    <p class="num-list f-mt10">人气：1284&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;直播室号：<span id="roomNo"></span></p>
                     <a class="f-mt15 t-brief-con f-fs12" href="http://www.shagualicai.cn/live/selfintro-sid-31.shtml">个人介绍股市十大领跑者！多家知名财经类网站名博名播！多年实战经验，若水直播崇尚顺势而为的投资之道，精准把握大势。善于捕捉市场热点，精...</a>
                 </div>
             </div>
@@ -420,21 +451,21 @@ $(function () {
             $('.for-shadow').toggleClass('shadow-bg');
         }
 //        提问弹窗
-        $('.no').click(function(){
-            layer.open({
-                type: 1,
-                title: false,
-                offset:100,
-                shade:false,
-                title:"<div class='layer-video-title layer-ask-title f-cb f-fs18'><i class=''></i>向<em class='f-cl1 f-fwn'>至柔若水</em>提问</p></div>",
-                area: ['670px', '370px'],
-                content: "<form method='post'><div class='layer-video layer-ask'>" +
-                "<textarea class='layer-limit-txt' onkeyup='pressLayer()' onmousedown='pressLayer()' placeholder='别着急，试着清晰、详尽地描述您的问题，这样老师才能够更准确、更高质量的为您解答~'></textarea>" +
-                "<p class='f-tar f-mr30'>还可以输入<span class='f-ff3 f-fs18 f-fwb layer-limit-num'>120</span>字</p>" +
-                "<p class='f-cb f-ml30 f-mr30 ask-send-bar'><span class='f-fl'>我们会将您的问题立即推送给老师</span><a class='f-fr u-btn layer-ask-btn' onclick='checkAsk()'>提交</a></p>" +
-                "</div></form>"
-            });
-        });
+//        $('.no').click(function(){
+//            layer.open({
+//                type: 1,
+//                title: false,
+//                offset:100,
+//                shade:false,
+//                title:"<div class='layer-video-title layer-ask-title f-cb f-fs18'><i class=''></i>向<em class='f-cl1 f-fwn' id=''>至柔若水</em>提问</p></div>",
+//                area: ['670px', '370px'],
+//                content: "<form method='post'><div class='layer-video layer-ask'>" +
+//                "<textarea class='layer-limit-txt' onkeyup='pressLayer()' onmousedown='pressLayer()' placeholder='别着急，试着清晰、详尽地描述您的问题，这样老师才能够更准确、更高质量的为您解答~'></textarea>" +
+//                "<p class='f-tar f-mr30'>还可以输入<span class='f-ff3 f-fs18 f-fwb layer-limit-num'>120</span>字</p>" +
+//                "<p class='f-cb f-ml30 f-mr30 ask-send-bar'><span class='f-fl'>我们会将您的问题立即推送给老师</span><a class='f-fr u-btn layer-ask-btn' onclick='checkAsk()'>提交</a></p>" +
+//                "</div></form>"
+//            });
+//        });
     });
 //    剩余可输入字数实时提示
     function pressLayer(){
@@ -457,13 +488,13 @@ $(function () {
     function liveDetail(){
         $.ajax({
             type: "GET",
-            url: "/live/11/exist",
+            url: "/live/"+usid+"/exist",
 //            data: {username:$("#username").val(), content:$("#content").val()},
             dataType: "json",
             success: function(data){
                 $('#resText').empty();   //清空resText里面的所有内容
                 var html = '';
-                $.each(data.liveDetails, function(index, obj){
+                $.each(data.data, function(index, obj){
                     html += '<div class="f-mt15 talk-item s-border-bot" data-id="'+index+'">'+
                                 '<p>'+
                                     '<span class="f-cl0 f-ff3 f-fs18 ctime">'+obj.createTime+'</span>'+
@@ -483,7 +514,7 @@ $(function () {
         <div class="s-tab-box f-cb">
     <ul class="f-fl">
         <li class="cur"><span style="color: red; font-size: 18px;">直播</span></li>
-        <li><span style="color: red;">今天的标题是2017要中车子</span></li>
+        <li><span style="color: #626262;" id="titleRoom"></span></li>
         <!-- <li><a href="http://www.shagualicai.cn/live/vip-sid-31.shtml">VIP直播</a></li>
         <li><a href="http://www.shagualicai.cn/live/answers-sid-31.shtml">问答</a></li>
         <li><a href="http://www.shagualicai.cn/live/course-sid-31.shtml">课程</a></li>
@@ -494,16 +525,17 @@ $(function () {
     <div class="f-fr f-cb">
         <div class="f-fl f-cb short-show" style="display: none;">
             <div class="f-fl t-slide-pic">
-                <img alt="至柔若水" src="http://navatar.shagualicai.cn/uid/141004010146502706">
+                <img id="touxiang1" src="/center/default-avatar.jpg">
             </div>
-            <span class="f-fl f-cl8 f-ml10">至柔若水</span>
-                <a class="f-fl f-mt10 u-btn ask-btn pop-windows" popsize="500px*200px" href="javascript:void(0);" title="问 至柔若水 老师提问" _href="http://passport.shagualicai.cn/user_quest/addask-sid-31.shtml">提问</a>
+            <span class="f-fl f-cl8 f-ml10" id="yonghuming1"></span>
+                <a class="f-fl f-mt10 u-btn ask-btn" popsize="500px*200px" href="javascript:void(0);" title="开发中，敬请期待" _href="" disabled='ture'>提问</a>
+                <!--<a class="f-fl f-mt10 u-btn ask-btn pop-windows" popsize="500px*200px" href="javascript:void(0);" title="问 老师提问" _href="">提问</a>-->
             </div>
             <span class="full-screen f-ml20"></span>
     </div>
 
 </div>
-<script>
+<!--<script>
     function openwindow(id,title){
         layer.open({
             type: 2,
@@ -515,23 +547,23 @@ $(function () {
             content: "/video/livingdetail.shtml?livingId="+id
         });
     }
-</script>
+</script>-->
 
-<script>
-    $(function(){
-        $('.room-msg').on('click',function(){
-            layer.open({
-                type: 2,
-                title: false,
-                offset:100,
-                shade:false,
-                title:"<div class='layer-video-title f-cb'><i class=''></i>您正在观看 </p></div>",
-                area: ['870px', '540px'],
-                content: "/video/livingdetail.shtml?livingId="
-            });
-        });
-    });
-</script>
+<!--<script>-->
+    <!--$(function(){-->
+        <!--$('.room-msg').on('click',function(){-->
+            <!--layer.open({-->
+                <!--type: 2,-->
+                <!--title: false,-->
+                <!--offset:100,-->
+                <!--shade:false,-->
+                <!--title:"<div class='layer-video-title f-cb'><i class=''></i>您正在观看 </p></div>",-->
+                <!--area: ['870px', '540px'],-->
+                <!--content: "/video/livingdetail.shtml?livingId="-->
+            <!--});-->
+        <!--});-->
+    <!--});-->
+<!--</script>-->
         <div class="studio-talk f-cb">
             <!--观点区-->
             <div class="view-zone">
@@ -621,8 +653,6 @@ $(function () {
 </div>
 
 <script>
-    var myAudio = document.getElementById('audio');
-
     $(function(){
         $('.font-size span').on('click',function(){
             $(this).addClass('cur').siblings().removeClass('cur');
@@ -645,22 +675,6 @@ $(function () {
                 });
             }
         });
-
-        /* 声音控制 */
-//        var $sound = $("#sound");
-//        /* 声音图标初始化 */
-//        $sound[0].className = readStorageSound(room.sid) ? "sound-icon-off" : "sound-icon";
-//        $sound.on("click", function () {
-//            if (this.className == "sound-icon-off") {
-//                this.className = "sound-icon";
-//                setStorageSound(room.sid, "");
-//                layer.msg("本直播室声音提醒已经开启");
-//            } else {
-//                this.className = "sound-icon-off";
-//                setStorageSound(room.sid, "off");
-//                layer.msg("本直播室声音提醒已经关闭");
-//            }
-//        });
 
     });
 </script>
@@ -818,14 +832,10 @@ $(function () {
 				</li>
 			</script>
         <script type="text/javascript">
-            //            var token = Tool.getCookie("${token_key}");
-            //	   		var token = Tool.getCookie("room_token_239138");
             var token_key = Tool.getCookie("token_key");
             var token = Tool.getCookie(token_key);
-            var path = Tool.getCookie("_path_");
             var roomId = Tool.getCookie("roomId");
             var room = Tool.getCookie("room");
-            //	   		var live = new Gotye.Live(token);
             var chat;
             $(function(){
                 if(room) {
@@ -1021,16 +1031,6 @@ $(function () {
         <a href="https://search.szfw.org/cert/l/CX20141219006071006172" target="_blank"><img src="/room_files/report5.jpg" alt="诚信网站"></a>
     </div>
 </div>
-<script>
-    var _hmt = _hmt || [];
-    (function() {
-        var hm = document.createElement("script");
-        hm.src = "//hm.baidu.com/hm.js?4e544208853f635bd056188b6c5272a3";
-        var s = document.getElementsByTagName("script")[0];
-        s.parentNode.insertBefore(hm, s);
-    })();
-</script>
-
 <!--用户-->
 <script type="text/javascript" src="/room_files/room_user.js"></script>
 

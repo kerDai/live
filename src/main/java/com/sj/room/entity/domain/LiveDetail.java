@@ -3,6 +3,7 @@ package com.sj.room.entity.domain;
 import com.sj.room.core.base.IdEntity;
 
 import javax.persistence.*;
+import java.util.Date;
 
 /**
  * Title: LiveDetail
@@ -20,10 +21,19 @@ public class LiveDetail extends IdEntity {
     @Column(columnDefinition="TEXT")
     private String content;
 
-    /**
-     * 2 取消
-     */
-    private Integer status;
+//    @ManyToOne(cascade = { CascadeType.REFRESH, CascadeType.MERGE }, optional = true)
+//    @JoinColumn(name = "live_id")
+//    private Live live;
+
+    private Long liveId;
+
+    public Long getLiveId() {
+        return liveId;
+    }
+
+    public void setLiveId(Long liveId) {
+        this.liveId = liveId;
+    }
 
     public String getContent() {
         return content;
@@ -31,14 +41,6 @@ public class LiveDetail extends IdEntity {
 
     public void setContent(String content) {
         this.content = content;
-    }
-
-    public Integer getStatus() {
-        return status;
-    }
-
-    public void setStatus(Integer status) {
-        this.status = status;
     }
 
 }

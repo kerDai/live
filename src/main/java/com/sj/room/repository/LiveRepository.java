@@ -23,8 +23,8 @@ public interface LiveRepository extends JpaRepository<Live, Long>, JpaSpecificat
      * @param pageable
      * @return
      */
-    @Query("select live from Live live join live.liveClassify liveClassify where liveClassify.id = ?1")
-    Page<Live> findClassifyPage(Long classifyId, Pageable pageable);
+//    @Query("select live from Live live join live.liveClassify liveClassify where liveClassify.id = ?1")
+//    Page<Live> findClassifyPage(Long classifyId, Pageable pageable);
 
 
     /**
@@ -33,7 +33,7 @@ public interface LiveRepository extends JpaRepository<Live, Long>, JpaSpecificat
      * @return
      */
 //    @Query(value="select * from sj_live live join sj_live_classify where to_days(live.create_time) = to_days(NOW()) and live.user_id = ?1",nativeQuery=true)
-    @Query("select live from Live live join live.liveClassify liveClassify where to_days(live.createTime) = to_days(NOW()) and live.userId = ?1")
+    @Query("select live from Live live where to_days(live.createTime) = to_days(NOW()) and live.userId = ?1")
     Live findTodayLive(long userId);
 }
 

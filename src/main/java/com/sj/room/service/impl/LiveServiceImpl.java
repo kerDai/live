@@ -2,6 +2,8 @@ package com.sj.room.service.impl;
 
 import com.sj.room.entity.condition.LiveCondition;
 import com.sj.room.entity.domain.Live;
+import com.sj.room.entity.domain.LiveDetail;
+import com.sj.room.repository.LiveDetailRepository;
 import com.sj.room.repository.LiveRepository;
 import com.sj.room.service.ILiveService;
 import org.apache.commons.lang3.StringUtils;
@@ -35,6 +37,9 @@ public class LiveServiceImpl implements ILiveService {
     @Autowired
     private LiveRepository liveRepository;
 
+    @Autowired
+    private LiveDetailRepository liveDetailRepository;
+
 
     @Override
     public Page<Live> findPage(LiveCondition condition) {
@@ -48,6 +53,29 @@ public class LiveServiceImpl implements ILiveService {
     }
 
     @Override
+    @Transactional
+    public void saveDetail(Long userId, String content) {
+        Live temp = findTodayLive(userId);
+        if(temp == null){
+            Live live = new Live();
+            live.setUserId(userId);
+            Live newLive = liveRepository.save(live);
+            saveDeatail(content, newLive);
+        }else {
+            saveDeatail(content, temp);
+        }
+    }
+
+    private void saveDeatail(String content, Live temp) {
+        if(StringUtils.isNotBlank(content)){
+            LiveDetail detail = new LiveDetail();
+            detail.setContent(content);
+            detail.setLiveId(temp.getId());
+            liveDetailRepository.save(detail);
+        }
+    }
+
+    @Override
     public List<Live> getList(LiveCondition condition) {
         return liveRepository.findAll();
     }
@@ -57,10 +85,10 @@ public class LiveServiceImpl implements ILiveService {
         return liveRepository.findTodayLive(id);
     }
 
-    @Override
-    public Page<Live> findClassifyPage(Long classifyId ,Pageable pageable) {
-        return liveRepository.findClassifyPage(classifyId, pageable);
-    }
+//    @Override
+//    public Page<Live> findClassifyPage(Long classifyId ,Pageable pageable) {
+//        return liveRepository.findClassifyPage(classifyId, pageable);
+//    }
 
 
     private Specification<Live> toSpecification(final LiveCondition cond) {

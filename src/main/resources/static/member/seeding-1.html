@@ -283,51 +283,20 @@
                         <p class="cnt-title">主播审核</p>
                         <div class="m-hd m-hd-rt m-hd-sl">
                             <ul>
-                                <li class="z-crt"><a href="/member/seeding.html">直播内容</a></li>
-                                <li><a href="/member/seeding-1.html">今日记录</a></li>
+                                <li><a href="/member/seeding.html">直播内容</a></li>
+                                <li class="z-crt"><a href="/member/seeding-1.html">今日记录</a></li>
                             </ul>
                         </div>
-                        <div class="form f-mt30">
-                            <form id="seeding" method="post" action="/live">
-                                <ul class="my-inputLists">
-                                    <input type="hidden" id="userId" name="userId">
-                                    <li>
-                                        <textarea name="content" id="content" cols="100" rows="8" style="width:700px;height:400px;visibility:hidden;"></textarea>
-                                    </li>
+                        <table class="tactics-list">
+                            <tr>
+                                <th style="width:300px;">日期</th>
+                                <th style="width:1000px;">内容</th>
+                            </tr>
+                            <tbody id="checkValue">
 
-                                    <li><em></em>
-                                        <input style="width: 60px;" class="u-btn" type="submit" value="提交">
-                                        <input class="u-btn f-ml10" type="reset" value="重置">
-                                    </li>
-                                </ul>
-                            </form>
-                        </div>
-                        <script>
-                            KindEditor.ready(function(K) {
-                                window.editor = K.create('#editor_id');
-                            });
+                            </tbody>
 
-                            KindEditor.ready(function(K) {
-                                var editor1 = K.create('textarea[id="content"]', {
-                                    cssPath : '../editor/plugins/code/prettify.css',
-                                    uploadJson : '/editor/upload',
-                                    allowFileManager : true,
-                                    afterCreate : function() {
-                                        var self = this;
-                                        K.ctrl(document, 13, function() {
-                                            self.sync();
-                                            document.forms['example'].submit();
-                                        });
-                                        K.ctrl(self.edit.doc, 13, function() {
-                                            self.sync();
-                                            document.forms['example'].submit();
-                                        });
-                                    },
-                                    afterBlur:function(){this.sync();}
-                                });
-                                prettyPrint();
-                            });
-                        </script>
+                        </table>
                         <div class="page"></div>
                     </div>
                 </td>
@@ -392,25 +361,28 @@
                 error: function(error){alert(error);}
             });
         });
-    });
 
-    $("#seeding").Validform({
-        ajaxPost: true,
-        callback: function (msg) {
-            if(msg.status == 200){
-                layer.msg("保存成功", {
-                    time: 1000
-                }, function () {
-                    window.location.href='/member/seeding.html';
-                });
-            }else {
-                layer.msg("登录超时,请重新登录！", {
-                    time: 2000
-                }, function () {
-                    window.location.href='/index.html';
-                });
-            }
-        }
+        $.ajax({
+            type: "GET",
+            url: "/live/today/detail",
+            success: function(msg) {
+                if(msg.data != null){
+                    $('#checkValue').empty();
+                    var html = '';
+                    var data = msg.data;
+                    $.each(data, function(index, obj){
+                        html += '<tr>'+
+                                '<td class="f-fs12">'+obj.createTime+'</td>'+
+                                '<td>'+obj.content+'</td>'+
+                                '</tr>';
+                    });
+                    $('#checkValue').html(html);
+                }else {
+                    $('#checkValue').html('<td colspan="6">进入暂无直播内容记录</td>');
+                }
+            },
+            error: function(error){alert(error);}
+        });
     });
 
 </script>

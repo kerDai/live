@@ -20,16 +20,15 @@ public class Live extends IdEntity{
 
     private Long userId;
 
-    private String title;
+//    @OneToOne
+//    private LiveClassify liveClassify;
 
-    @OneToOne
-    private LiveClassify liveClassify;
+//    @OneToMany(cascade=CascadeType.ALL,fetch=FetchType.LAZY)
+//    @JoinColumn(name="live_id")
+//    private Set<LiveDetail> liveDetails;
 
-    @OneToMany(cascade=CascadeType.ALL,fetch=FetchType.LAZY)
-    @JoinColumn(name="live_id")
-    private Set<LiveDetail> liveDetails;
-
-    private String remark;
+//    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "live")
+//    private Set<LiveDetail> liveDetails;
 
     public Long getUserId() {
         return userId;
@@ -39,36 +38,11 @@ public class Live extends IdEntity{
         this.userId = userId;
     }
 
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public LiveClassify getLiveClassify() {
-        return liveClassify;
-    }
-
-    public void setLiveClassify(LiveClassify liveClassify) {
-        this.liveClassify = liveClassify;
-    }
-
-    public String getRemark() {
-        return remark;
-    }
-
-    public void setRemark(String remark) {
-        this.remark = remark;
-    }
-
-
-    public Set<LiveDetail> getLiveDetails() {
-        return liveDetails;
-    }
-
-    public void setLiveDetails(Set<LiveDetail> liveDetails) {
-        this.liveDetails = liveDetails;
-    }
+//    public Set<LiveDetail> getLiveDetails() {
+//        return liveDetails;
+//    }
+//
+//    public void setLiveDetails(Set<LiveDetail> liveDetails) {
+//        this.liveDetails = liveDetails;
+//    }
 }

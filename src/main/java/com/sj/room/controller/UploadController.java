@@ -31,4 +31,15 @@ public class UploadController {
         return obj;
     }
 
+    @PostMapping(value = "/editor/upload")
+    public Object editorImage(HttpServletRequest request){
+        JSONObject obj = new JSONObject();
+        MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
+        MultipartFile file = multipartRequest.getFile("imgFile");
+        String imgPath = AliyunImage.uploadAliyun(file);
+        obj.put("error", 0);
+        obj.put("url", imgPath);
+        return obj;
+    }
+
 }

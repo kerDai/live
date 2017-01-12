@@ -122,7 +122,7 @@
                     if(msg.status == 200){
                         var username = '<a target="_blank" href="" class="list-first f-cl1">'+msg.data.nickname+'</a>';
                         var center = '<a target="_blank" href="/member/center.html" class=""><u>个人管理中心</u></a>';
-                        var quit = '<a target="_blank" href="" id="logoutId" class="">退出</a>';
+                        var quit = '<a href="" id="logoutId" class="">退出</a>';
                         $('#loginV').html(username + center + quit);
                     }else {
                         $('#loginV').html('<a target="_blank" href="" class="list-first">登录</a><a target="_blank" href="/register/register.html">免费注册</a>');
@@ -147,7 +147,7 @@
                 if(msg.totalElements > 0){
                     var temp = '';
                     $.each(msg.content, function(i, item){
-                        var roomNO = "live/"+item.roomNo;
+                        var roomNO = "live/"+item.roomNo+"?index="+item.id+"&uid="+item.user.id;
                         var avatar = item.user.avatar;
                         if(avatar == null){
                             avatar = "/center/default-avatar.jpg";
