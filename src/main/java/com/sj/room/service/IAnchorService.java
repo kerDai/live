@@ -24,4 +24,8 @@ public interface IAnchorService {
     Anchor findOne(long id);
 
     void updateRoomNo(long id, String roomNo);
+
+    Anchor findByUserId(long userId);
+
+    void updateRoomName(long userId, long id, String roomNanme);
 }

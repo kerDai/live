@@ -9,31 +9,16 @@
     <link href="/center/reset.css" rel="stylesheet" type="text/css">
     <link href="/center/function.css" rel="stylesheet" type="text/css">
     <link href="/center/style.css" rel="stylesheet" type="text/css">
-    <link href="/center/userframe.css" rel="stylesheet" type="text/css">
     <script src="/center/hm.js"></script>
     <script src="/center/jquery.min.js"></script>
     <script src="/center/validform_v5.3.2_min.js"></script>
     <script src="/center/common.js"></script>
+
+    <link href="/center/userframe.css" rel="stylesheet" type="text/css">
     <script src="/center/validform_v5.3.2_min.js"></script>
     <script src="/center/layer.js"></script>
     <script src="/gotye/js/model/live.play.js"></script>
     <style>
-        .image-plus-box{
-            position: relative;
-            display: inline-block;
-        }
-
-        .image-plus{
-            font-size: 155px;
-            color: #fff;
-            position: absolute;
-            background: rgba(0,0,0,0.3) url('http://static.91fool.com.cn/passport/img/iconfont-plus.png') center no-repeat;
-            width: 100%;
-            height: 100%;
-            display: none;
-            cursor: pointer;
-        }
-
         .my-inputLists li {
             padding: 10px 0;
 
@@ -49,7 +34,7 @@
 
         .my-inputLists li em {
             display: inline-block;
-            width: 70px;
+            width: 64px;
             text-align: right;
             font-size: 14px;
             font-weight: 400;
@@ -125,8 +110,8 @@
             color: #d94432;
         }
     </style>
-    <link type="text/css" rel="stylesheet" href="../center/laydate.css">
-    <link type="text/css" rel="stylesheet" href="../center/laydate(1).css" id="LayDateSkin">
+    <link type="text/css" rel="stylesheet" href="/center/laydate.css">
+    <link type="text/css" rel="stylesheet" href="/center/laydate(1).css" id="LayDateSkin">
 </head>
 <body>
 <style>
@@ -254,15 +239,13 @@
         </div>
     </div>
 </div>
-
-
 <div class="g-doc">
     <div class="bread-crum">
         <a href="/index.html">首页</a> &gt; <span>个人中心</span>
-        &gt; 修改头像
+        &gt; 我的关注
     </div>
     <div class="cnt">
-        <form id="main_form" method="post" action="/user/update/avatar">
+        <form id="main_form" method="post" action="">
             <table class="cnt-bg">
                 <tbody>
                 <tr>
@@ -345,32 +328,47 @@
                                 <li class="side-title side-title1">账号设置</li>
                                 <li><a href="/member/center.html">个人资料</a></li>
                                 <li><a href="/member/password.html">修改密码</a></li>
-                                <li><a class="selected" href="/member/avatar.html">修改头像</a></li>
+                                <li><a href="/member/avatar.html">修改头像</a></li>
                                 <li class="split"></li>
                                 <li class="side-title side-title2">用户中心</li>
                                 <li><a href="/member/apply.html">申请成为播主</a></li>
                                 <div id="goLive"></div>
-                                <li><a href="/member/remember.html">我的关注</a></li>
+                                <li><a class="selected" href="/member/remember.html">我的关注</a></li>
                                 <li><a href="/member/quest.html">我的提问</a></li>
                             </ul>
                         </div>
                     </td>
                     <td class="cnt-right">
                         <div>
-                            <p class="cnt-title">修改头像</p>
-                            <div class="f-cb">
-                                <div class="f-fl my-upload-head">
-                                    <input type="hidden" name="avatar" id="avatar" value="">
-                                    <div class="image-plus-box">
-                                        <div class="image-plus" style="display: block;"></div>
-                                        <img src="/center/default-avatar.jpg" alt="" id="showAv" rel="avatar" class="am-img-thumbnail file-upload" style="height: 200px; width: 200px;">
-                                        <input type="hidden" id="id" name="id" value="">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="f-cb">
-                                <input class="u-btn" type="submit" value="保存">
-                            </div>
+                            <p class="cnt-title">紧急开发中，敬请期待！</p>
+                            <!--<ul class="my-inputLists">
+                                <li>
+                                    <em>手机</em>
+                                    <span id="mobile" style="margin-left: 0px;">13917466694</span>
+                                </li>
+                                <li>
+                                    <em>昵称</em>
+                                    <input type="text" value="" name="nickname" id="nickname" datatype="s2-10" errormsg="请正确填写昵称！" style="width: 140px;">
+                                    <span class="errSpan" style="display:none;"></span>
+                                </li>
+                                <li>
+                                    <em>头像</em>
+                                    <img id="avatar" style="height: 100px; width: 150px;">
+                                </li>
+                                <li>
+                                    <em>身份</em>
+                                    <span id="tag" style="margin-left: 0px;">主播</span>
+                                </li>
+                                <li>
+                                    <em style="display:none;">出生日期</em>
+                                    <input type="hidden" id="birthday" value="">
+                                    <input type="hidden" id="id" name="id" value="">
+                                </li>
+                                <li class="my-inputlist-last">
+                                    <em></em>
+                                    <input type="submit" class="u-btn" value="保 存" style="width: 140px;">
+                                </li>
+                            </ul>-->
                         </div>
                     </td>
                 </tr>
@@ -381,7 +379,6 @@
 </div>
 <script>
     $(function () {
-
         var users = Tool.getCookie("users");
         if(users == null){
             layer.msg("登录超时,请重新登录！", {
@@ -404,13 +401,21 @@
                         if(msg.data.tag == 1){
                             $('#goLive').html('<li><a class="" href="/member/start.html">发起直播</a></li>');
                         }
+                        //设置头像
                         if(msg.data.avatar != null){
                             $('#favorite').attr('src', msg.data.avatar);
+                            $('#avatar').attr('src', msg.data.avatar);
                         }else {
                             $('#favorite').attr('src', '/center/default-avatar.jpg');
+                            $('#avatar').attr('src', '/center/default-avatar.jpg');
                         }
-                        if(msg.data.avatar != null){
-                            $('#showAv').attr("src", msg.data.avatar);
+                        $('#nickname').val(nickname);
+                        $('#mobile').html(msg.data.mobile);
+                        
+                        if(msg.data.tag == 1){
+                            $('#tag').html("主播");
+                        }else {
+                            $('#tag').html("普通用户");
                         }
                     }else {
                         layer.msg("登录超时,请重新登录！", {
@@ -424,53 +429,6 @@
             });
         };
 
-        $(".image-plus-box").on("mouseover", function(){
-            $(this).find(".image-plus").show();
-        }).on("mouseout", function(){
-            $(this).find(".image-plus").hide();
-        }).on("click", function () {
-            var upload_host = "http://nupload.shagualicai.cn";
-            var img_obj = $(this).find(".file-upload");
-            var obj_id = img_obj.attr('rel');
-            var thislayer = layer.open({
-                type: 1,
-                title: '上传',
-                area: ['500px', '150px'],
-                shadeClose: true,
-                content: '<form id= "uploadForm' + obj_id + '" enctype="multipart/form-data" class="m-form" >' +
-                '<div style="padding: 15px;">' +
-                '<input type="file" name="file" style="height: 35px;line-height: 35px;font-size: 16px;">' +
-                '<input type="button" class="submit u-btn" value="上传"/>' +
-                '</div>' +
-                '<div style="padding: 0 20px 20px 20px;">提示：支持1M以下的gif,jpg,png等格式文件</div>' +
-                '</form>',
-                success: function (layero, index) {
-                    $("#uploadForm" + obj_id).find(".submit").click(function () {
-                        var formData = new FormData($("#uploadForm" + obj_id)[0]);
-                        $.ajax({
-                            url : '/upload',
-                            type: 'POST',
-                            data: formData,
-                            dataType: 'json',
-                            async: false,
-                            cache: false,
-                            contentType: false,
-                            processData: false,
-                            success: function (data) {
-                                layer.msg("上传成功");
-                                $("input[name="+obj_id+"]").val(data.url);
-                                img_obj.attr("src", data.url);
-                                layer.close(thislayer);
-                            },
-                            error: function (returndata) {
-                                layer.msg(returndata);
-                            }
-                        });
-                    });
-                }
-            });
-        });
-
         $("#siteUserId").on("mouseenter", function () {
             $(this).addClass("hover");
             $("#siteUserIdCnt").show();
@@ -478,8 +436,9 @@
         $("#siteUserIdCnt").on("mouseleave", function () {
             $("#siteUserIdCnt").hide();
             $("#siteUserId").removeClass("hover")
-        });
+        })
 
+        //退出
         $("#logoutId").click(function(){
             $.ajax({
                 type: "GET",
@@ -492,25 +451,6 @@
                 error: function(error){alert(error);}
             });
         });
-        $("#main_form").Validform({
-            ajaxPost: true,
-            callback: function (data) {
-                if(data.status == 200){
-                    layer.msg(data.message, {
-                        time: 2000
-                    }, function () {
-                    });
-                }else {
-                    layer.msg("登录超时,请重新登录！", {
-                        time: 2000
-                    }, function () {
-                        window.location.href='/index.html';
-                    });
-                }
-            }
-        });
-
-
     });
 </script>
 <div class="my-footer f-cb">
@@ -557,10 +497,10 @@
             <p>周一至周五&nbsp;8:30-18:00</p>
             <p class="f-mt15">在线客服小秘书QQ</p>
             <p class="f-mt5"><img src="/center/foot_qq.png"> <a
-                    href="http://wpa.qq.com/msgrd?v=3&amp;uin=353180316&amp;site=qq&amp;menu=yes" target="_blank">443561285</a>
+                    href="http://wpa.qq.com/msgrd?v=3&amp;uin=443561285&amp;site=qq&amp;menu=yes" target="_blank">443561285</a>
             </p>
             <p><img src="/center/foot_qq.png"> <a
-                    href="http://wpa.qq.com/msgrd?v=3&amp;uin=353180316&amp;site=qq&amp;menu=yes" target="_blank">2944920795</a>
+                    href="http://wpa.qq.com/msgrd?v=3&amp;uin=2944920795&amp;site=qq&amp;menu=yes" target="_blank">2944920795</a>
             </p>
         </div>
         <div class="f-fr f-tar">

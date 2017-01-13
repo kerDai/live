@@ -473,7 +473,7 @@ $(function(){
                         $('#siteUserId').html(nickname);
                         //判断是否主播
                         if(msg.data.tag == 1){
-                            $('#goLive').html('<li><a class="" href="/member/seeding.html">发起直播</a></li>');
+                            $('#goLive').html('<li><a class="" href="/member/start.html">发起直播</a></li>');
                         }
                         if(msg.data.avatar != null){
                             $('#favorite').attr('src', msg.data.avatar);

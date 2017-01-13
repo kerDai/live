@@ -11,7 +11,7 @@
 .studio-header .s-search input{width: 128px;float: left;height: 26px;line-height: 26px;border: none;}
 .studio-header .s-user-header{margin-right: 40px;}
 .studio-header .s-user-header img{display: block; width: 26px;height: 26px;margin-top: 12px;}
-.user-more{position: absolute;line-height: 35px;width: 120px;background-color: #fff;color: #626262;height: 108px;top: 56px;right: -14px;visibility: hidden;}
+.user-more{position: absolute;line-height: 35px;width: 120px;background-color: #fff;color: #626262;/*height: 108px;*/top: 56px;right: -14px;visibility: hidden;}
 .user-more a{color: #626262;}
 .user-more a:hover{color: #e0403f;}
 .user-more-icon{position: relative;right: -15px;top: auto;height: 60px;}

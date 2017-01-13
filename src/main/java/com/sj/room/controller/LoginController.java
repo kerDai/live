@@ -68,7 +68,8 @@ public class LoginController {
                 e.printStackTrace();
             }
         }
-        return "error";
+        String message = this.messageSource.getMessage("message.user.login.no", new Object[]{}, LocaleContextHolder.getLocale());
+        return new AjaxResponse(201, message);
     }
 
 

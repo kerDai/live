@@ -74,6 +74,27 @@ public class AnchorController {
         return new AjaxDataResponse<>(anchor);
     }
 
+    /**
+     * 修改房间标题
+     * @param anchor
+     * @param req
+     * @return
+     */
+    @PostMapping(value = "/title")
+    public Object updateRoomName(Anchor anchor, HttpServletRequest req){
+        User user = (User) req.getSession().getAttribute("loginSession");
+        if (user != null) {
+            Anchor obj = anchorService.findByUserId(user.getId());
+            if(obj != null){
+                anchorService.updateRoomName(user.getId(), obj.getId(), anchor.getRoomName());
+                return trueMessage(null);
+            }else {
+                String nodata = this.messageSource.getMessage("message.anchor.finduser.data", new Object[]{}, LocaleContextHolder.getLocale());
+                return new AjaxResponse(201, nodata);
+            }
+        }
+        return noLoginMessage();
+    }
 
     private Object noLoginMessage() {
         String error = this.messageSource.getMessage("message.user.login.error", new Object[]{}, LocaleContextHolder.getLocale());

@@ -90,17 +90,6 @@
         font-size: 14px;
     }
 
-    .my-site-search {
-        background: #fff url("http://static.91fool.com.cn/passport/img/img.png") no-repeat scroll 100% -446px;
-        display: block;
-        float: left;
-        height: 30px;
-        overflow: hidden;
-        width: 30px;
-        margin-left: -32px;
-        margin-top: 16px;
-    }
-
     .my-site-btn {
         background: url("http://static.91fool.com.cn/passport/img/repeater.jpg") repeat-x scroll 0 0;
         color: #fff;
@@ -272,7 +261,7 @@
                             <li class="split"></li>
                             <li class="side-title side-title2">用户中心</li>
                             <li><a href="/member/apply.html">申请成为播主</a></li>
-                            <li><a class="selected" href="/member/seeding.html">发起直播</a></li>
+                            <li><a class="selected" href="/member/start.html">发起直播</a></li>
                             <li><a href="/member/remember.html">我的关注</a></li>
                             <li><a href="/member/quest.html">我的提问</a></li>
                         </ul>
@@ -392,27 +381,26 @@
                 error: function(error){alert(error);}
             });
         });
-    });
 
-    $("#seeding").Validform({
-        ajaxPost: true,
-        callback: function (msg) {
-            if(msg.status == 200){
-                layer.msg("保存成功", {
-                    time: 1000
-                }, function () {
-                    window.location.href='/member/seeding.html';
-                });
-            }else {
-                layer.msg("登录超时,请重新登录！", {
-                    time: 2000
-                }, function () {
-                    window.location.href='/index.html';
-                });
+        $("#seeding").Validform({
+            ajaxPost: true,
+            callback: function (msg) {
+                if(msg.status == 200){
+                    layer.msg("保存成功", {
+                        time: 1000
+                    }, function () {
+                        window.location.href='/member/seeding-1.html';
+                    });
+                }else {
+                    layer.msg("登录超时,请重新登录！", {
+                        time: 2000
+                    }, function () {
+                        window.location.href='/index.html';
+                    });
+                }
             }
-        }
+        });
     });
-
 </script>
 <div class="my-footer f-cb">
     <div class="g-doc f-cb">

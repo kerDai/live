@@ -2,8 +2,10 @@ package com.sj.room.service.impl;
 
 import com.sj.room.entity.condition.AnchorCondition;
 import com.sj.room.entity.domain.Anchor;
+import com.sj.room.entity.domain.Live;
 import com.sj.room.entity.domain.LiveClassify;
 import com.sj.room.repository.AnchorRepository;
+import com.sj.room.repository.LiveRepository;
 import com.sj.room.repository.UserRepository;
 import com.sj.room.service.IAnchorService;
 import org.apache.commons.lang3.StringUtils;
@@ -14,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.criteria.*;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -31,6 +34,9 @@ public class AnchorServiceImpl implements IAnchorService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private LiveRepository liveRepository;
 
     @Override
     @Transactional
@@ -67,6 +73,20 @@ public class AnchorServiceImpl implements IAnchorService {
     @Transactional
     public void updateRoomNo(long id, String roomNo) {
         anchorRepository.updateRoomNo(id, roomNo);
+    }
+
+    @Override
+    public Anchor findByUserId(long userId) {
+        return anchorRepository.findByUserId(userId);
+    }
+
+    @Override
+    @Transactional
+    public void updateRoomName(long userId, long id, String roomNanme) {
+        anchorRepository.updateRoomName(id, roomNanme, new Date());
+        Live live = new Live();
+        live.setUserId(userId);
+        liveRepository.save(live);
     }
 
     private Specification<Anchor> toSpecification(final AnchorCondition cond) {
