@@ -334,39 +334,6 @@
                             </ul>
                         </div>
                     </td>
-                    <td class="cnt-right">
-                        <div>
-                            <p class="cnt-title">个人资料</p>
-                            <ul class="my-inputLists">
-                                <li>
-                                    <em>手机</em>
-                                    <span id="mobile" style="margin-left: 0px;">13917466694</span>
-                                </li>
-                                <li>
-                                    <em>昵称</em>
-                                    <input type="text" value="" name="nickname" id="nickname" datatype="s2-10" errormsg="请正确填写昵称！" style="width: 140px;">
-                                    <span class="errSpan" style="display:none;"></span>
-                                </li>
-                                <li>
-                                    <em>头像</em>
-                                    <img id="avatar" style="height: 100px; width: 150px;">
-                                </li>
-                                <li>
-                                    <em>身份</em>
-                                    <span id="tag" style="margin-left: 0px;">主播</span>
-                                </li>
-                                <li>
-                                    <em style="display:none;">出生日期</em>
-                                    <input type="hidden" id="birthday" value="">
-                                    <input type="hidden" id="id" name="id" value="">
-                                </li>
-                                <li class="my-inputlist-last">
-                                    <em></em>
-                                    <input type="submit" class="u-btn" value="保 存" style="width: 140px;">
-                                </li>
-                            </ul>
-                        </div>
-                    </td>
                 </tr>
                 </tbody>
             </table>
@@ -391,20 +358,7 @@
                 url:"/user/"+temp.id+"/findOne",
                 success: function(msg) {
                     if(msg.status == 200){
-                        var nickname = msg.data.nickname;
-                        $('#siteUserId').html(nickname);
-                        $('#nickname').val(nickname);
-                        $('#mobile').html(msg.data.mobile);
-                        if(msg.data.avatar != null){
-                            $('#avatar').attr('src', msg.data.avatar);
-                        }else {
-                            $('#avatar').attr('src', '/center/default-avatar.jpg');
-                        }
-                        if(msg.data.tag == 1){
-                            $('#tag').html("主播");
-                        }else {
-                            $('#tag').html("普通用户");
-                        }
+                        window.location.href='/member/admin/user.html';
                     }else {
                         layer.msg("登录超时,请重新登录！", {
                             time: 2000
@@ -425,34 +379,6 @@
             $("#siteUserIdCnt").hide();
             $("#siteUserId").removeClass("hover")
         })
-
-        $("#main_form").Validform({
-            ajaxPost: true,
-            tiptype: function (msg, o, cssctl) {
-                if (o.type == 2) {
-                    msgspan = o.obj.next();
-                    msgspan.text("");
-                    msgspan.hide();
-                } else {
-                    msgspan = o.obj.next();
-                    msgspan.text(msg);
-                    msgspan.show();
-                }
-            },
-            beforeSubmit: function (curform) {
-                var flag = true;
-                return flag;
-            },
-            callback: function (data) {
-                layer.msg(data.message, {
-                    time: 1000
-                }, function () {
-                    if (data.code == "1") {
-                        location.reload();
-                    }
-                });
-            }
-        });
 
         //退出
         $("#logoutId").click(function(){

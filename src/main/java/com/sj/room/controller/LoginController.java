@@ -104,7 +104,7 @@ public class LoginController {
     }
 
     @GetMapping(value = "/user/logout")
-    public Object logout(UserCondition condition, HttpServletRequest req, HttpServletResponse resp) throws Exception {
+    public Object logout(HttpServletRequest req, HttpServletResponse resp) throws Exception {
         //清除cookie
         CookiesUtil.clearCookie(req, resp, "users");
         CookiesUtil.clearCookie(req, resp, "headUrl");
