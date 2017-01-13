@@ -100,7 +100,9 @@ public class UserServiceImpl implements IUserService {
                 }
 
                 if (cond.getStatus() != null) {
-                    predicates.add(cb.equal(status, cond.getStatus()));
+                    if(cond.getStatus() != 0){
+                        predicates.add(cb.equal(status, cond.getStatus()));
+                    }
                 }
                 if (StringUtils.isNotBlank(cond.getMobile())) {
                     predicates.add(cb.equal(mobile, "%" + cond.getMobile() + "%"));

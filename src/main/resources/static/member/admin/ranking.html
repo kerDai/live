@@ -354,9 +354,9 @@
                                 <li class="split"></li>
                                 <li class="side-title side-title3">管理中心</li>
                                 <li><a href="/member/admin/user.html">用户记录</a></li>
-                                <li><a class="selected" href="/member/admin/anchor.html">主播管理</a></li>
+                                <li><a href="/member/admin/anchor.html">主播管理</a></li>
                                 <li><a href="/member/admin/check.html">主播审核</a></li>
-                                <li><a href="/member/admin/ranking.html">主播排名</a></li>
+                                <li><a class="selected" href="/member/admin/ranking.html">主播排名</a></li>
                                 <li><a href="/member/admin/class.html">直播分类</a></li>
                             </ul>
                         </div>
@@ -366,27 +366,20 @@
                             <p class="cnt-title">主播管理</p>
                             <div class="m-hd m-hd-rt m-hd-sl">
                                 <ul>
-                                    <li class="z-crt"><a href="/member/admin/anchor.html">全部主播</a></li>
+                                    <li class="z-crt"><a href="/member/admin/ranking.html">主播排名</a></li>
                                 </ul>
                             </div>
                             <table class="tactics-list">
                                     <tr>
-                                        <th style="width:300px;">日期</th>
                                         <th style="width:100px;">姓名</th>
                                         <th style="width:200px;">手机号</th>
-                                        <th style="width:150px;">性别/年龄</th>
-                                        <th style="width:150px;">直播类型</th>
-                                        <th style="width:150px;">房间号</th>
-                                        <!--<th style="width:250px;">机构公司</th>
-                                        <th style="width:180px;">职业/行龄</th>
-                                        <th style="width:350px;">个人简介</th>
-                                        <th style="width:350px;">申请理由</th>-->
+                                        <th style="width:150px;">累计收益</th>
+                                        <th style="width:150px;">最大回撤</th>
+                                        <th style="width:150px;">胜率</th>
                                         <th style="width:200px;">操作</th>
                                     </tr>
                                     <tbody id="checkValue">
-
                                     </tbody>
-
                             </table>
                             <div class="page"></div>
                         </div>
@@ -445,24 +438,26 @@
                     var html = '';
                     var data = msg.content;
                     $.each(data, function(index, obj){
-                        var sex;
-                        if(obj.sex == 1){
-                            sex = "男";
-                        }else {
-                            sex = "女";
+                        var totalProfit = '';
+                        var totalRetreat = '';
+                        var totalWin = '';
+                        if(obj.totalProfit != null){
+                            totalProfit = obj.totalProfit;
+                        }
+                        if(obj.totalRetreat != null){
+                            totalRetreat = obj.totalRetreat;
+                        }
+                        if(obj.totalWin != null){
+                            totalWin = obj.totalWin;
                         }
                         html += '<tr>'+
-                                '<td class="f-fs12">'+obj.createTime+'</td>'+
                                 '<td>'+obj.realName+'</td>'+
                                 '<td>'+obj.mobile+'</td>'+
-                                '<td>'+sex +'/'+obj.age+'</td>'+
-                                '<td>'+obj.liveClassify.title+'</td>'+
-                                '<td>'+obj.roomNo+'</td>'+
-                                /*'<td>'+obj.company+'</td>'+
-                                '<td>'+obj.job+'/'+obj.tradeAge+'</td>'+
-                                '<td>'+obj.profile+'</td>'+
-                                '<td>'+obj.reason+'</td>'+*/
-                                '<td class="f-cb"><button class="u-btn" style="width: 30px; font-size: 14px; padding: 0px 7px;" type="button" onclick="details(\'' + obj.id + '\')">详情</button></td>' +
+                                '<td><input type="hidden" name="id" id="id" value="'+obj.id+'">' +
+                                '<input style="border: 1px solid #ccc;font-size: 14px;line-height: 24px;padding: 2px 5px;width: 100px;" type="text" name="totalProfit" id="totalProfit'+index+'" value="'+totalProfit+'"></td>'+
+                                '<td><input style="border: 1px solid #ccc;font-size: 14px;line-height: 24px;padding: 2px 5px;width: 100px;" type="text" name="totalRetreat" id="totalRetreat'+index+'" value="'+totalRetreat+'"></td>'+
+                                '<td><input style="border: 1px solid #ccc;font-size: 14px;line-height: 24px;padding: 2px 5px;width: 100px;" type="text" name="totalWin" id="totalWin'+index+'" value="'+totalWin+'"></td>'+
+                                '<td class="f-cb"><button class="u-btn" style="width: 30px; font-size: 14px; padding: 0px 7px;" type="button" onclick="updateWin(\'' + obj.id + '\', \'' + index + '\')">更新</button></td>' +
                                 '</tr>';
                     });
                     $('#checkValue').html(html);
@@ -496,6 +491,33 @@
             });
         });
     });
+    
+    function updateWin(id, index) {
+        var profit = $('#totalProfit'+index).val();
+        var retreat = $('#totalRetreat'+index).val();
+        var win = $('#totalWin'+index).val();
+        $.ajax({
+            type: "POST",
+            url:"/anchor/update/total",
+            data:{'id':id, 'totalProfit': profit, 'totalRetreat': retreat,'totalWin':win},
+            success: function(msg) {
+                if(msg.status == 200){
+                    layer.msg(msg.message, {
+                        time: 2000
+                    }, function () {
+                        window.location.href='/member/admin/ranking.html';
+                    });
+                }else {
+                    layer.msg(msg.message, {
+                        time: 2000
+                    }, function () {
+                        window.location.href='/index.html';
+                    });
+                }
+            },
+            error: function(error){alert(error);}
+        });
+    }
 
 
 

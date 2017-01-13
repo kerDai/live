@@ -28,4 +28,6 @@ public interface IAnchorService {
     Anchor findByUserId(long userId);
 
     void updateRoomName(long userId, long id, String roomNanme);
+
+    void updateTotal(long id, String totalProfit, String totalRetreat, String totalWin);
 }

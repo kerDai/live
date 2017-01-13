@@ -147,7 +147,15 @@ $(function () {
             }else {
                 $('#profile').html("暂无简介");
             }
-
+            if(msg.data.totalProfit != null){
+                $('#totalProfit').html(msg.data.totalProfit);
+            }
+            if(msg.data.totalRetreat != null){
+                $('#totalLoss').html(msg.data.totalRetreat);
+            }
+            if(msg.data.totalWin != null){
+                $('#totalWin').html(msg.data.totalWin);
+            }
             if(msg.data.user.avatar != null){
                 $("#touxiang").attr('src', msg.data.user.avatar);
                 $("#touxiang1").attr('src', msg.data.user.avatar);
@@ -276,9 +284,9 @@ $(function () {
                     <div class="pro-bot">
                         <p class="f-fs12">累计收益
                         </p>
-                        <p class="f-fs32 f-ff3 f-mt20  f-cl-profit ">49.70<span class="f-fs26">%</span></p>
+                        <p class="f-fs32 f-ff3 f-mt20  f-cl-profit "><span id="totalProfit">00.00</span><span class="f-fs26">%</span></p>
                     </div>
-                    <p class="f-mt20">第2名</p>
+                    <!--<p class="f-mt20">第2名</p>-->
                 </div>
                 <div class="f-fl progress-box2">
                     <div class="pro-bot">
@@ -293,9 +301,9 @@ $(function () {
                                 </span>
                             </span>
                         </p>
-                        <p class="f-fs32 f-ff3 f-mt20  f-cl-loss">0.13<span class="f-fs26">%</span></p>
+                        <p class="f-fs32 f-ff3 f-mt20  f-cl-loss"><span id="totalLoss">00.00</span><span class="f-fs26">%</span></p>
                     </div>
-                    <p class="f-mt20">第14名</p>
+                    <!--<p class="f-mt20">第14名</p>-->
                 </div>
                 <div class="f-fl progress-box3">
                     <div class="pro-bot">
@@ -309,9 +317,9 @@ $(function () {
                                 </span>
                             </span>
                         </p>
-                        <p class="f-fs32 f-tac f-ff3 f-mt20  f-cl-profit  ">23.00<span class="f-fs26">%</span></p>
+                        <p class="f-fs32 f-tac f-ff3 f-mt20  f-cl-profit "><span id="totalWin">00.00</span><span class="f-fs26">%</span></p>
                     </div>
-                    <p class="f-mt20 f-tac">第33名</p>
+                    <!--<p class="f-mt20 f-tac">第33名</p>-->
                 </div>
             </div>
         </div>
@@ -319,9 +327,14 @@ $(function () {
     </div>
 </div>
 <script>
-    $(function(){
 
+    setTimeout(liveDetail(),10000);
+
+    $(function(){
         liveDetail();
+
+
+
 //        限制老师介绍的字数
         $(".t-brief-con").each(function(){
             var maxwidth=66;

@@ -37,8 +37,11 @@ public class Anchor  extends IdEntity {
 
     private String roomName;
 
-    //直播类型
-//    private Integer liveClassifyId;
+    //累计收益
+    private String totalProfit;
+    //
+    private String totalRetreat;
+    private String totalWin;
 
     @OneToOne(targetEntity = LiveClassify.class)
     @JoinColumn(name = "live_classify_sid", referencedColumnName = "id")
@@ -47,6 +50,30 @@ public class Anchor  extends IdEntity {
     @OneToOne(targetEntity = User.class)
     @JoinColumn(name = "live_user_sid", referencedColumnName = "id")
     private User user;
+
+    public String getTotalProfit() {
+        return totalProfit;
+    }
+
+    public void setTotalProfit(String totalProfit) {
+        this.totalProfit = totalProfit;
+    }
+
+    public String getTotalRetreat() {
+        return totalRetreat;
+    }
+
+    public void setTotalRetreat(String totalRetreat) {
+        this.totalRetreat = totalRetreat;
+    }
+
+    public String getTotalWin() {
+        return totalWin;
+    }
+
+    public void setTotalWin(String totalWin) {
+        this.totalWin = totalWin;
+    }
 
     public User getUser() {
         return user;

@@ -110,9 +110,7 @@
 <script>
     $(document).ready(function(){
         var users = Tool.getCookie("users");
-        if(users == null){
-            $('#loginV').html('<a target="_blank" href="" class="list-first">登录</a><a target="_blank" href="/register/register.html">免费注册</a>');
-        }else {
+        if(users != null){
             var obj = JSON.parse(users);
             var temp = JSON.parse(obj);
             $.ajax({
@@ -122,14 +120,15 @@
                     if(msg.status == 200){
                         var username = '<a target="_blank" href="" class="list-first f-cl1">'+msg.data.nickname+'</a>';
                         var center = '<a target="_blank" href="/member/center.html" class=""><u>个人管理中心</u></a>';
-                        var quit = '<a target="_blank" href="" id="logoutId" class="">退出</a>';
+                        var quit = '<a href="" onclick="logout();" class="">退出</a>';
+                        $('#loginV').html('');
                         $('#loginV').html(username + center + quit);
                     }else {
-                        $('#loginV').html('<a target="_blank" href="" class="list-first">登录</a><a target="_blank" href="/register/register.html">免费注册</a>');
                         layer.msg("登录超时,请重新登录！", {
                             time: 3000
                         }, function () {
 //                            window.location.href='/index.html';
+//                            location.reload();
                         });
                     }
                 },
@@ -174,25 +173,25 @@
             },
             error: function(error){alert(error);}
         });
-
-        $("#logoutId").click(function(){
-            $.ajax({
-                type: "GET",
-                url:"/user/logout",
-                success: function(msg) {
-                    if(msg.status == 200){
-//                        location.reload();
-                        document.location.reload();
-                    }
-                },
-                error: function(error){alert(error);}
-            });
-        });
     });
+
+    function logout() {
+        $.ajax({
+            type: "GET",
+            url:"/user/logout",
+            success: function(msg) {
+                if(msg.status == 200){
+                    window.location.href='/index.html';
+                }
+            },
+            error: function(error){alert(error);}
+        });
+    }
 </script>
 <div class="my-header">
     <div class="g-doc f-cb">
         <div class="f-fl my-header-list" id="loginV">
+            <a class="openlogin" href="" onclick="return false;" class="list-first">登录</a><a target="_blank" href="/register/register.html">免费注册</a>
         </div>
         <div class="f-fr my-header-list">
             <a target="_blank" href="http://www.shagualicai.cn/loadapp/loadapp.shtml" class="f-cl1"><img class="f-vam"

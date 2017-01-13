@@ -24,6 +24,10 @@ public interface AnchorRepository extends JpaRepository<Anchor, Long>, JpaSpecif
     void updateRoomNo(long id, String roomNo);
 
     @Modifying
+    @Query("update Anchor a set a.totalProfit=?2, a.totalRetreat=?3, a.totalWin=?4 where a.id = ?1")
+    void updateTotal(long id, String totalProfit, String totalRetreat, String totalWin);
+
+    @Modifying
     @Query("update Anchor a set  a.updateTime = ?3, a.roomName = ?2 where a.id = ?1")
     void updateRoomName(long id, String roomName, Date time);
 

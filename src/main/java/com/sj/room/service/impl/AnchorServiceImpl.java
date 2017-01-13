@@ -89,6 +89,12 @@ public class AnchorServiceImpl implements IAnchorService {
         liveRepository.save(live);
     }
 
+    @Override
+    @Transactional
+    public void updateTotal(long id, String totalProfit, String totalRetreat, String totalWin) {
+        anchorRepository.updateTotal(id, totalProfit, totalRetreat, totalWin);
+    }
+
     private Specification<Anchor> toSpecification(final AnchorCondition cond) {
         return new Specification<Anchor>() {
 

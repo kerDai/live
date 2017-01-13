@@ -96,6 +96,22 @@ public class AnchorController {
         return noLoginMessage();
     }
 
+    /**
+     * 更新主播排名
+     * @param anchor
+     * @param req
+     * @return
+     */
+    @PostMapping(value = "/update/total")
+    public Object updateTotal(Anchor anchor, HttpServletRequest req){
+        User user = (User) req.getSession().getAttribute("loginSession");
+        if (user != null) {
+            anchorService.updateTotal(anchor.getId(), anchor.getTotalProfit(), anchor.getTotalRetreat(), anchor.getTotalWin());
+            return trueMessage(null);
+        }
+        return noLoginMessage();
+    }
+
     private Object noLoginMessage() {
         String error = this.messageSource.getMessage("message.user.login.error", new Object[]{}, LocaleContextHolder.getLocale());
         return new AjaxResponse(999, error);

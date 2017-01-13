@@ -6,7 +6,8 @@
     <title>直播间</title>
 
     <meta name="keywords" content="上金理财，股市，股票，黄金，白银，期货，外汇，理财，投资，行情，独家，在线直播，直播，直播室，直播间">
-    <meta name="description" content="上金理财，中国最大，投资者交流，理财平台，券商分析师，民间投资高手，各路专家">
+    <meta name="description"
+          content="上金理财，中国最大，投资者交流，理财平台，券商分析师，民间投资高手，各路专家，为投资者提供全面、及时、到位的投资服务，并与高手一起把脉市场上投资理财产品，向你推荐，让你的财富实现更快、更安全的增值。">
     <link href="/center/favicon.ico" REL="shortcut icon" />
     <link href="index/reset.css" rel="stylesheet" type="text/css">
     <link href="index/function.css" rel="stylesheet" type="text/css">
@@ -14,18 +15,18 @@
     <script src="index/hm.js"></script>
     <script type="text/javascript" src="index/jquery.min.js"></script>
 
-    <link rel="stylesheet" type="text/css" href="/template/ue-content/templates/images/style.css" />
-    <link rel="stylesheet" type="text/css" href="/template/ue-content/templates/css/style.css" />
-    <script src="http://www.jq22.com/jquery/1.7.2/jquery.min.js"></script>
-    <script language="javascript" src="/script/jquery.easing.min.js"></script>
-    <script language="javascript" src="/script/custom.js"></script>
-
     <!--<link rel="stylesheet" href="index/layer.css" id="layui_layer_skinlayercss">-->
     <script type="text/javascript" src="index/validform_v5.3.2_min.js"></script>
     <script type="text/javascript" src="index/jquery.cookie.js"></script>
     <script type="text/javascript" src="index/common.js"></script>
     <script src="/center/layer.js"></script>
     <script src="/gotye/js/model/live.play.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="/template/ue-content/templates/images/style.css" />
+    <link rel="stylesheet" type="text/css" href="/template/ue-content/templates/css/style.css" />
+    <script src="http://www.jq22.com/jquery/1.7.2/jquery.min.js"></script>
+    <script language="javascript" src="/script/jquery.easing.min.js"></script>
+    <script language="javascript" src="/script/custom.js"></script>
 
 </head>
 <body>
@@ -45,7 +46,7 @@
             </div>
             <h3>
                 <span></span>
-                <span class="login_warning">用户名或密码错误</span>
+
                 <div class="clear"></div>
             </h3>
             <div class="clear"></div>
@@ -64,8 +65,9 @@
                     </div>
                     <div class="logcheckbox fl">
                         <!--<input id="bcdl" type="checkbox" checked="true" />
-
-                        保持登录--></div>
+                        保持登录-->
+                        <span class="login_warning" style="margin-left: 10px; margin-top: 25px;">用户名或密码错误</span>
+                    </div>
                     <div class="fr"><a href="http://www.jq22.com/">忘记密码?</a></div>
                     <div class="clear"></div>
                 </div>
@@ -159,9 +161,7 @@
 <script>
     $(document).ready(function(){
         var users = Tool.getCookie("users");
-        if(users == null){
-//            $('#loginV').html('<a class="openlogin" href="" onclick="return false;" class="list-first">登录</a><a target="_blank" href="/register/register.html">免费注册</a>');
-        }else {
+        if(users != null){
             var obj = JSON.parse(users);
             var temp = JSON.parse(obj);
             $.ajax({
@@ -171,11 +171,10 @@
                     if(msg.status == 200){
                         var username = '<a target="_blank" href="" class="list-first f-cl1">'+msg.data.nickname+'</a>';
                         var center = '<a target="_blank" href="/member/center.html" class=""><u>个人管理中心</u></a>';
-                        var quit = '<a href="" id="logoutId" class="">退出</a>';
+                        var quit = '<a href="" onclick="logout();" class="">退出</a>';
                         $('#loginV').html('');
                         $('#loginV').html(username + center + quit);
                     }else {
-//                        $('#loginV').html('<a class="openlogin" href="" onclick="return false;" class="list-first">登录</a><a target="_blank" href="/register/register.html">免费注册</a>');
                         layer.msg("登录超时,请重新登录！", {
                             time: 3000
                         }, function () {
@@ -196,28 +195,28 @@
                 if(msg.totalElements > 0){
                     var temp = '';
                     $.each(msg.content, function(i, item){
-                        var roomNO = "live/"+item.roomNo+"?index="+item.id+"&uid="+item.user.id;
+                        var roomNO = "live/"+item.roomNo;
                         var avatar = item.user.avatar;
                         if(avatar == null){
                             avatar = "/center/default-avatar.jpg";
                         }
                         temp += '<div class="rank-list-con-item f-cb">'+
-                                    '<a href="'+roomNO+'">'+
-                                        '<div class="rank-list-con-item-1">'+
-                                            '<img src="'+avatar+'">'+
-                                            '<p class="rank-list-con-name">' +
-                                                '<span>'+item.liveClassify.title+'</span>' +
-                                                '<i class="f-cl2">'+item.user.nickname+'</i>' +
-                                            '</p>'+
-                                            '<div class="rank-list-con-des">'+item.profile+'</div>'+
-                                        '</div>'+
-                                        '<div class="rank-list-con-item-2">'+
-                                            '<i class="f-fs14 f-cl2">'+item.roomName+'</i>'+
-                                        '</div>'+
-                                        '<div class="rank-list-con-item-3">'+
-                                            '<p class="f-mt10"><span class="f-cl1 f-fs20">正在直播</span></p>'+
-                                        '</div>'+
-                                    '</a>'+
+                                '<a href="'+roomNO+'">'+
+                                '<div class="rank-list-con-item-1">'+
+                                '<img src="'+avatar+'">'+
+                                '<p class="rank-list-con-name">' +
+                                '<span>'+item.liveClassify.title+'</span>' +
+                                '<i class="f-cl2">'+item.user.nickname+'</i>' +
+                                '</p>'+
+                                '<div class="rank-list-con-des">'+item.profile+'</div>'+
+                                '</div>'+
+                                '<div class="rank-list-con-item-2">'+
+                                '<i class="f-fs14 f-cl2">1月挑战锦囊特价抢购中</i>'+
+                                '</div>'+
+                                '<div class="rank-list-con-item-3">'+
+                                '<p class="f-mt10"><span class="f-cl1 f-fs20">正在直播</span></p>'+
+                                '</div>'+
+                                '</a>'+
                                 '</div>';
                     });
                     $('#liveList').html(temp);
@@ -226,31 +225,35 @@
             error: function(error){alert(error);}
         });
 
-        $("#logoutId").click(function(){
+        $('#loginBut').click(function(){
             $.ajax({
-                type: "GET",
-                url:"/user/logout",
+                type: "POST",
+                url:"/user/sign",
+                data:$('#sign').serialize(),// 要提交的表单
                 success: function(msg) {
                     if(msg.status == 200){
-//                        location.reload();
-//                        document.location.reload();
                         window.location.href='/index.html';
+                    }else {
+                        $('.login_warning').show();
                     }
                 },
                 error: function(error){alert(error);}
             });
         });
-
-
-//        $("#headerUser").on("mouseenter",function(){
-//            $(this).addClass("hover");
-//            $("#userInfoShow").show();
-//        });
-//        $("#userInfoShow").on("mouseleave",function(){
-//            $("#userInfoShow").hide();
-//            $("#headerUser").removeClass("hover")
-//        })
     });
+
+    function logout() {
+        $.ajax({
+            type: "GET",
+            url:"/user/logout",
+            success: function(msg) {
+                if(msg.status == 200){
+                    window.location.href='/index.html';
+                }
+            },
+            error: function(error){alert(error);}
+        });
+    }
 </script>
 <div class="my-header">
     <div class="g-doc f-cb">
@@ -258,11 +261,13 @@
             <a class="openlogin" href="" onclick="return false;" class="list-first">登录</a><a target="_blank" href="/register/register.html">免费注册</a>
         </div>
         <div class="f-fr my-header-list">
-            <a target="_blank" href="http://www.shagualicai.cn/loadapp/loadapp.shtml" class="f-cl1">
-                <img class="f-vam" src="index/phone-down.png">微信公众号</a>
-            <!--<a target="_blank" href="http://m.shagualicai.cn/">手机傻瓜理财</a>-->
-            <a target="_blank" href="http://passport.shagualicai.cn/public/login.shtml">帮助中心</a>
-            <a target="_blank" href="" class="list-last">客服<span class="f-fs16">010-53342637</span></a>
+            <a target="_blank" href="http://www.shagualicai.cn/loadapp/loadapp.shtml" class="f-cl1"><img class="f-vam"
+                                                                                                         src="index/phone-down.png">客户端</a>
+            <a target="_blank" href="http://m.shagualicai.cn/">手机傻瓜理财</a>
+            <a target="_blank" href="http://passport.shagualicai.cn/pay/help.shtml">金币充值</a>
+            <a target="_blank" href="http://passport.shagualicai.cn/public/login.shtml">充值帮助</a>
+            <a target="_blank" href="http://www.shagualicai.cn/rank/index-type-5.shtml#" class="list-last">客服<span
+                    class="f-fs16">010-53342637</span></a>
         </div>
     </div>
 </div>
@@ -283,6 +288,13 @@
 
     </div>
 </div>
+<style>
+    .stock-match {
+        position: relative;
+        bottom: 22px;
+        left: 0;
+    }
+</style>
 
 <div class="rank-list">
     <div class="g-doc f-cb">

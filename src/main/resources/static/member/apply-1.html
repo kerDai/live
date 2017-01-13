@@ -362,11 +362,19 @@
                 </td>
                 <!-- 右侧核心内容 -->
                 <td class="cnt-right">
-                    <p class="cnt-title">主播资料信息</p>
+                    <p class="cnt-title">主播资料信息（<span id="localUrl" style="color: #d94432"></span>）</p>
                     <div class="open-live-inner">
                         <div class="form">
                             <form name="apply" method="POST" id="apply">
                                 <ul class="my-inputLists">
+                                    <li>
+                                        <em><i class="f-c14">*</i>房间号</em>
+                                        <span id="roomNo"></span>
+                                    </li>
+                                    <li>
+                                        <em><i class="f-c14">*</i>房间网址</em>
+                                        <span id="localUrl1"></span>
+                                    </li>
                                     <li>
                                         <em><i class="f-c14">*</i>真实姓名</em>
                                         <span id="realName"></span>
@@ -567,6 +575,10 @@
                         $('#sex').html('女');
                     }
                     $('#age').html(msg.data.age);
+                    $('#roomNo').html(msg.data.roomNo);
+                    $('#localUrl').html("http://wenzi.tzzedu.com/live/"+msg.data.roomNo);
+                    var url = 'http://wenzi.tzzedu.com/live/'+msg.data.roomNo;
+                    $('#localUrl1').html('<a target="_blank" href="http://wenzi.tzzedu.com/live/'+msg.data.roomNo+'">'+url+'</a>');
                     $('#tradeAge').html(msg.data.tradeAge);
                     $('#email').html(msg.data.email);
                     $('#mobile').html(msg.data.mobile);

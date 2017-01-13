@@ -92,6 +92,7 @@ public class LoginController {
             return new AjaxResponse(201, message);
         }
         user.setNickname(condition.getNickname());
+        user.setStatus(0);
         User user1 = userService.save(user);
 
         String obj = mapper.writeValueAsString(user1);
