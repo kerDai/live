@@ -180,10 +180,9 @@
                         $('#loginV').html(username + center + quit);
                     }else {
                         layer.msg("登录超时,请重新登录！", {
-                            time: 3000
+                            time: 2000
                         }, function () {
-//                            window.location.href='/index.html';
-//                            location.reload();
+                            window.location.href='/index.html';
                         });
                     }
                 },

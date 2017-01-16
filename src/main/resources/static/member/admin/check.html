@@ -398,11 +398,7 @@
     $(function () {
         var users = Tool.getCookie("users");
         if(users == null){
-            layer.msg("登录超时,请重新登录！", {
-                time: 2000
-            }, function () {
-                window.location.href='/index.html';
-            });
+            window.location.href='/index.html';
         }else {
             var obj = JSON.parse(users);
             var temp = JSON.parse(obj);
@@ -484,7 +480,7 @@
                 url:"/user/logout",
                 success: function(msg) {
                     if(msg.status == 200){
-                        document.location.reload();
+                        window.location.href='/index.html';
                     }
                 },
                 error: function(error){alert(error);}
@@ -504,11 +500,7 @@
                         window.location.href='/member/admin/check.html';
                     });
                 }else {
-                    layer.msg("登录超时,请重新登录！", {
-                        time: 2000
-                    }, function () {
-                        window.location.href='/index.html';
-                    });
+                    window.location.href='/index.html';
                 }
             }
         })
@@ -526,11 +518,7 @@
                         window.location.href='/member/admin/check.html';
                     });
                 }else {
-                    layer.msg("登录超时,请重新登录！", {
-                        time: 2000
-                    }, function () {
-                        window.location.href='/index.html';
-                    });
+                    window.location.href='/index.html';
                 }
             }
         })
