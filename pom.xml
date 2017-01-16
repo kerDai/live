@@ -68,11 +68,11 @@
 			<version>3.4</version>
 		</dependency>
 
-		<dependency>
+	<!--	<dependency>
 			<groupId>com.alibaba</groupId>
 			<artifactId>druid</artifactId>
 			<version>1.0.18</version>
-		</dependency>
+		</dependency>-->
 
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
@@ -147,14 +147,14 @@
 
 	</dependencies>
 
-	<build>
+	<!--<build>
 		<plugins>
 
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin </artifactId>
 				<dependencies>
-					<!--springloaded  hot deploy -->
+					&lt;!&ndash;springloaded  hot deploy &ndash;&gt;
 					<dependency>
 						<groupId>org.springframework</groupId>
 						<artifactId>springloaded</artifactId>
@@ -179,6 +179,6 @@
 			</plugin>
 		</plugins>
 	</build>
-
+-->
 
 </project>

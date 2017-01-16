@@ -22,8 +22,59 @@
     <script src="/center/layer.js"></script>
     <script src="/gotye/js/model/live.play.js"></script>
 
+    <link rel="stylesheet" type="text/css" href="/template/ue-content/templates/images/style.css" />
+    <link rel="stylesheet" type="text/css" href="/template/ue-content/templates/css/style.css" />
+    <script src="http://www.jq22.com/jquery/1.7.2/jquery.min.js"></script>
+    <script language="javascript" src="/script/jquery.easing.min.js"></script>
+    <script language="javascript" src="/script/custom.js"></script>
+
 </head>
 <body>
+<div class="clear"></div>
+<div class="loginmask"></div>
+<div id="loginalert" style="top:50px;">
+    <div class="pd20 loginpd">
+        <h3>
+            <i class="closealert fr"></i>
+            <div class="clear"></div>
+        </h3>
+        <div class="loginwrap">
+            <div class="loginh">
+                <div class="fl">会员登录</div>
+                <div class="fr">还没有账号<a id="sigup_now" href="/register/register.html">立即注册</a></div>
+                <div class="clear"></div>
+            </div>
+            <h3>
+                <span></span>
+
+                <div class="clear"></div>
+            </h3>
+            <div class="clear"></div>
+            <form id="sign">
+                <div class="logininput">
+                    <input type="text" name="mobile" class="loginusername" value="用户名" />
+                    <input type="text" class="loginuserpasswordt" value="密码" />
+                    <input type="password" name="password" class="loginuserpasswordp" style="display:none" />
+                </div>
+                <div class="loginbtn">
+                    <div class="loginsubmit fl">
+                        <input type="button" id="loginBut" value="登录" />
+                        <div class="loginsubmiting">
+                            <div class="loginsubmiting_inner"></div>
+                        </div>
+                    </div>
+                    <div class="logcheckbox fl">
+                        <!--<input id="bcdl" type="checkbox" checked="true" />
+                        保持登录-->
+                        <span class="login_warning" style="margin-left: 10px; margin-top: 25px;">用户名或密码错误</span>
+                    </div>
+                    <div class="fr"><a href="http://www.jq22.com/">忘记密码?</a></div>
+                    <div class="clear"></div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 <style>
     .my-header {
         background-color: #f5f5f5;
@@ -118,10 +169,10 @@
                 url:"/user/"+temp.id+"/findOne",
                 success: function(msg) {
                     if(msg.status == 200){
+                        $('#loginV').html('');
                         var username = '<a target="_blank" href="" class="list-first f-cl1">'+msg.data.nickname+'</a>';
                         var center = '<a target="_blank" href="/member/center.html" class=""><u>个人管理中心</u></a>';
                         var quit = '<a href="" onclick="logout();" class="">退出</a>';
-                        $('#loginV').html('');
                         $('#loginV').html(username + center + quit);
                     }else {
                         layer.msg("登录超时,请重新登录！", {
@@ -132,7 +183,7 @@
                         });
                     }
                 },
-                error: function(error){alert(error);}
+                error: function(error){alert("1");}
             });
         }
 
@@ -144,7 +195,7 @@
                 if(msg.totalElements > 0){
                     var temp = '';
                     $.each(msg.content, function(i, item){
-                        var roomNO = "live/"+item.roomNo;
+                        var roomNO = "live/"+item.roomNo+"?index="+item.id+"&uid="+item.user.id;
                         var avatar = item.user.avatar;
                         if(avatar == null){
                             avatar = "/center/default-avatar.jpg";
@@ -160,7 +211,7 @@
                                 '<div class="rank-list-con-des">'+item.profile+'</div>'+
                                 '</div>'+
                                 '<div class="rank-list-con-item-2">'+
-                                '<i class="f-fs14 f-cl2">1月挑战锦囊特价抢购中</i>'+
+                                '<i class="f-fs14 f-cl2">'+item.roomName+'</i>'+
                                 '</div>'+
                                 '<div class="rank-list-con-item-3">'+
                                 '<p class="f-mt10"><span class="f-cl1 f-fs20">正在直播</span></p>'+
@@ -171,9 +222,24 @@
                     $('#liveList').html(temp);
                 }
             },
-            error: function(error){alert(error);}
+            error: function(error){alert("2");}
         });
 
+        $('#loginBut').click(function(){
+            $.ajax({
+                type: "POST",
+                url:"/user/sign",
+                data:$('#sign').serialize(),// 要提交的表单
+                success: function(msg) {
+                    if(msg.status == 200){
+                        window.location.href='/index.html';
+                    }else {
+                        $('.login_warning').show();
+                    }
+                },
+                error: function(error){alert("3");}
+            });
+        });
     });
 
     function logout() {
@@ -185,7 +251,7 @@
                     window.location.href='/index.html';
                 }
             },
-            error: function(error){alert(error);}
+            error: function(error){alert("4");}
         });
     }
 </script>
@@ -249,14 +315,14 @@
                 </a>
             </div>
 
-            <div class="rank-list-nav-item cur">
+            <div class="rank-list-nav-item">
                 <a href="gold.html">
                     <em class="f-ti pic3">黄金</em>
                     <span>黄金</span>
                 </a>
             </div>
 
-            <div class="rank-list-nav-item">
+            <div class="rank-list-nav-item cur">
                 <a href="silver.html">
                     <em class="f-ti pic4">白银</em>
                     <span>白银</span>
@@ -308,48 +374,6 @@
         </div>
     </div>
 
-</div>
-<div class="side-bar">
-    <ul>
-        <li class="side-pay">
-            <a target="_blank" href="http://passport.shagualicai.cn/pay/recharge.shtml">金币充值</a>
-        </li>
-        <li class="side-m">
-            <div class="side-m-box">
-                <em></em>
-                <p>手机傻瓜理财</p>
-                <span></span>
-            </div>
-        </li>
-        <li class="side-m side-wei">
-            <div class="side-m-box">
-                <em></em>
-                <p>关注官方微信</p>
-                <span></span>
-            </div>
-        </li>
-        <li class="side-sina">
-            <a>新浪微博</a>
-        </li>
-        <li class="side-qq">
-            <div class="side-qq-outer">
-                <div class="side-qq-box">
-                    <em></em>
-                    <a target="_blank" class="side-qq1"
-                       href="http://wpa.qq.com/msgrd?v=3&amp;uin=443561285&amp;site=qq&amp;menu=yes"></a>
-                    <a target="_blank"
-                       href="http://wpa.qq.com/msgrd?v=3&amp;uin=2944920795&amp;site=qq&amp;menu=yes"></a>
-                </div>
-            </div>
-
-        </li>
-        <li class="side-back">
-            <a target="_blank" href="http://www.shagualicai.cn/about?tab=6">意见反馈</a>
-        </li>
-        <li class="side-top">
-            <a>返回顶部</a>
-        </li>
-    </ul>
 </div>
 <script>
     $(function () {

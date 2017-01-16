@@ -169,10 +169,10 @@
                 url:"/user/"+temp.id+"/findOne",
                 success: function(msg) {
                     if(msg.status == 200){
+                        $('#loginV').html('');
                         var username = '<a target="_blank" href="" class="list-first f-cl1">'+msg.data.nickname+'</a>';
                         var center = '<a target="_blank" href="/member/center.html" class=""><u>个人管理中心</u></a>';
                         var quit = '<a href="" onclick="logout();" class="">退出</a>';
-                        $('#loginV').html('');
                         $('#loginV').html(username + center + quit);
                     }else {
                         layer.msg("登录超时,请重新登录！", {
@@ -195,7 +195,7 @@
                 if(msg.totalElements > 0){
                     var temp = '';
                     $.each(msg.content, function(i, item){
-                        var roomNO = "live/"+item.roomNo;
+                        var roomNO = "live/"+item.roomNo+"?index="+item.id+"&uid="+item.user.id;
                         var avatar = item.user.avatar;
                         if(avatar == null){
                             avatar = "/center/default-avatar.jpg";
@@ -211,7 +211,7 @@
                                 '<div class="rank-list-con-des">'+item.profile+'</div>'+
                                 '</div>'+
                                 '<div class="rank-list-con-item-2">'+
-                                '<i class="f-fs14 f-cl2">1月挑战锦囊特价抢购中</i>'+
+                                '<i class="f-fs14 f-cl2">'+item.roomName+'</i>'+
                                 '</div>'+
                                 '<div class="rank-list-con-item-3">'+
                                 '<p class="f-mt10"><span class="f-cl1 f-fs20">正在直播</span></p>'+
@@ -374,48 +374,6 @@
         </div>
     </div>
 
-</div>
-<div class="side-bar">
-    <ul>
-        <li class="side-pay">
-            <a target="_blank" href="http://passport.shagualicai.cn/pay/recharge.shtml">金币充值</a>
-        </li>
-        <li class="side-m">
-            <div class="side-m-box">
-                <em></em>
-                <p>手机傻瓜理财</p>
-                <span></span>
-            </div>
-        </li>
-        <li class="side-m side-wei">
-            <div class="side-m-box">
-                <em></em>
-                <p>关注官方微信</p>
-                <span></span>
-            </div>
-        </li>
-        <li class="side-sina">
-            <a>新浪微博</a>
-        </li>
-        <li class="side-qq">
-            <div class="side-qq-outer">
-                <div class="side-qq-box">
-                    <em></em>
-                    <a target="_blank" class="side-qq1"
-                       href="http://wpa.qq.com/msgrd?v=3&amp;uin=443561285&amp;site=qq&amp;menu=yes"></a>
-                    <a target="_blank"
-                       href="http://wpa.qq.com/msgrd?v=3&amp;uin=2944920795&amp;site=qq&amp;menu=yes"></a>
-                </div>
-            </div>
-
-        </li>
-        <li class="side-back">
-            <a target="_blank" href="http://www.shagualicai.cn/about?tab=6">意见反馈</a>
-        </li>
-        <li class="side-top">
-            <a>返回顶部</a>
-        </li>
-    </ul>
 </div>
 <script>
     $(function () {
