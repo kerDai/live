@@ -17,6 +17,8 @@ public interface IUserService {
 
     User findOne(Long id);
 
+    User findByMobile(String mobile);
+
 
     /**
      * 修改用户身份

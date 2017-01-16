@@ -124,9 +124,9 @@
                                        tabindex="4" style="width:167px" data-valid="isNonEmpty||isInt"
                                        data-error="验证码不能为空||请输入6位数字验证码"/>
                                 <span class="btn btn-gray f-r3 f-ml5 f-size13" id="time_box" disabled
-                                      style="width:97px;display:none;">发送验证码</span>
+                                      style="width:97px;display:none;">1234</span>
                                 <span class="btn btn-gray f-r3 f-ml5 f-size13" id="verifyYz"
-                                      style="width:97px;">发送验证码</span>
+                                      style="width:97px;">1234</span>
                                 <span class="ie8 icon-close close hide" style="right:130px"></span>
                                 <label class="icon-sucessfill blank hide"></label>
                                 <label class="focus"><span>请查收手机短信，并填写短信中的验证码（此验证码3分钟内有效）</span></label>
@@ -194,6 +194,9 @@
                                 window.location.href = "/index.html";
                             }
                         });
+                    }else {
+                        alert(msg.message);
+                        window.location.href = "/register/register.html";
                     }
                 },
                 error: function(error){alert(error);}

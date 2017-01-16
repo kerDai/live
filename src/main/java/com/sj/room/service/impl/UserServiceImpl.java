@@ -43,6 +43,11 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
+    public User findByMobile(String mobile) {
+        return userRepository.findByMobile(mobile);
+    }
+
+    @Override
     @Transactional
     public void updateTag(Integer tag, Long id) {
         userRepository.updateTag(tag, id);

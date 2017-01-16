@@ -9,6 +9,7 @@ import com.sj.room.entity.condition.UserCondition;
 import com.sj.room.entity.domain.User;
 import com.sj.room.service.ILoginService;
 import com.sj.room.service.IUserService;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -83,25 +84,30 @@ public class LoginController {
      */
     @PostMapping(value = "/user/register")
     public Object register(UserCondition condition, HttpServletRequest req, HttpServletResponse resp) throws Exception {
-        User user = new User();
-        user.setMobile(condition.getMobile());
-        if(condition.getPassword().equals(condition.getRePassword())){
-            user.setPassword(EncryptUtil.encrypt(condition.getPassword()));
-        }else {
-            String message = this.messageSource.getMessage("message.user.register.password", new Object[]{}, LocaleContextHolder.getLocale());
-            return new AjaxResponse(201, message);
+        User temp = userService.findByMobile(condition.getMobile());
+        if(temp == null){
+            User user = new User();
+            user.setMobile(condition.getMobile());
+            if(condition.getPassword().equals(condition.getRePassword())){
+                user.setPassword(EncryptUtil.encrypt(condition.getPassword()));
+            }else {
+                String message = this.messageSource.getMessage("message.user.register.password", new Object[]{}, LocaleContextHolder.getLocale());
+                return new AjaxResponse(201, message);
+            }
+            user.setNickname(condition.getNickname());
+            user.setStatus(0);
+            User user1 = userService.save(user);
+
+            String obj = mapper.writeValueAsString(user1);
+            CookiesUtil.setCookie(resp, "users", obj);
+            CookiesUtil.setCookie(resp, "headUrl", user.getAvatar());
+            CookiesUtil.setCookie(resp, "nickname", URLEncoder.encode(user.getNickname(), "UTF-8"));
+            req.getSession().setAttribute("loginSession", user);
+
+            return new AjaxResponse();
         }
-        user.setNickname(condition.getNickname());
-        user.setStatus(0);
-        User user1 = userService.save(user);
-
-        String obj = mapper.writeValueAsString(user1);
-        CookiesUtil.setCookie(resp, "users", obj);
-        CookiesUtil.setCookie(resp, "headUrl", user.getAvatar());
-        CookiesUtil.setCookie(resp, "nickname", URLEncoder.encode(user.getNickname(), "UTF-8"));
-        req.getSession().setAttribute("loginSession", user);
-
-        return new AjaxResponse();
+        String error = this.messageSource.getMessage("message.anchor.register.repeat", new Object[]{}, LocaleContextHolder.getLocale());
+        return new AjaxResponse(201, error);
     }
 
     @GetMapping(value = "/user/logout")
