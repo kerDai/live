@@ -171,7 +171,11 @@
                     if(msg.status == 200){
                         $('#loginV').html('');
                         var username = '<a target="_blank" href="" class="list-first f-cl1">'+msg.data.nickname+'</a>';
-                        var center = '<a target="_blank" href="/member/center.html" class=""><u>个人管理中心</u></a>';
+                        if(msg.data.mobile == "admin"){
+                            var center = '<a target="_blank" href="/member/admin.html" class=""><u>个人管理中心</u></a>';
+                        }else {
+                            var center = '<a target="_blank" href="/member/center.html" class=""><u>个人管理中心</u></a>';
+                        }
                         var quit = '<a href="" onclick="logout();" class="">退出</a>';
                         $('#loginV').html(username + center + quit);
                     }else {
@@ -255,37 +259,19 @@
         });
     }
 </script>
-<div class="my-header">
-    <div class="g-doc f-cb">
-        <div class="f-fl my-header-list" id="loginV">
-            <a class="openlogin" href="" onclick="return false;" class="list-first">登录</a><a target="_blank" href="/register/register.html">免费注册</a>
-        </div>
-        <div class="f-fr my-header-list">
-            <a target="_blank" href="http://www.shagualicai.cn/loadapp/loadapp.shtml" class="f-cl1"><img class="f-vam"
-                                                                                                         src="index/phone-down.png">客户端</a>
-            <a target="_blank" href="http://m.shagualicai.cn/">手机傻瓜理财</a>
-            <a target="_blank" href="http://passport.shagualicai.cn/pay/help.shtml">金币充值</a>
-            <a target="_blank" href="http://passport.shagualicai.cn/public/login.shtml">充值帮助</a>
-            <a target="_blank" href="http://www.shagualicai.cn/rank/index-type-5.shtml#" class="list-last">客服<span
-                    class="f-fs16">010-53342637</span></a>
-        </div>
-    </div>
-</div>
 <div class="head-nav">
     <div class="g-doc">
-        <ul class="head-nav-list f-cb">
-            <li><a target="_blank" href="/index.html">首页</a></li>
-            <li><a target="_blank" href="/index.html" class="cur">直播</a></li>
-            <!--
-			<li><a target="_blank" href="http://www.shagualicai.cn/video/index.shtml">视频讲堂</a></li>
-            <li><a target="_blank" href="http://lcb.shagualicai.cn/">理财宝</a></li>
-            <li><a target="_blank" href="http://www.shagualicai.cn/course.shtml">课程</a></li>
-            <li><a target="_blank" href="http://www.shagualicai.cn/investor/newsflash.shtml">快讯</a></li>
-            <li><a target="_blank" href="http://www.shagualicai.cn/investor.shtml">内参</a></li>
-            <li><a class="stock-match" target="_blank" href="http://www.shagualicai.cn/stockmatch.shtml">
-			-->
+        <div class="g-doc f-cb">
+            <div class="f-fr my-header-list" id="loginV">
+                <a class="openlogin" href="" onclick="return false;" class="list-first">登录</a><a target="_blank" href="/register/register.html">免费注册</a>
+            </div>
+        </div>
+        <ul class="head-nav-list f-cb" style="margin-top: -38px;">
+            <li>
+                <img src="index/foot-logo.png" alt="">
+            </li>
+            <li><a target="_blank" href="/index.html" class="cur" style="line-height: 73px; margin-left: 15px;">直播</a></li>
         </ul>
-
     </div>
 </div>
 <style>
@@ -344,33 +330,7 @@
                 <li>状态</li>
             </ul>
             <span id="liveList">
-                <!--<div class="rank-list-con-item f-cb">
-                    <a href="live/239138">
-                        <div class="rank-list-con-item-1">
-                            <img src="index/140814010117602393">
-                            <p class="rank-list-con-name"><span>白银</span><i class="f-cl2">魅仙儿炒股秘籍</i></p>
-                            <div class="rank-list-con-des">专挖翻倍牛股 ，慧眼看大盘，精准判点位，狙击涨停板。实盘操作. . .</div>
-                        </div>
-                        <div class="rank-list-con-item-2">
-                            <i class="f-fs14 f-cl2">1月挑战锦囊特价抢购中</i>
-                        </div>
-                        <div class="rank-list-con-item-3">
-                            <p class="f-mt10"><span class="f-cl1 f-fs20">正在直播</span></p>
-                        </div>
-                    </a>
-                </div>
-                -->
             </span>
-
-            <!--<div class="m-page">
-                <div>
-                    <span class="current">1</span>
-                    <a class="num" href="http://www.shagualicai.cn/rank/index-type-5-p-2.shtml">2</a>
-                    <a class="num" href="http://www.shagualicai.cn/rank/index-type-5-p-3.shtml">3</a>
-                    <a class="num" href="http://www.shagualicai.cn/rank/index-type-5-p-4.shtml">4</a>
-                    <a class="next" href="http://www.shagualicai.cn/rank/index-type-5-p-2.shtml">下一页</a>
-                </div>
-            </div>-->
         </div>
     </div>
 
@@ -394,77 +354,24 @@
         });
     });
 </script>
-<div class="my-footer f-cb">
-    <div class="g-doc f-cb">
-        <div class="f-fl f-tac">
-            <i class="icon icon1"></i>
-            <h2>帮助中心</h2>
-            <p><a href="">如何注册</a></p>
-            <p><a href="">如何充值</a></p>
-            <p><a href="">修改密码</a></p>
-            <p><a href="">如何提问</a></p>
-            <p><a href="">如何送礼</a></p>
-            <p><a href="">股市讲堂</a></p>
-        </div>
-        <div class="f-fl f-tac">
-            <i class="icon icon2"></i>
-            <h2>安全保障</h2>
-            <p><a href="">资金安全</a></p>
-            <p><a href="">信息安全</a></p>
-            <p><a href="">交易安全</a></p>
-        </div>
-        <div class="f-fl f-tac">
-            <i class="icon icon3"></i>
-            <h2>关注我们</h2>
-            <p><a href="http://widget.weibo.com/dialog/follow.php?fuid=5249093745" target="_blank">新浪微博</a></p>
-            <p><a>官方微信</a></p>
-            <p class="f-mt10"><img src="index/foot-weixin.jpg" alt="微信二维码"></p>
-        </div>
-        <div class="f-fl f-tac">
-            <i class="icon icon4"></i>
-            <h2>了解傻瓜理财</h2>
-            <p><a href="">公司介绍</a></p>
-            <p><a href="">合作伙伴</a></p>
-            <p><a href="">招聘信息</a></p>
-            <p><a href="">商务合作</a></p>
-            <p><a href="">联系我们</a></p>
-            <p><a href="">投诉建议</a></p>
-        </div>
-        <div class="f-fl f-tal hot-line">
-            <h2>全国客服热线</h2>
-            <p><span class="f-fs20">010</span><span class="f-fs24">-53342637</span></p>
-            <p>商务合作</p>
-            <p>010-53342639</p>
-            <p>周一至周五&nbsp;8:30-18:00</p>
-            <p class="f-mt15">在线客服小秘书QQ</p>
-            <p class="f-mt5"><img alt="客服QQ" src="index/foot-qq.png"> <a
-                    href="http://wpa.qq.com/msgrd?v=3&amp;uin=443561285&amp;site=qq&amp;menu=yes" target="_blank">443561285</a>
-            </p>
-            <p><img alt="客服QQ" src="index/foot-qq.png"> <a
-                    href="http://wpa.qq.com/msgrd?v=3&amp;uin=2944920795&amp;site=qq&amp;menu=yes" target="_blank">2944920795</a>
-            </p>
-        </div>
-        <div class="f-fr f-tar">
-            <p><a href=""><img src="index/foot-logo.png" alt="傻瓜理财logo"></a></p>
-            <p>傻瓜理财所载文章、数据仅供参考,</p>
-            <p>使用前请仔细阅读法律声明，风险自负。 </p>
-            <p>Copyright©2015 shagualicai.cn</p>
-            <p>All Rights Reserved</p>
-            <p><a href="http://www.miibeian.gov.cn/" target="_blank">京ICP备 14036695号</a></p>
-        </div>
-    </div>
+<div class="my-footer f-cb" style="border-top: 1px #999 solid; width: 1090px; margin: 0 auto;">
+    <div style="font-size:14px;text-align:center">@2016-2017 版权所有 牛牛直播,最专业的财经直播</div>
 </div>
 <div style="background: #fff;">
     <div class="g-doc f-tac my-bottom">
         <span>权威机构安全认证</span>
-        <a href="" target="_blank"><img src="index/report1.jpg" alt="北京互联网举报中心"></a>
-        <a href="" target="_blank"><img src="index/report2.jpg" alt="不良信息举报中心"></a>
-        <a href="" target="_blank"><img
-                src="index/report3.jpg" alt="360网站安全检测"></a>
-        <a href="" target="_blank"><img src="index/report4.jpg"
-                                        alt="网信认证"></a>
-        <a href="" target="_blank"><img src="index/report5.jpg"
-                                        alt="诚信网站"></a>
+        <a href="javascript:void(0)" target="_blank">
+            <img src="index/report2.jpg" alt="不良信息举报中心">
+        </a>
+        <a href="javascript:void(0)" target="_blank">
+            <img src="index/report3.jpg" alt="360网站安全检测">
+        </a>
+        <a href="javascript:void(0)" target="_blank">
+            <img src="index/report4.jpg" alt="网信认证">
+        </a>
+        <a href="javascript:void(0)" target="_blank">
+            <img src="index/report5.jpg" alt="诚信网站">
+        </a>
     </div>
 </div>
 
@@ -492,7 +399,6 @@
         })()
     })
 </script>
-
 
 </body>
 </html>

@@ -2,7 +2,7 @@
 .bg-grey{background: #52586e /*url('../img/sutdio/bg/2.jpg')*/  no-repeat fixed top center;}
 .bg-white{background: #fff;}
 /* studio-header */
-.studio-header{color: #fff;min-width: 1280px;height: 49px;line-height: 50px;background-color: #52586e; border-bottom:  1px solid rgba(255, 255, 255, 0.3);}
+.studio-header{color: #fff;min-width: 1280px;height: 49px;line-height: 50px;background-color: #ca974e; border-bottom:  1px solid rgba(255, 255, 255, 0.3);}
 .studio-header a{color: #fff;}
 .studio-header .s-logo img{display: block; width: 84px;height: 30px;}
 .studio-header ul li{display: inline-block;float: left;padding: 0 15px;}
@@ -19,7 +19,7 @@
 .user-more i{position: absolute;width: 12px;height: 6px;background-position: 0 -126px;top: -6px;left: 96px;}
 .s-user-header:hover .user-more{visibility: visible;}
 /* studio-banner */
-.studio-banner{color: #fff;padding-top: 10px; height: auto;padding-bottom: 60px;}
+.studio-banner{background: #29210e; color: #fff;padding-top: 10px; height: auto;padding-bottom: 60px;}
 .studio-banner .s-banner-mid{width: 1190px;margin: auto;}
 .studio-banner .s-t-brief{width: 490px;}
 .studio-banner .s-t-brief .u-btn{width: 100px;height: 30px;padding: 0;border-radius: 2px;}
@@ -36,7 +36,7 @@
 .studio-banner .progress{width: 56px;height: 56px;position: relative;top: 0;right: 5px; /*background-image: url("studionew.png");background-position: 0px -35px;*/text-align: center;line-height: 63px;}
 .studio-banner .progress span{position: absolute;left: 45%;top: 0%;display: none;}
 .studio-banner .progress-box1{width: 130px;height: 127px;}
-.studio-banner .progress-box2{width: 130px;height: 127px;padding-left: 30px;}
+.studio-banner .progress-box2{width: 115px;height: 127px;padding-left: 30px;}
 .studio-banner .progress-box3{width: 140px;height: 127px;text-align: right;}
 .studio-banner .pro-bot{width: 100%;border-right: 1px solid #9aa1b8;margin-top: 15px;}
 .studio-banner .progress-box3 .pro-bot{border-right: none;}
