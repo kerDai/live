@@ -14,7 +14,7 @@ import javax.persistence.Table;
  * Time: 14:37
  */
 @Entity
-@Table(name = "sj_user")
+@Table(name = "sj_wenzi_user")
 public class User extends IdEntity {
 
     private static final long serialVersionUID = -5179498387222264177L;

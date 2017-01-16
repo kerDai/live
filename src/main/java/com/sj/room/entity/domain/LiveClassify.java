@@ -12,7 +12,7 @@ import javax.persistence.Table;
  * Time: 11:56
  */
 @Entity
-@Table(name = "sj_live_classify")
+@Table(name = "sj_wenzi_live_classify")
 public class LiveClassify extends IdEntity{
 
     private static final long serialVersionUID = -4169265002502610978L;

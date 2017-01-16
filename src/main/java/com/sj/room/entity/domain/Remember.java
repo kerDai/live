@@ -13,7 +13,7 @@ import javax.persistence.Table;
  * Time: 14:34
  */
 @Entity
-@Table(name = "sj_remember")
+@Table(name = "sj_wenzi_remember")
 public class Remember extends IdEntity {
 
     //关注人

@@ -13,7 +13,7 @@ import java.util.Set;
  * Time: 11:51
  */
 @Entity
-@Table(name = "sj_live")
+@Table(name = "sj_wenzi_live")
 public class Live extends IdEntity{
 
     private static final long serialVersionUID = 2249003552028217678L;

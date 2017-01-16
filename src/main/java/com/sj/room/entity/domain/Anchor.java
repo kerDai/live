@@ -11,7 +11,7 @@ import javax.persistence.*;
  * Time: 13:47
  */
 @Entity
-@Table(name = "sj_anchor")
+@Table(name = "sj_wenzi_anchor")
 public class Anchor  extends IdEntity {
 
     private static final long serialVersionUID = -8723264167417988266L;

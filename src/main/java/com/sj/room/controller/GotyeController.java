@@ -280,7 +280,7 @@ public class GotyeController {
 				req.setContentDesc("内容描述");
 				req.setThirdRoomId(RandomUtils.getRandomFileName());
 				req.setCreator(anchor.getRealName());
-				req.setMaxOnlineNum(200);
+				req.setMaxOnlineNum(0);
 				req.setFirstIndustry("金融");
 				req.setSecondIndustry("财经");
 				reqJson = mapper.writeValueAsString(req);

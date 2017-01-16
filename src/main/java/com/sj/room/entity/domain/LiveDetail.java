@@ -13,7 +13,7 @@ import java.util.Date;
  * Date: 2016/12/15  15:07
  */
 @Entity
-@Table(name = "sj_live_detail")
+@Table(name = "sj_wenzi_live_detail")
 public class LiveDetail extends IdEntity {
 
     private static final long serialVersionUID = -4837121847186917652L;
