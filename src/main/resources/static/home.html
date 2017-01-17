@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<!-- saved from url=(0049)http://www.shagualicai.cn/live/index-sid-31.shtml -->
 <html lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -47,6 +46,53 @@
     <script src="/gotye/js/model/chat.js"></script>
     <script src="/gotye/js/model/live.play.js"></script>
 
+    <!--<script src="/room_files/labelauty.js"></script>-->
+    <style>
+
+
+        .rdolist, .chklist {
+            display: none;
+        }
+
+        .rdobox, .chkbox {
+            display: inline-block;
+            padding: 7px;
+            height: 16px;
+            line-height: 16px;
+            background: #eee;
+            border-radius: 3px;
+            color: #666;
+            font-family: 'Microsoft YaHei';
+        }
+
+        .check-image {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            margin-top: -4px;
+            background: url(/room_files/input-unchecked.png) no-repeat;
+            vertical-align: middle;
+        }
+
+        .unchecked {
+            background: #ECF0F1;
+            color: #666;
+            transition-property: background;
+            transition-delay: 0s;
+            transition-duration: .1s;
+            transition-timing-function: linear;
+        }
+
+        .unchecked:hover {
+            background: #dedfe0;
+        }
+
+        .checked {
+            background: #3498DB;
+            color: #fff;
+        }
+
+    </style>
 </head>
 <body class="bg-grey">
 <div class="clear"></div>
@@ -107,6 +153,7 @@
     var users = Tool.getCookie("users");
 
     $(function () {
+        $(".rdolist").labelauty("rdolist");
         liveDetail();
         if (users == null) {
             $('#grzx').hide();
@@ -231,33 +278,39 @@
     });
 
     function liveDetail() {
+        var sort = $('input:radio[name="rdo"]:checked').val();
         $.ajax({
             type: "GET",
             url: "/live/" + usid + "/exist",
 //            data: {username:$("#username").val(), content:$("#content").val()},
+            data: {sort: sort},
             dataType: "json",
             success: function (data) {
                 $('#resText').empty();   //清空resText里面的所有内容
                 var html = '';
-                $.each(data.data, function (index, obj) {
-                    html += '<div class="f-mt15 talk-item s-border-bot" data-id="' + index + '">' +
-                            '<p>' +
-                            '<span class="f-cl0 f-ff3 f-fs18 ctime">' + obj.createTime + '</span>' +
-                            '</p>' +
-                            '<div class="talk-item-txt">' +
-                            '<div style=""><p>' + obj.content + '</p></div>' +
-                            '</div>' +
-                            '</div>';
-                });
+                if (typeof(data.data) != "undefined"){
+                    $.each(data.data, function (index, obj) {
+                        html += '<div class="f-mt15 talk-item s-border-bot" data-id="' + index + '">' +
+                                '<p>' +
+                                '<span class="f-cl0 f-ff3 f-fs18 ctime">' + obj.createTime.substring(10) + '</span>' +
+                                '</p>' +
+                                '<div class="talk-item-txt">' +
+                                '<div style=""><p>' + obj.content + '</p></div>' +
+                                '</div>' +
+                                '</div>';
+                    });
+                }
                 $('#resText').html(html);
             }
         });
     }
 
     setInterval(function () {
+        var sort = $('input:radio[name="rdo"]:checked').val();
         $.ajax({
             type: "GET",
             url: "/live/" + usid + "/exist",
+            data: {sort: sort},
             dataType: "json",
             success: function (data) {
                 $('#resText').empty();   //清空resText里面的所有内容
@@ -265,7 +318,7 @@
                 $.each(data.data, function (index, obj) {
                     html += '<div class="f-mt15 talk-item s-border-bot" data-id="' + index + '">' +
                             '<p>' +
-                            '<span class="f-cl0 f-ff3 f-fs18 ctime">' + obj.createTime + '</span>' +
+                            '<span class="f-cl0 f-ff3 f-fs18 ctime">' + obj.createTime.substring(10) + '</span>' +
                             '</p>' +
                             '<div class="talk-item-txt">' +
                             '<div style=""><p>' + obj.content + '</p></div>' +
@@ -275,7 +328,7 @@
                 $('#resText').html(html);
             }
         });
-    }, 10000);
+    }, 20000);
 </script>
 
 <div class="for-shadow"></div><!-- shadow-bg-->
@@ -286,18 +339,11 @@
         </div>
         <ul class="f-fl">
             <li><a href="/index.html">首页</a></li>
-            <!-- <li><a href="http://www.shagualicai.cn/video.shtml">视频讲堂</a></li>
-             <li><a href="http://lcb.shagualicai.cn/">理财宝</a></li>
-             <li><a href="http://www.shagualicai.cn/course.shtml">课程</a></li>
-             <li><a href="http://www.shagualicai.cn/investor/newsflash.shtml">快讯</a></li>
-             <li><a href="http://www.shagualicai.cn/investor.shtml">内参</a></li>-->
         </ul>
     </div>
     <div class="f-fr f-cb f-mr20 f-fs12">
         <ul class="f-fl">
-            <!--<li><a href="http://www.shagualicai.cn/loadapp/loadapp.shtml" target="_blank">下载客户端</a></li>
-            <li><a href="http://passport.shagualicai.cn/pay/recharge.shtml" target="_blank">金币充值</a></li>-->
-            <li><a href="http://www.shagualicai.cn/help.shtml" target="_blank">帮助中心</a></li>
+            <!--<li><a href="" target="_blank">帮助中心</a></li>-->
         </ul>
         <p class="f-fl">
             客服：<span class="f-fs16">010-53342637</span>
@@ -496,14 +542,24 @@
         <div class="s-tab-box f-cb">
             <ul class="f-fl">
                 <li class="cur"><span style="color: red; font-size: 18px;">直播</span></li>
-                <li><span style="color: #626262;" id="titleRoom"></span></li>
-                <li><a href="http://www.shagualicai.cn/live/vip-sid-31.shtml">倒序</a></li>
-                <!-- <li><a href="http://www.shagualicai.cn/live/vip-sid-31.shtml">VIP直播</a></li>
-                <li><a href="http://www.shagualicai.cn/live/answers-sid-31.shtml">问答</a></li>
-                <li><a href="http://www.shagualicai.cn/live/course-sid-31.shtml">课程</a></li>
-                <li><a href="http://www.shagualicai.cn/live/taclist-sid-31.shtml">策略</a></li>
-                <li><a href="http://www.shagualicai.cn/live/video-sid-31-type-video.shtml">视频</a></li>
-                <li><a href="http://www.shagualicai.cn/live/selfintro-sid-31.shtml">个人介绍</a></li> -->
+                <li style="margin-left: 0px;">
+                    <div class="rdo">
+                        <!--男生-->
+                        <input type="radio" name="rdo" class="rdolist" checked="checked" value="0"/>
+                        <label class="rdobox">
+                            <span class="check-image"></span>
+                            <span class="radiobox-content" style="font-size: 10px;">正序</span>
+                        </label>
+                        <!--女生-->
+                        <input type="radio" name="rdo" class="rdolist" value="1"/>
+                        <label class="rdobox">
+                            <span class="check-image"></span>
+                            <span class="radiobox-content" style="font-size: 10px;">倒序</span>
+                        </label>
+                    </div>
+                    <!--<input type="checkbox">倒序 &nbsp;&nbsp;<input type="checkbox">正序-->
+                </li>
+                <li><span style="color: #626262; font-weight: bold;" id="titleRoom"></span></li>
             </ul>
             <div class="f-fr f-cb">
                 <div class="f-fl f-cb short-show" style="display: none;">
@@ -557,16 +613,6 @@
                         <div class="talk-item-txt studio-grey-tip">
                             [content]
                         </div>
-                        <!-- 视频直播
-                        <div class="talk-item-txt studio-grey-tip">
-                            <div class="f-cb">
-                                <div class="f-fl video-msg-icon"></div>
-                                <div class="f-fl f-ml10">
-                                    <p class="f-fs18"><span class="f-cl8 f-mr10">宇辉战舰</span>开始视频直播<a class="f-cl3">《K线短线买卖点》</a></p>
-                                </div>
-                            </div>
-                        </div>
-                        -->
                     </div>
                 </div>
 
@@ -591,7 +637,7 @@
                     </p>
                 </div>
                 <div class="f-fr">
-                    <span class="f-cl7">刷新：<img src="/center/refresh.png" style="height: 22px; width: 25px;"></span><i
+                    <span class="f-cl7">刷新：<a href="javascript:void(0)" onclick="liveDetail();"><img src="/center/refresh.png" style="height: 22px; width: 25px;"></a></span><i
                         class="sound-icon" id="sound"></i>
                     <audio id="myAudio" controls="controls" preload="auto" style="display: none">
                         <source src="http://static.91fool.com.cn/www/img/sound/tip.mp3" type="audio/mp3">
@@ -869,61 +915,11 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
-
         </div>
-        <script>
-            $(function () {
-                setInterval(function () {
-                    var first_gift = $('.gift-list-zone li:first-child');
-                    var giftLen = $('.gift-list-zone li').length;
-                    if (giftLen > 0) {
-//                $('.gift-animate-box').css('display','block');
-                        var addObject = $('<div class="animating-gift">' + first_gift.html() + '</div>');
-                        $('.animate-zone').append(addObject);
-                        setTimeout(function () {
-                            addObject.remove();
-                        }, 1400);
-                        first_gift.html('<div style="height: 90px;"></div>');
-                        first_gift.hide(800, function () {
-                            setTimeout(function () {
-                                first_gift.remove();
-                            }, 3000);
-                        });
-                    } else {
-//                $('.gift-animate-box').css('display','none');
-                    }
-                }, 300);
-            });
-        </script>
-        <div class="galaxy-float"></div>
-        <script>
-            $(function () {
-                $(".txtScroll-top").slide({
-                    mainCell: ".bd ul",
-                    effect: "top",
-                    autoPlay: true,
-                    vis: 5,
-                    triggerTime: 150,
-                    interTime: 3000,
-                });
-            });
-
-            $('.pack-up').on('click', function () {
-                $('.galaxy').hide();
-                $('.galaxy-float').show();
-            });
-            $('.galaxy-float').on('click', function () {
-                $('.galaxy-float').hide();
-                $('.galaxy').show();
-            });
-        </script>
     </div>
 </div>
-<!-- 消息提示框 -->
-<!--{ include block/live/newsremindbox.html }-->
 <div class="my-footer f-cb" style="border-top: 1px #999 solid; width: 1090px; margin: 0 auto;">
     <div style="font-size:14px;text-align:center">@2016-2017 版权所有 牛牛直播,最专业的财经直播&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;客服电话：400-1088-197</div>
 </div>
@@ -946,6 +942,39 @@
 </div>
 
 <script type="text/javascript" src="/room_files/room_user.js"></script>
+<script>
 
+    (function ($) {
+        $.fn.labelauty = function (tag) {
+
+            //判断是否选中
+            rdochecked(tag);
+
+            //单选
+            $(".rdobox").click(function () {
+                $(this).prev().prop("checked", "checked");
+                rdochecked("rdolist");
+                liveDetail();
+            });
+
+            //判断是否选中
+            function rdochecked(tag) {
+                $('.' + tag).each(function (i) {
+                    var rdobox = $('.' + tag).eq(i).next();
+                    if ($('.' + tag).eq(i).prop("checked") == false) {
+                        rdobox.removeClass("checked");
+                        rdobox.addClass("unchecked");
+                        rdobox.find(".check-image").css("background", "url(/room_files/input-unchecked.png)");
+                    }
+                    else {
+                        rdobox.removeClass("unchecked");
+                        rdobox.addClass("checked");
+                        rdobox.find(".check-image").css("background", "url(/room_files/input-checked.png)");
+                    }
+                });
+            }
+        }
+    }(jQuery));
+</script>
 </body>
 </html>

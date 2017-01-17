@@ -9,6 +9,7 @@ import com.sj.room.entity.domain.User;
 import com.sj.room.entity.dto.LiveDetailDTO;
 import com.sj.room.service.ILiveDetailService;
 import com.sj.room.service.ILiveService;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,10 +71,16 @@ public class LiveController {
      * @return
      */
     @RequestMapping(value = "/{userId}/exist", method= RequestMethod.GET)
-    public Object isExist(@PathVariable long userId){
+    public Object isExist(@PathVariable long userId, String sort, HttpServletRequest req){
         Live live = liveService.findTodayLive(userId);
         if(live != null){
-            List<LiveDetail> detailList = liveDetailService.getListToday(live.getId());
+            if(StringUtils.isNotBlank(sort)){
+                if(sort.equals("1")){
+                    List<LiveDetail> detailList = liveDetailService.getListTodayAsc(live.getId());
+                    return new AjaxDataResponse(detailList);
+                }
+            }
+            List<LiveDetail> detailList = liveDetailService.getListTodayDesc(live.getId());
             return new AjaxDataResponse(detailList);
         }
         return new AjaxResponse();
@@ -85,7 +92,7 @@ public class LiveController {
         if (user != null) {
             Live live = liveService.findTodayLive(user.getId());
             if(live != null){
-                List<LiveDetail> detailList = liveDetailService.getListToday(live.getId());
+                List<LiveDetail> detailList = liveDetailService.getListTodayDesc(live.getId());
                 return new AjaxDataResponse(detailList);
             }
             return new AjaxDataResponse(null);

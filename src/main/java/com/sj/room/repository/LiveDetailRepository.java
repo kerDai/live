@@ -15,7 +15,9 @@ import java.util.List;
 public interface LiveDetailRepository extends JpaRepository<LiveDetail, Long>, JpaSpecificationExecutor<LiveDetail> {
 
     @Query("select detail from LiveDetail detail where to_days(detail.createTime) = to_days(NOW()) and detail.liveId = ?1 order by detail.createTime desc")
-    List<LiveDetail> getListToday(Long userId);
+    List<LiveDetail> getListTodayDesc(Long userId);
 
+    @Query("select detail from LiveDetail detail where to_days(detail.createTime) = to_days(NOW()) and detail.liveId = ?1 order by detail.createTime asc")
+    List<LiveDetail> getListTodayAsc(Long userId);
 }
 

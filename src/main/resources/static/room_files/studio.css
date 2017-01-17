@@ -56,7 +56,7 @@
 .time-tip{display: none; position: absolute;top: -15px;left: 25px;height: 30px;line-height: 30px; padding-left: 5px; z-index: 1;background-position:3px -133px;background-repeat: no-repeat;text-align: center;}
 .traingle-hover{display: inline-block;position: absolute;left: 0px;top: 15px;z-index: 3; width: 18px;height: 12px;background: url("studionew.png");background-repeat:  no-repeat;background-position:  0 -234px;}
 /*studio-main*/
-.studio-main{min-width: 1190px;background-color: rgba(230, 230, 230, 1.0);padding-bottom: 50px;}
+.studio-main{min-width: 1190px;background-color: rgba(230, 230, 230, 1.0);padding-bottom: 0px;}
 
 .studio-main .s-main-mid{width: 1190px; height: 830px; margin: auto;background-color: #fff;/*border-top: 1px solid #e8e8e8;*/position: relative;top: -52px;}
 .studio-main .s-main-mid-fff{height: auto;}

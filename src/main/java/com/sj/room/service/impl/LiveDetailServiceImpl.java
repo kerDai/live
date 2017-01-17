@@ -29,7 +29,12 @@ public class LiveDetailServiceImpl implements ILiveDetailService{
     }
 
     @Override
-    public List<LiveDetail> getListToday(Long liveId) {
-        return liveDetailRepository.getListToday(liveId);
+    public List<LiveDetail> getListTodayDesc(Long liveId) {
+        return liveDetailRepository.getListTodayDesc(liveId);
+    }
+
+    @Override
+    public List<LiveDetail> getListTodayAsc(Long liveId) {
+        return liveDetailRepository.getListTodayAsc(liveId);
     }
 }

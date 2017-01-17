@@ -17,6 +17,8 @@ public interface ILiveDetailService {
 
     Page<LiveDetail> findPage(LiveDetailCondition condition);
 
-    List<LiveDetail> getListToday(Long liveId);
+    List<LiveDetail> getListTodayDesc(Long liveId);
+
+    List<LiveDetail> getListTodayAsc(Long liveId);
 
 }
