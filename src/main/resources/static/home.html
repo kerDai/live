@@ -299,6 +299,11 @@
                                 '</div>' +
                                 '</div>';
                     });
+                }else {
+                    html = '<div>' +
+                            '<img src="/room_files/LiveEnd.png" alt="" style="    float: left;margin-bottom: 60px;margin-left: 40px;margin-top: 120px">' +
+                            '<p style="color: #999;float: left;font-size: 30px;line-height: 55px;margin-left: 20px; margin-top: 190px;">主播还在赶往直播室的路上，<br> 请稍后再来~</p>' +
+                            '</div>';
                 }
                 $('#resText').html(html);
             }
@@ -315,16 +320,23 @@
             success: function (data) {
                 $('#resText').empty();   //清空resText里面的所有内容
                 var html = '';
-                $.each(data.data, function (index, obj) {
-                    html += '<div class="f-mt15 talk-item s-border-bot" data-id="' + index + '">' +
-                            '<p>' +
-                            '<span class="f-cl0 f-ff3 f-fs18 ctime">' + obj.createTime.substring(10) + '</span>' +
-                            '</p>' +
-                            '<div class="talk-item-txt">' +
-                            '<div style=""><p>' + obj.content + '</p></div>' +
-                            '</div>' +
+                if (typeof(data.data) != "undefined"){
+                    $.each(data.data, function (index, obj) {
+                        html += '<div class="f-mt15 talk-item s-border-bot" data-id="' + index + '">' +
+                                '<p>' +
+                                '<span class="f-cl0 f-ff3 f-fs18 ctime">' + obj.createTime.substring(10) + '</span>' +
+                                '</p>' +
+                                '<div class="talk-item-txt">' +
+                                '<div style=""><p>' + obj.content + '</p></div>' +
+                                '</div>' +
+                                '</div>';
+                    });
+                }else {
+                    html = '<div>' +
+                            '<img src="/room_files/LiveEnd.png" alt="" style="    float: left;margin-bottom: 60px;margin-left: 40px;margin-top: 120px">' +
+                            '<p style="color: #999;float: left;font-size: 30px;line-height: 55px;margin-left: 20px; margin-top: 190px;">主播还在赶往直播室的路上，<br> 请稍后再来~</p>' +
                             '</div>';
-                });
+                }
                 $('#resText').html(html);
             }
         });
@@ -346,7 +358,7 @@
             <!--<li><a href="" target="_blank">帮助中心</a></li>-->
         </ul>
         <p class="f-fl">
-            客服：<span class="f-fs16">010-53342637</span>
+            客服电话：<span class="f-fs16">400-1088-197</span>
         </p>
         <div class="s-user-header f-ml20 f-fl" id="denglu">
             <p class="f-fl">

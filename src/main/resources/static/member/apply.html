@@ -403,19 +403,19 @@
                                     </li>
                                     <li>
                                         <em><i class="f-c14">*</i>股龄</em>
-                                        <input type="text" name="tradeAge" datatype="*" nullmsg="股龄不能为空">
-                                        <span class="errSpan"></span>
-                                    </li>
-                                    <li>
-                                        <em>邮箱</em>
-                                        <input type="input" name="email" datatype="e" ignore="ignore"
-                                               errormsg="邮箱账号格式不正确">
+                                        <input type="text" datatype="n1-2" name="tradeAge" nullmsg="股龄不能为空">
                                         <span class="errSpan"></span>
                                     </li>
                                     <li>
                                         <em><i class="f-c14">*</i>移动电话</em>
                                         <input type="text" name="mobile" datatype="m" nullmsg="手机号码不能为空"
                                                errormsg="请输入正确的手机号码"><span class="errSpan"></span>
+                                    </li>
+                                    <li>
+                                        <em>邮箱</em>
+                                        <input type="input" name="email" datatype="e" ignore="ignore"
+                                               errormsg="邮箱账号格式不正确">
+                                        <span class="errSpan"></span>
                                     </li>
                                     <li>
                                         <em><i class="f-c14">*</i>QQ</em>
@@ -456,9 +456,9 @@
                                         <textarea name="reason"></textarea>
                                     </li>
                                     <li><em></em>郑重声明:本人保证以上所填资料属实，否则一切后果愿意自负</li>
-                                    <li><em></em><input type="checkbox" name="rules" class="f-mr10"
-                                                        checked="">本人已阅读并同意<a target="_blank" class="f-cl3"
-                                                                              href="">《直播间守则》</a>
+                                    <li><em></em>
+                                        <input type="checkbox" name="rules" class="f-mr10" checked="">本人已阅读并同意
+                                        <a class="f-cl3" href="javascript:void(0)">《直播间协议》</a>
                                     </li>
                                     <li><em></em>
                                         <input style="width: 60px;" class="u-btn" type="submit" value="提交">

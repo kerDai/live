@@ -179,12 +179,12 @@
                         var quit = '<a href="" onclick="logout();" class="">退出</a>';
                         $('#loginV').html(username + center + quit);
                     }else {
-                        layer.msg("登录超时,请重新登录！", {
-                            time: 3000
-                        }, function () {
+//                        layer.msg("登录超时,请重新登录！", {
+//                            time: 3000
+//                        }, function () {
 //                            window.location.href='/index.html';
 //                            location.reload();
-                        });
+//                        });
                     }
                 },
                 error: function(error){alert(error);}
@@ -224,6 +224,11 @@
                                 '</div>';
                     });
                     $('#liveList').html(temp);
+                }else {
+                    $('#liveList').html('<div>' +
+                            '<img src="/room_files/LiveEnd.png" alt="" style="    float: left;margin-bottom: 60px;margin-left: 40px;margin-top: 120px">' +
+                            '<p style="color: #999;float: left;font-size: 30px;line-height: 55px;margin-left: 20px; margin-top: 190px;">主播还在赶往直播室的路上，<br> 请稍后再来~</p>' +
+                            '</div>');
                 }
             },
             error: function(error){alert(error);}
