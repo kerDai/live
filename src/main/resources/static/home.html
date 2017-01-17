@@ -1,19 +1,21 @@
 <!DOCTYPE html>
 <!-- saved from url=(0049)http://www.shagualicai.cn/live/index-sid-31.shtml -->
-<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
     <title>直播-至柔若水-傻瓜理财</title>
-    
+
     <meta name="keywords" content="金运激光,恒生电子,炒股不输诀窍,中短结合,个股压力,支撑,顺势而为,至柔若水,市场热点,股市直播,实时直播,文字直播,大盘解析">
     <meta name="description" content="崇尚顺势而为的投资之道，精准把握大势。善于捕捉市场热点，精确分析个股压力支撑，追求大概率的稳健获利。">
-    <link href="/center/favicon.ico" REL="shortcut icon" />
+    <link href="/center/favicon.ico" REL="shortcut icon"/>
     <link href="/room_files/reset.css" rel="stylesheet" type="text/css">
     <link href="/room_files/function.css" rel="stylesheet" type="text/css">
     <link href="/room_files/style.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="/room_files/layer.css" id="layui_layer_skinlayercss">
 
-    <link rel="stylesheet" type="text/css" href="/template/ue-content/templates/images/style.css" />
-    <link rel="stylesheet" type="text/css" href="/template/ue-content/templates/css/style.css" />
+    <link rel="stylesheet" type="text/css" href="/template/ue-content/templates/images/style.css"/>
+    <link rel="stylesheet" type="text/css" href="/template/ue-content/templates/css/style.css"/>
     <script src="http://www.jq22.com/jquery/1.7.2/jquery.min.js"></script>
     <script language="javascript" src="/script/jquery.easing.min.js"></script>
     <script language="javascript" src="/script/custom.js"></script>
@@ -69,13 +71,13 @@
             <div class="clear"></div>
             <form id="sign">
                 <div class="logininput">
-                    <input type="text" name="mobile" class="loginusername" value="用户名" />
-                    <input type="text" class="loginuserpasswordt" value="密码" />
-                    <input type="password" name="password" class="loginuserpasswordp" style="display:none" />
+                    <input type="text" name="mobile" class="loginusername" value="用户名"/>
+                    <input type="text" class="loginuserpasswordt" value="密码"/>
+                    <input type="password" name="password" class="loginuserpasswordp" style="display:none"/>
                 </div>
                 <div class="loginbtn">
                     <div class="loginsubmit fl">
-                        <input type="button" id="loginBut" value="登录" />
+                        <input type="button" id="loginBut" value="登录"/>
                         <div class="loginsubmiting">
                             <div class="loginsubmiting_inner"></div>
                         </div>
@@ -96,120 +98,184 @@
     function getUrlParam(name) {
         var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
         var r = window.location.search.substr(1).match(reg);  //匹配目标参数
-        if (r != null) return unescape(r[2]); return null; //返回参数值
+        if (r != null) return unescape(r[2]);
+        return null; //返回参数值
     }
     var uuid = getUrlParam('index');
     var usid = getUrlParam('uid');
 
     var users = Tool.getCookie("users");
-$(function () {
-    if(users == null){
-        $('#grzx').hide();
-    }else {
-        var obj = JSON.parse(users);
-        var temp = JSON.parse(obj);
+
+    $(function () {
+        liveDetail();
+        if (users == null) {
+            $('#grzx').hide();
+        } else {
+            var obj = JSON.parse(users);
+            var temp = JSON.parse(obj);
+            $.ajax({
+                type: "GET",
+                url: "/user/" + temp.id + "/findOne",
+                success: function (msg) {
+                    if (msg.status == 200) {
+                        $('#grzx').show();
+                        $('#denglu').hide();
+                        var nickname = msg.data.nickname;
+                        $('#nicknameV').html(nickname);
+                        if (msg.data.mobile == "admin") {
+                            $('#dgzVal').html('<a href="/member/admin.html">个人管理中心</a>')
+                        } else {
+                            $('#dgzVal').html('<a href="/member/center.html">个人管理中心</a>')
+                        }
+                        if (msg.data.avatar != null) {
+                            $("#avatar").attr('src', msg.data.avatar);
+                        } else {
+                            $("#avatar").attr('src', '/center/default-avatar.jpg');
+                        }
+                    } else {
+                        $('#grzx').hide();
+                    }
+                },
+                error: function (error) {
+                    alert(error);
+                }
+            });
+        }
+        ;
+
         $.ajax({
             type: "GET",
-            url:"/user/"+temp.id+"/findOne",
-            success: function(msg) {
-                if(msg.status == 200){
-                    $('#grzx').show();
-                    $('#denglu').hide();
-                    var nickname = msg.data.nickname;
-                    $('#nicknameV').html(nickname);
-                    if(msg.data.mobile == "admin"){
-                        $('#dgzVal').html('<a href="/member/admin.html">个人管理中心</a>')
-                    }else {
-                        $('#dgzVal').html('<a href="/member/center.html">个人管理中心</a>')
-                    }
-                    if(msg.data.avatar != null){
-                        $("#avatar").attr('src', msg.data.avatar);
-                    } else {
-                        $("#avatar").attr('src', '/center/default-avatar.jpg');
-                    }
-                }else {
-                    $('#grzx').hide();
+            url: "/anchor/" + uuid + "/findOne",
+            success: function (msg) {
+                var nickname = msg.data.user.nickname;
+                $('#yonghuming').html(nickname);
+                $('#yonghuming1').html(nickname);
+                $('#titleRoom').html(msg.data.roomName);
+                $('#roomNo').html(msg.data.roomNo);
+                if (msg.data.profile != null) {
+                    $('#profile').html(msg.data.profile);
+                } else {
+                    $('#profile').html("暂无简介");
+                }
+                if (msg.data.totalProfit != null) {
+                    $('#totalProfit').html(msg.data.totalProfit);
+                }
+                if (msg.data.totalRetreat != null) {
+                    $('#totalLoss').html(msg.data.totalRetreat);
+                }
+                if (msg.data.totalWin != null) {
+                    $('#totalWin').html(msg.data.totalWin);
+                }
+                if (msg.data.user.avatar != null) {
+                    $("#touxiang").attr('src', msg.data.user.avatar);
+                    $("#touxiang1").attr('src', msg.data.user.avatar);
+                } else {
+                    $("#touxiang").attr('src', '/center/default-avatar.jpg');
+                    $("#touxiang1").attr('src', '/center/default-avatar.jpg');
                 }
             },
-            error: function(error){alert(error);}
+            error: function (error) {
+                alert(error);
+            }
         });
-    };
-
-    $.ajax({
-        type: "GET",
-        url:"/anchor/"+uuid+"/findOne",
-        success: function(msg) {
-            var nickname = msg.data.user.nickname;
-            $('#yonghuming').html(nickname);
-            $('#yonghuming1').html(nickname);
-            $('#titleRoom').html(msg.data.roomName);
-            $('#roomNo').html(msg.data.roomNo);
-            if(msg.data.profile != null){
-                $('#profile').html(msg.data.profile);
-            }else {
-                $('#profile').html("暂无简介");
-            }
-            if(msg.data.totalProfit != null){
-                $('#totalProfit').html(msg.data.totalProfit);
-            }
-            if(msg.data.totalRetreat != null){
-                $('#totalLoss').html(msg.data.totalRetreat);
-            }
-            if(msg.data.totalWin != null){
-                $('#totalWin').html(msg.data.totalWin);
-            }
-            if(msg.data.user.avatar != null){
-                $("#touxiang").attr('src', msg.data.user.avatar);
-                $("#touxiang1").attr('src', msg.data.user.avatar);
-            } else {
-                $("#touxiang").attr('src', '/center/default-avatar.jpg');
-                $("#touxiang1").attr('src', '/center/default-avatar.jpg');
-            }
-        },
-        error: function(error){alert(error);}
-    });
 
 
-    $('#loginBut').click(function(){
-        $.ajax({
-            type: "POST",
-            url:"/user/sign",
-            data:$('#sign').serialize(),// 要提交的表单
-            success: function(msg) {
-                if(msg.status == 200){
-                    $('#grzx').show();
-                    $('#denglu').hide();
-                    $("#loginalert").hide();
-                    $(".loginmask").hide();
-                    Tool.setNickname('nickname', msg.data.nickname, null);
-                    $('#nicknameV').html(msg.data.nickname);
-                    if(msg.data.avatar != null){
-                        $("#avatar").attr('src', msg.data.avatar);
-                        $("#touxiang").attr('src', msg.data.avatar);
-                    } else {
-                        $("#avatar").attr('src', '/center/default-avatar.jpg');
-                        $("#touxiang").attr('src', '/center/default-avatar.jpg');
+        $('#loginBut').click(function () {
+            $.ajax({
+                type: "POST",
+                url: "/user/sign",
+                data: $('#sign').serialize(),// 要提交的表单
+                success: function (msg) {
+                    if (msg.status == 200) {
+                        $('#grzx').show();
+                        $('#denglu').hide();
+                        $("#loginalert").hide();
+                        $(".loginmask").hide();
+                        Tool.setNickname('nickname', msg.data.nickname, null);
+                        $('#nicknameV').html(msg.data.nickname);
+                        if (msg.data.mobile == "admin") {
+                            $('#dgzVal').html('<a href="/member/admin.html">个人管理中心</a>')
+                        } else {
+                            $('#dgzVal').html('<a href="/member/center.html">个人管理中心</a>')
+                        }
+                        if (msg.data.avatar != null) {
+                            $("#avatar").attr('src', msg.data.avatar);
+                            $("#touxiang").attr('src', msg.data.avatar);
+                        } else {
+                            $("#avatar").attr('src', '/center/default-avatar.jpg');
+                            $("#touxiang").attr('src', '/center/default-avatar.jpg');
+                        }
                     }
+                },
+                error: function (error) {
+                    alert(error);
                 }
-            },
-            error: function(error){alert(error);}
+            });
+        });
+
+        $("#logoutId").click(function () {
+            $.ajax({
+                type: "GET",
+                url: "/user/logout",
+                success: function (msg) {
+                    if (msg.status == 200) {
+                        //                    document.location.reload();
+                        window.location.href = '/index.html';
+                    }
+                },
+                error: function (error) {
+                    alert(error);
+                }
+            });
         });
     });
 
-    $("#logoutId").click(function(){
+    function liveDetail() {
         $.ajax({
             type: "GET",
-            url:"/user/logout",
-            success: function(msg) {
-                if(msg.status == 200){
-//                    document.location.reload();
-                    window.location.href='/index.html';
-                }
-            },
-            error: function(error){alert(error);}
+            url: "/live/" + usid + "/exist",
+//            data: {username:$("#username").val(), content:$("#content").val()},
+            dataType: "json",
+            success: function (data) {
+                $('#resText').empty();   //清空resText里面的所有内容
+                var html = '';
+                $.each(data.data, function (index, obj) {
+                    html += '<div class="f-mt15 talk-item s-border-bot" data-id="' + index + '">' +
+                            '<p>' +
+                            '<span class="f-cl0 f-ff3 f-fs18 ctime">' + obj.createTime + '</span>' +
+                            '</p>' +
+                            '<div class="talk-item-txt">' +
+                            '<div style=""><p>' + obj.content + '</p></div>' +
+                            '</div>' +
+                            '</div>';
+                });
+                $('#resText').html(html);
+            }
         });
-    });
-})
+    }
+
+    setInterval(function () {
+        $.ajax({
+            type: "GET",
+            url: "/live/" + usid + "/exist",
+            dataType: "json",
+            success: function (data) {
+                $('#resText').empty();   //清空resText里面的所有内容
+                var html = '';
+                $.each(data.data, function (index, obj) {
+                    html += '<div class="f-mt15 talk-item s-border-bot" data-id="' + index + '">' +
+                            '<p>' +
+                            '<span class="f-cl0 f-ff3 f-fs18 ctime">' + obj.createTime + '</span>' +
+                            '</p>' +
+                            '<div class="talk-item-txt">' +
+                            '<div style=""><p>' + obj.content + '</p></div>' +
+                            '</div>' +
+                            '</div>';
+                });
+                $('#resText').html(html);
+            }
+        });
+    }, 10000);
 </script>
 
 <div class="for-shadow"></div><!-- shadow-bg-->
@@ -220,11 +286,11 @@ $(function () {
         </div>
         <ul class="f-fl">
             <li><a href="/index.html">首页</a></li>
-           <!-- <li><a href="http://www.shagualicai.cn/video.shtml">视频讲堂</a></li>
-            <li><a href="http://lcb.shagualicai.cn/">理财宝</a></li>
-            <li><a href="http://www.shagualicai.cn/course.shtml">课程</a></li>
-            <li><a href="http://www.shagualicai.cn/investor/newsflash.shtml">快讯</a></li>
-            <li><a href="http://www.shagualicai.cn/investor.shtml">内参</a></li>-->
+            <!-- <li><a href="http://www.shagualicai.cn/video.shtml">视频讲堂</a></li>
+             <li><a href="http://lcb.shagualicai.cn/">理财宝</a></li>
+             <li><a href="http://www.shagualicai.cn/course.shtml">课程</a></li>
+             <li><a href="http://www.shagualicai.cn/investor/newsflash.shtml">快讯</a></li>
+             <li><a href="http://www.shagualicai.cn/investor.shtml">内参</a></li>-->
         </ul>
     </div>
     <div class="f-fr f-cb f-mr20 f-fs12">
@@ -257,7 +323,7 @@ $(function () {
                 </div>
             </div>
         </div>
-        
+
     </div>
 </div>
 <div class="studio-banner">
@@ -269,11 +335,12 @@ $(function () {
                 </div>
                 <div class="f-fl f-ml30 s-t-brief">
                     <div class="f-cb">
-                        <span class="f-fl f-fs28" style="width: 250px;position: relative;top: -8px;" id="yonghuming" ></span>
+                        <span class="f-fl f-fs28" style="width: 250px;position: relative;top: -8px;"
+                              id="yonghuming"></span>
                         <div class="f-fr">
                             <a class="u-btn focus-btn" data-sid="31" title="开发中，敬请期待" disabled="disabled">+ 关注</a>
                             <a class="u-btn ask-btn" popsize="500px*200px" title="开发中，敬请期待" disabled="disabled">提问</a>
-                                <!--<a class="u-btn ask-btn pop-windows" popsize="500px*200px" href="javascript:void(0);" title="开发中，敬请期待" _href="">提问</a>-->
+                            <!--<a class="u-btn ask-btn pop-windows" popsize="500px*200px" href="javascript:void(0);" title="开发中，敬请期待" _href="">提问</a>-->
                         </div>
                     </div>
                     <p class="num-list f-mt10">直播房间号：<span id="roomNo"></span></p>
@@ -285,7 +352,8 @@ $(function () {
                     <div class="pro-bot">
                         <p class="f-fs12">累计收益
                         </p>
-                        <p class="f-fs32 f-ff3 f-mt20  f-cl-profit "><span id="totalProfit" style="margin-left: -5px;">00.00</span><span class="f-fs26">%</span></p>
+                        <p class="f-fs32 f-ff3 f-mt20  f-cl-profit "><span id="totalProfit" style="margin-left: -5px;">00.00</span><span
+                                class="f-fs26">%</span></p>
                     </div>
                     <!--<p class="f-mt20">第2名</p>-->
                 </div>
@@ -302,7 +370,8 @@ $(function () {
                                 </span>
                             </span>
                         </p>
-                        <p class="f-fs32 f-ff3 f-mt20  f-cl-loss"><span id="totalLoss">00.00</span><span class="f-fs26">%</span></p>
+                        <p class="f-fs32 f-ff3 f-mt20  f-cl-loss"><span id="totalLoss">00.00</span><span class="f-fs26">%</span>
+                        </p>
                     </div>
                     <!--<p class="f-mt20">第14名</p>-->
                 </div>
@@ -318,74 +387,70 @@ $(function () {
                                 </span>
                             </span>
                         </p>
-                        <p class="f-fs32 f-tac f-ff3 f-mt20  f-cl-profit "><span id="totalWin">00.00</span><span class="f-fs26">%</span></p>
+                        <p class="f-fs32 f-tac f-ff3 f-mt20  f-cl-profit "><span id="totalWin">00.00</span><span
+                                class="f-fs26">%</span></p>
                     </div>
                     <!--<p class="f-mt20 f-tac">第33名</p>-->
                 </div>
             </div>
         </div>
-        <p class="f-tar f-mt10 toggle-show"><i class="toggle-show-icon" style="background-position: -184px 0px;"></i><span>收起</span></p>
+        <p class="f-tar f-mt10 toggle-show"><i class="toggle-show-icon"
+                                               style="background-position: -184px 0px;"></i><span>收起</span></p>
     </div>
 </div>
 <script>
 
-    setTimeout(liveDetail(),10000);
-
-    $(function(){
-        liveDetail();
-
-
-
+    $(function () {
 //        限制老师介绍的字数
-        $(".t-brief-con").each(function(){
-            var maxwidth=66;
-            if($(this).text().length>maxwidth){
-                $(this).text($(this).text().substring(0,maxwidth));
-                $(this).html($(this).html()+'...');
+        $(".t-brief-con").each(function () {
+            var maxwidth = 66;
+            if ($(this).text().length > maxwidth) {
+                $(this).text($(this).text().substring(0, maxwidth));
+                $(this).html($(this).html() + '...');
             }
         });
 
 //        banner收起展开
-        $('.toggle-show').on('click',function(){
+        $('.toggle-show').on('click', function () {
             var order = $(this).find('span').text();
             $('.toggle-show-box').slideToggle();
             $.cookie('toggle-show', order);
-            if(order == "收起"){
+            if (order == "收起") {
                 $(this).find('span').text('展开');
-                $('.toggle-show-icon').css('backgroundPosition','-168px 0');
-                $('.short-show').css('display','block');
+                $('.toggle-show-icon').css('backgroundPosition', '-168px 0');
+                $('.short-show').css('display', 'block');
             }
-            if(order == "展开"){
+            if (order == "展开") {
                 $(this).find('span').text('收起');
-                $('.toggle-show-icon').css('backgroundPosition','-184px 0');
-                $('.short-show').css('display','none');
+                $('.toggle-show-icon').css('backgroundPosition', '-184px 0');
+                $('.short-show').css('display', 'none');
             }
         });
         var toggleshow = $.cookie('toggle-show');
-        if(toggleshow == '收起'){
+        if (toggleshow == '收起') {
             $('.toggle-show-box').slideToggle();
             $('.toggle-show').find('span').text('展开');
-            $('.toggle-show-icon').css('backgroundPosition','-168px 0');
-            $('.short-show').css('display','block');
+            $('.toggle-show-icon').css('backgroundPosition', '-168px 0');
+            $('.short-show').css('display', 'block');
         }
 //        全屏非全屏
-        $('.full-screen').on('click',function(){
-            if($('.toggle-show span').text() == '收起'){
+        $('.full-screen').on('click', function () {
+            if ($('.toggle-show span').text() == '收起') {
                 $('.toggle-show').trigger("click");
             }
             $.cookie('full-screen', $('.s-main-mid').hasClass('s-main-mid-screen'));
 //            $('.short-show').css('display','block');
             $('.s-main-mid').toggleClass('s-main-mid-screen');
             $('.for-shadow').toggleClass('shadow-bg');
-            if($('.for-shadow').hasClass('shadow-bg')){
+            if ($('.for-shadow').hasClass('shadow-bg')) {
                 $('.full-screen').addClass('after-full-screen');
             }
-            else{
+            else {
                 $('.full-screen').removeClass('after-full-screen');
             }
         });
         var fullscreen = $.cookie('full-screen');
-        if(fullscreen == 'false'){
+        if (fullscreen == 'false') {
             $('.s-main-mid').toggleClass('s-main-mid-screen');
             $('.for-shadow').toggleClass('shadow-bg');
         }
@@ -406,269 +471,214 @@ $(function () {
 //            });
 //        });
     });
-//    剩余可输入字数实时提示
-    function pressLayer(){
-        var maxNum =120;
+    //    剩余可输入字数实时提示
+    function pressLayer() {
+        var maxNum = 120;
         var remainTxtLen = $('.layer-limit-txt').val().length;
         var remainNum = maxNum - remainTxtLen;
         $('.layer-limit-num').text(remainNum);
     }
-//    提交按钮判空、判溢
-    function checkAsk(){
+    //    提交按钮判空、判溢
+    function checkAsk() {
         var remainTxtLen = $.trim($('.layer-limit-txt').val()).length;
-        if(remainTxtLen <= 0){
+        if (remainTxtLen <= 0) {
             layer.msg('提交内容不能为空！');
         }
-        if(remainTxtLen > 120){
+        if (remainTxtLen > 120) {
             layer.msg('提问字数不能超过120字，请用简洁的语句描述~');
         }
     }
 
-    function liveDetail(){
-        $.ajax({
-            type: "GET",
-            url: "/live/"+usid+"/exist",
-//            data: {username:$("#username").val(), content:$("#content").val()},
-            dataType: "json",
-            success: function(data){
-                $('#resText').empty();   //清空resText里面的所有内容
-                var html = '';
-                $.each(data.data, function(index, obj){
-                    html += '<div class="f-mt15 talk-item s-border-bot" data-id="'+index+'">'+
-                                '<p>'+
-                                    '<span class="f-cl0 f-ff3 f-fs18 ctime">'+obj.createTime+'</span>'+
-                                '</p>'+
-                                '<div class="talk-item-txt">'+
-                                    '<div style=""><p>'+obj.content +'</p></div>'+
-                                '</div>'+
-                            '</div>';
-                });
-                $('#resText').html(html);
-            }
-        });
-    }
+
 </script>
 <div class="studio-main">
     <div class="s-main-mid"><!-- s-main-mid-screen-->
         <div class="s-tab-box f-cb">
-    <ul class="f-fl">
-        <li class="cur"><span style="color: red; font-size: 18px;">直播</span></li>
-        <li><span style="color: #626262;" id="titleRoom"></span></li>
-        <!-- <li><a href="http://www.shagualicai.cn/live/vip-sid-31.shtml">VIP直播</a></li>
-        <li><a href="http://www.shagualicai.cn/live/answers-sid-31.shtml">问答</a></li>
-        <li><a href="http://www.shagualicai.cn/live/course-sid-31.shtml">课程</a></li>
-        <li><a href="http://www.shagualicai.cn/live/taclist-sid-31.shtml">策略</a></li>
-        <li><a href="http://www.shagualicai.cn/live/video-sid-31-type-video.shtml">视频</a></li>
-        <li><a href="http://www.shagualicai.cn/live/selfintro-sid-31.shtml">个人介绍</a></li> -->
-    </ul>
-    <div class="f-fr f-cb">
-        <div class="f-fl f-cb short-show" style="display: none;">
-            <div class="f-fl t-slide-pic">
-                <img id="touxiang1" src="/center/default-avatar.jpg">
+            <ul class="f-fl">
+                <li class="cur"><span style="color: red; font-size: 18px;">直播</span></li>
+                <li><span style="color: #626262;" id="titleRoom"></span></li>
+                <li><a href="http://www.shagualicai.cn/live/vip-sid-31.shtml">倒序</a></li>
+                <!-- <li><a href="http://www.shagualicai.cn/live/vip-sid-31.shtml">VIP直播</a></li>
+                <li><a href="http://www.shagualicai.cn/live/answers-sid-31.shtml">问答</a></li>
+                <li><a href="http://www.shagualicai.cn/live/course-sid-31.shtml">课程</a></li>
+                <li><a href="http://www.shagualicai.cn/live/taclist-sid-31.shtml">策略</a></li>
+                <li><a href="http://www.shagualicai.cn/live/video-sid-31-type-video.shtml">视频</a></li>
+                <li><a href="http://www.shagualicai.cn/live/selfintro-sid-31.shtml">个人介绍</a></li> -->
+            </ul>
+            <div class="f-fr f-cb">
+                <div class="f-fl f-cb short-show" style="display: none;">
+                    <div class="f-fl t-slide-pic">
+                        <img id="touxiang1" src="/center/default-avatar.jpg">
+                    </div>
+                    <span class="f-fl f-cl8 f-ml10" id="yonghuming1"></span>
+                    <a class="f-fl f-mt10 u-btn ask-btn" popsize="500px*200px" href="javascript:void(0);"
+                       title="开发中，敬请期待" _href="" disabled='ture'>提问</a>
+                    <!--<a class="f-fl f-mt10 u-btn ask-btn pop-windows" popsize="500px*200px" href="javascript:void(0);" title="问 老师提问" _href="">提问</a>-->
+                </div>
+                <span class="full-screen f-ml20"></span>
             </div>
-            <span class="f-fl f-cl8 f-ml10" id="yonghuming1"></span>
-                <a class="f-fl f-mt10 u-btn ask-btn" popsize="500px*200px" href="javascript:void(0);" title="开发中，敬请期待" _href="" disabled='ture'>提问</a>
-                <!--<a class="f-fl f-mt10 u-btn ask-btn pop-windows" popsize="500px*200px" href="javascript:void(0);" title="问 老师提问" _href="">提问</a>-->
-            </div>
-            <span class="full-screen f-ml20"></span>
-    </div>
 
-</div>
-<!--<script>
-    function openwindow(id,title){
-        layer.open({
-            type: 2,
-            title: false,
-            offset:100,
-            shade:false,
-            title:"<div class='layer-video-title f-cb'><i class=''></i>您正在观看 "+title+"</p></div>",
-            area: ['870px', '540px'],
-            content: "/video/livingdetail.shtml?livingId="+id
-        });
-    }
-</script>-->
+        </div>
 
-<!--<script>-->
-    <!--$(function(){-->
-        <!--$('.room-msg').on('click',function(){-->
-            <!--layer.open({-->
-                <!--type: 2,-->
-                <!--title: false,-->
-                <!--offset:100,-->
-                <!--shade:false,-->
-                <!--title:"<div class='layer-video-title f-cb'><i class=''></i>您正在观看 </p></div>",-->
-                <!--area: ['870px', '540px'],-->
-                <!--content: "/video/livingdetail.shtml?livingId="-->
-            <!--});-->
-        <!--});-->
-    <!--});-->
-<!--</script>-->
         <div class="studio-talk f-cb">
             <!--观点区-->
             <div class="view-zone">
-    <div style="margin: 20px 0px;" id="resText">
-        <div class="f-mt15 talk-item s-border-bot" data-id="789936">
-            <p>
-                <span class="f-cl0 f-ff3 f-fs18 ctime">13:58</span>
-                
-            </p>
-            <div class="talk-item-txt">
-                <div style=""><p>【市场资讯】全球不少国家，都正在步入老龄社会。IMF在2016年《全球经济展望报告》中特别指出，这一老龄化特征不仅表现在人口整体数量的增速减缓，更体现在劳动力增长出现负增长以及老龄劳动力份额急剧上升的特征上。特别对于中国而言，在短期内，中国步入人口老龄化的节奏将呈现出速度更快、间隔更短、负担更重的趋势。</p></div>
+                <div style="margin: 20px 0px;" id="resText">
+
+                </div>
             </div>
-        </div>
+            <div class="template view-zone-template">
+                <!--观点系统标签-->
+                <div class="template-view-text-systag">
+                    <span class="tag f-ml5">系统消息</span>
+                </div>
 
-    </div>
-</div>
-<div class="template view-zone-template">
-    <!--观点系统标签-->
-    <div class="template-view-text-systag">
-        <span class="tag f-ml5">系统消息</span>
-    </div>
-
-    <!-- 观点项 -->
-    <div class="template-view-text">
-        <div class="f-mt15 talk-item s-border-bot" data-id="[view_id]">
-            <p>
-                <span class="f-cl0 f-ff3 f-fs18 ctime">[ctime]</span>
-                [systag]
-            </p>
-            <div class="talk-item-txt">
-                [content]
-            </div>
-        </div>
-    </div>
+                <!-- 观点项 -->
+                <div class="template-view-text">
+                    <div class="f-mt15 talk-item s-border-bot" data-id="[view_id]">
+                        <p>
+                            <span class="f-cl0 f-ff3 f-fs18 ctime">[ctime]</span>
+                            [systag]
+                        </p>
+                        <div class="talk-item-txt">
+                            [content]
+                        </div>
+                    </div>
+                </div>
 
 
-    <!-- 系统公告 -->
-    <div class="template-view-text-o">
-        <div class="f-mt15 talk-item s-border-bot" data-id="[view_id]">
-            <p>
-                <span class="f-cl0 f-ff3 f-fs18 ctime">[ctime]</span>
-                [systag]
-            </p>
-            <div class="talk-item-txt studio-grey-tip">
-                [content]
-            </div>
-            <!-- 视频直播
-            <div class="talk-item-txt studio-grey-tip">
-                <div class="f-cb">
-                    <div class="f-fl video-msg-icon"></div>
-                    <div class="f-fl f-ml10">
-                        <p class="f-fs18"><span class="f-cl8 f-mr10">宇辉战舰</span>开始视频直播<a class="f-cl3">《K线短线买卖点》</a></p>
+                <!-- 系统公告 -->
+                <div class="template-view-text-o">
+                    <div class="f-mt15 talk-item s-border-bot" data-id="[view_id]">
+                        <p>
+                            <span class="f-cl0 f-ff3 f-fs18 ctime">[ctime]</span>
+                            [systag]
+                        </p>
+                        <div class="talk-item-txt studio-grey-tip">
+                            [content]
+                        </div>
+                        <!-- 视频直播
+                        <div class="talk-item-txt studio-grey-tip">
+                            <div class="f-cb">
+                                <div class="f-fl video-msg-icon"></div>
+                                <div class="f-fl f-ml10">
+                                    <p class="f-fs18"><span class="f-cl8 f-mr10">宇辉战舰</span>开始视频直播<a class="f-cl3">《K线短线买卖点》</a></p>
+                                </div>
+                            </div>
+                        </div>
+                        -->
+                    </div>
+                </div>
+
+                <!-- 历史消息 - 横线提示 -->
+                <div class="template-view-text-h">
+                    <div class="history-line">
+                        <hr>
+                        <span class="f-fs12 f-cl8">以上是历史消息</span>
                     </div>
                 </div>
             </div>
-            -->
-        </div>
-    </div>
 
-    <!-- 历史消息 - 横线提示 -->
-    <div class="template-view-text-h">
-        <div class="history-line">
-            <hr>
-            <span class="f-fs12 f-cl8">以上是历史消息</span>
-        </div>
-    </div>
-</div>
+            <!--消息设置区-->
+            <div class="view-set-zone">
+                <span class="f-fl f-cl7" style="margin-right: 210px;">显示模式：<i class="full-screen f-mr10"></i></span>
+                <div class="f-fl f-cb f-cl8">
+                    <span class="f-cl7 f-fl">字号：</span>
+                    <p class="font-size f-fl">
+                        <span>大</span>
+                        <span class="cur">中</span>
+                        <span>小</span>
+                    </p>
+                </div>
+                <div class="f-fr">
+                    <span class="f-cl7">刷新：<img src="/center/refresh.png" style="height: 22px; width: 25px;"></span><i
+                        class="sound-icon" id="sound"></i>
+                    <audio id="myAudio" controls="controls" preload="auto" style="display: none">
+                        <source src="http://static.91fool.com.cn/www/img/sound/tip.mp3" type="audio/mp3">
+                        <source src="http://static.91fool.com.cn/www/img/sound/tip.wav" type="audio/wav">
+                    </audio>
+                </div>
+            </div>
 
-<!--消息设置区-->
-<div class="view-set-zone">
-    <span class="f-fl f-cl7" style="margin-right: 210px;">显示模式：<i class="full-screen f-mr10"></i></span>
-    <div class="f-fl f-cb f-cl8">
-        <span class="f-cl7 f-fl">字号：</span>
-        <p class="font-size f-fl">
-            <span>大</span>
-            <span class="cur">中</span>
-            <span>小</span>
-        </p>
-    </div>
-    <div class="f-fr">
-        <span class="f-cl7">声音：</span><i class="sound-icon" id="sound"></i>
-        <audio id="myAudio" controls="controls" preload="auto" style="display: none">
-            <source src="http://static.91fool.com.cn/www/img/sound/tip.mp3" type="audio/mp3">
-            <source src="http://static.91fool.com.cn/www/img/sound/tip.wav" type="audio/wav">
-        </audio>
-    </div>
-</div>
-
-<script>
-    $(function(){
-        $('.font-size span').on('click',function(){
-            $(this).addClass('cur').siblings().removeClass('cur');
-            if($(this).text() == '大'){
-                $('.talk-item-txt').css({
-                    'fontSize':'18px',
+            <script>
+                $(function () {
+                    $('.font-size span').on('click', function () {
+                        $(this).addClass('cur').siblings().removeClass('cur');
+                        if ($(this).text() == '大') {
+                            $('.talk-item-txt').css({
+                                'fontSize': '18px',
 //                    'lineHeight':'28px'
-                });
-            }
-            if($(this).text() == '中'){
-                $('.talk-item-txt').css({
-                    'fontSize':'16px',
+                            });
+                        }
+                        if ($(this).text() == '中') {
+                            $('.talk-item-txt').css({
+                                'fontSize': '16px',
 //                    'lineHeight':'26px'
-                });
-            }
-            if($(this).text() == '小'){
-                $('.talk-item-txt').css( {
-                    'fontSize':'14px',
+                            });
+                        }
+                        if ($(this).text() == '小') {
+                            $('.talk-item-txt').css({
+                                'fontSize': '14px',
 //                    'lineHeight':'23px'
+                            });
+                        }
+                    });
+
                 });
-            }
-        });
+            </script>
 
-    });
-</script>
+            <!-- 聊天区 -->
+            <div class="chat-zone">
+                <div style="margin: 20px 0px;">
 
-<!-- 聊天区 -->
-<div class="chat-zone">
-    <div style="margin: 20px 0px;">
-
-        <div data-role="page" id="pageone" class="container" style="max-width:640px;margin:auto;">
-            <div class="chat-plate">
-                <div class="tabs" id="activity_tab">
-                    <ul class="display-box fastclick">
-                        <li class="flex chatLi active" data-tab="infor-tab10">
-                            <a href="javascript:void(0);">互动消息</a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="system_messages display-box" id="sys_msg">
-                    <div>
-                        <i></i>
-                        <em class="line"></em>
-                    </div>
-                    <p class="flex"><span class="">欢迎大家参加本次直播活动！</span></p>
-                </div>
-                <!--私聊-->
-                <div class="nomine_tips" id="private_msg"></div>
-                <div id="private_chat_box">
-                    <div class="private_chat_c">
-                        <div class="private_name display-box">
-                            <p class="flex">与“<span id="priavteName">Jean</span>”私聊中</p>
-                            <a>
-                                <i></i>
-                            </a>
-                        </div>
-                        <div class="private_chat allow-roll">
-                            <ul class="msg-list chat" id="private_chat">
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="chatBox" style="padding-top:37px;">
-                    <div id="tabs-container" class="swiper-container">
-                        <div class="swiper-wrapper" id="content1">
-                            <!-- 聊天 -->
-                            <section class="msg-chat swiper-slide show" id="infor-tab10">
-                                <div class="showgift" id="showgift"></div>
-                                <ul class="msg-list chat allow-roll" id="msg-chat-list" style="height: 498px; border-bottom: 1px solid #ddd;">
+                    <div data-role="page" id="pageone" class="container" style="max-width:640px;margin:auto;">
+                        <div class="chat-plate">
+                            <div class="tabs" id="activity_tab">
+                                <ul class="display-box fastclick">
+                                    <li class="flex chatLi active" data-tab="infor-tab10">
+                                        <a href="javascript:void(0);">互动消息</a>
+                                    </li>
                                 </ul>
-                            </section>
+                            </div>
+                            <div class="system_messages display-box" id="sys_msg">
+                                <div>
+                                    <i></i>
+                                    <em class="line"></em>
+                                </div>
+                                <p class="flex"><span class="">欢迎大家参加本次直播活动！</span></p>
+                            </div>
+                            <!--私聊-->
+                            <div class="nomine_tips" id="private_msg"></div>
+                            <div id="private_chat_box">
+                                <div class="private_chat_c">
+                                    <div class="private_name display-box">
+                                        <p class="flex">与“<span id="priavteName">Jean</span>”私聊中</p>
+                                        <a>
+                                            <i></i>
+                                        </a>
+                                    </div>
+                                    <div class="private_chat allow-roll">
+                                        <ul class="msg-list chat" id="private_chat">
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="chatBox" style="padding-top:37px;">
+                                <div id="tabs-container" class="swiper-container">
+                                    <div class="swiper-wrapper" id="content1">
+                                        <!-- 聊天 -->
+                                        <section class="msg-chat swiper-slide show" id="infor-tab10">
+                                            <div class="showgift" id="showgift"></div>
+                                            <ul class="msg-list chat allow-roll" id="msg-chat-list"
+                                                style="height: 498px; border-bottom: 1px solid #ddd;">
+                                            </ul>
+                                        </section>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-        <script type="tmpl" id="temp_text_enter_event">
+                    <script type="tmpl" id="temp_text_enter_event">
 				<li class="system_msg">
                       <a class="leftHead" href="javascript:void(0);"><img src="/gotye/images/system_img.png"></a>
                       <div class="leftChat">
@@ -677,9 +687,10 @@ $(function () {
                       </div>
                   	  <div class="clearfix"></div>
                 </li>
-			</script>
-        <!-- 通知  -->
-        <script type="tmpl" id="temp_text_notify">
+
+                    </script>
+                    <!-- 通知  -->
+                    <script type="tmpl" id="temp_text_notify">
 			<li class="system_msg">
                 <a class="leftHead" href="javascript:void(0);"><img src="/gotye/images/system_img.png"></a>
                 <div class="leftChat">
@@ -688,27 +699,30 @@ $(function () {
                 </div>
                 <div class="clearfix"></div>
               </li>
-		  </script>
 
-        <script type="tmpl" id="temp_text_fail_event">
+                    </script>
+
+                    <script type="tmpl" id="temp_text_fail_event">
 				<li class="reward">
                     <p>
                          消息 "<&=data.text&>" 发送失败
                     </p>
                 </li>
-		    </script>
 
-        <!-- 日志模板  -->
-        <script type="tmpl" id="temp_text_log">
+                    </script>
+
+                    <!-- 日志模板  -->
+                    <script type="tmpl" id="temp_text_log">
 				<li class="reward">
                       <p style="color:red;">
                      	<&=data.text&>
                       </p>
                </li>
-			</script>
 
-        <!-- 礼物显示模板  -->
-        <script type="tmpl" id="temp_gift">
+                    </script>
+
+                    <!-- 礼物显示模板  -->
+                    <script type="tmpl" id="temp_gift">
                 <div style="vertical-align: top; float:left;">
                 <& for(var i=0,tl = list.length,tr;i < tl;i++){ &>
        				 <& tr = list[i]; &>
@@ -717,10 +731,11 @@ $(function () {
 					</dd>
  				<& } &>
                  </div>
-			</script>
 
-        <!-- 礼物 消息模板  -->
-        <script type="tmpl" id="temp_gift_msg">
+                    </script>
+
+                    <!-- 礼物 消息模板  -->
+                    <script type="tmpl" id="temp_gift_msg">
 				<li class="system_msg">
                      <a class="leftHead" href="javascript:void(0);"><img src="/gotye/images/system_img.png"></a>
                      <div class="leftChat">
@@ -729,9 +744,10 @@ $(function () {
                      </div>
                      <div class="clearfix"></div>
                  </li>
-		    </script>
-        <!-- 消息模板 -->
-        <script type="tmpl" id="temp_text_msg">
+
+                    </script>
+                    <!-- 消息模板 -->
+                    <script type="tmpl" id="temp_text_msg">
 				<&if(data.isSelf){&>
 					<li class="privatechat">
 				<&}else{&>
@@ -762,142 +778,149 @@ $(function () {
                            </div>
                     <div class="clearfix"></div>
                  </li>
-			</script>
-        <script type="tmpl" id="temp_activity_tab">
+
+                    </script>
+                    <script type="tmpl" id="temp_activity_tab">
 				<li class='<&if(data.tagType == 1){&>flex chatLi<&}else{&> flex<&}&>' data-tab="infor-tab<&=data.index&>">
 				   <a href="javascript:void(0);">
                         <&=data.title&>
                    </a>
 				</li>
-			</script>
-        <script type="text/javascript">
-            var token_key = Tool.getCookie("token_key");
-            var token = Tool.getCookie(token_key);
-            var roomId = Tool.getCookie("roomId");
-            var room = Tool.getCookie("room");
-            var chat;
-            $(function(){
-                if(room) {
-                    chat = new Gotye.Chat(token);//聊天
-                }else {
-                    Tool.log("room is empty!");
-                }
+
+                    </script>
+                    <script type="text/javascript">
+                        var token_key = Tool.getCookie("token_key");
+                        var token = Tool.getCookie(token_key);
+                        var roomId = Tool.getCookie("roomId");
+                        var room = Tool.getCookie("room");
+                        var chat;
+                        $(function () {
+                            if (room) {
+                                chat = new Gotye.Chat(token);//聊天
+                            } else {
+                                Tool.log("room is empty!");
+                            }
+                        });
+                    </script>
+
+                    <!--<iframe id=""> </iframe>-->
+                </div>
+            </div>
+
+            <!-- 送礼发评论 -->
+            <div class="chat-send-zone">
+                <div class="scroll-shadow" style="display: none;"></div>
+                <div class="chat-text-zone"><!-- class="f-mt10"-->
+                    <!--<textarea class="chat-text" placeholder="来聊几句~" id="room_talk_post"></textarea>-->
+                    <nav id="chat">
+                        <div class="display-box">
+                            <div class="chat-input flex border-box">
+                                <div class="face_div"><a class="smilebtn" id="facebtn" href="javascript:void(0);"></a>
+                                </div>
+                                <div id="chat_div" class="chattxt" contenteditable="true"></div>
+                                <div class="send_div"><a class="sendbtn" id="sendbtn">发送</a></div>
+                            </div>
+                            <!--<a class="u-btn f-mr10 f-ml20 chat-btn" id="room_talk_post_ok">发送</a>-->
+                            <a id="giftbtn" class="gift-icon" href="javascript:void(0);"></a>
+                        </div>
+
+                        <div id="expressionBox" style="display:none;">
+                            <ul>
+                            </ul>
+                        </div>
+                        <div id="giftBox" style="">
+                            <p>礼品区</p>
+                            <div class="page_emotion box_swipe" id="page_emotion">
+                                <dl id="list_emotion" class="list_emotion pt_10"
+                                    style="list-style: none; transition-duration: 500ms; transform: translate3d(0px, 0px, 0px);">
+                                    <div style="vertical-align: top; float: left; width: 375px;">
+                                        <dd data-name="小花" data-price='0' data-src="/gotye/images/gift/gift_5.png">
+                                            <img src="/gotye/images/gift/gift_5.png"><span
+                                                class="diamond"><i></i>免费</span>
+                                        </dd>
+                                        <dd data-name="手捧花" data-price='0' data-src="/gotye/images/gift/gift_3.png">
+                                            <img src="/gotye/images/gift/gift_3.png"><span
+                                                class="diamond"><i></i>免费</span>
+                                        </dd>
+                                        <dd data-name="砖石" data-price='0' data-src="/gotye/images/gift/gift_2.png">
+                                            <img src="/gotye/images/gift/gift_2.png"><span
+                                                class="diamond"><i></i>免费</span>
+                                        </dd>
+                                    </div>
+                                </dl><!-- 礼物框 -->
+                                <dt>
+                                <ol id="nav_emotion" class="nav_emotion">
+                                    <!--<span class="on"></span>-->
+                                </ol>
+                                </dt>
+                            </div>
+                        </div>
+                    </nav>
+                    <div class="f-cb">
+                        <span class="f-fl f-ml10 f-mt5 expression-icon"></span>
+                        <!--<p class="f-fr">
+                            <span class="post-editor-title"><input type="hidden" id="reply_user_nickname" value=""><input type="hidden" id="reply_chat_id" value="0"></span>
+                            <span class="f-cl11 f-fs12">按下ctrl+enter键发送</span>
+                            <a class="u-btn f-mr10 f-ml20 chat-btn" id="room_talk_post_ok">发送</a>
+                        </p>-->
+                        <div class="qq-face">
+                            <span class="triangle-down"></span>
+                            <div style="height: 155px;overflow: auto;">
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+        <script>
+            $(function () {
+                setInterval(function () {
+                    var first_gift = $('.gift-list-zone li:first-child');
+                    var giftLen = $('.gift-list-zone li').length;
+                    if (giftLen > 0) {
+//                $('.gift-animate-box').css('display','block');
+                        var addObject = $('<div class="animating-gift">' + first_gift.html() + '</div>');
+                        $('.animate-zone').append(addObject);
+                        setTimeout(function () {
+                            addObject.remove();
+                        }, 1400);
+                        first_gift.html('<div style="height: 90px;"></div>');
+                        first_gift.hide(800, function () {
+                            setTimeout(function () {
+                                first_gift.remove();
+                            }, 3000);
+                        });
+                    } else {
+//                $('.gift-animate-box').css('display','none');
+                    }
+                }, 300);
             });
         </script>
-
-        <!--<iframe id=""> </iframe>-->
-    </div>
-</div>
-
-<!-- 送礼发评论 -->
-<div class="chat-send-zone">
-    <div class="scroll-shadow" style="display: none;"></div>
-    <div class="chat-text-zone"><!-- class="f-mt10"-->
-        <!--<textarea class="chat-text" placeholder="来聊几句~" id="room_talk_post"></textarea>-->
-        <nav id="chat">
-            <div class="display-box">
-                <div class="chat-input flex border-box">
-                    <div class="face_div"><a class="smilebtn" id="facebtn" href="javascript:void(0);"></a></div>
-                    <div id="chat_div" class="chattxt" contenteditable="true"></div>
-                    <div class="send_div"><a class="sendbtn" id="sendbtn">发送</a></div>
-                </div>
-                <!--<a class="u-btn f-mr10 f-ml20 chat-btn" id="room_talk_post_ok">发送</a>-->
-                <a id="giftbtn" class="gift-icon" href="javascript:void(0);"></a>
-            </div>
-
-            <div id="expressionBox" style="display:none;">
-                <ul>
-                </ul>
-            </div>
-            <div id="giftBox" style="">
-                <p>礼品区</p>
-                <div class="page_emotion box_swipe" id="page_emotion">
-                    <dl id="list_emotion" class="list_emotion pt_10" style="list-style: none; transition-duration: 500ms; transform: translate3d(0px, 0px, 0px);">
-                        <div style="vertical-align: top; float: left; width: 375px;">
-                            <dd data-name="小花" data-price='0' data-src="/gotye/images/gift/gift_5.png">
-                                <img src="/gotye/images/gift/gift_5.png"><span class="diamond"><i></i>免费</span>
-                            </dd>
-                            <dd data-name="手捧花" data-price='0' data-src="/gotye/images/gift/gift_3.png">
-                                <img src="/gotye/images/gift/gift_3.png"><span class="diamond"><i></i>免费</span>
-                            </dd>
-                            <dd data-name="砖石" data-price='0' data-src="/gotye/images/gift/gift_2.png">
-                                <img src="/gotye/images/gift/gift_2.png"><span class="diamond"><i></i>免费</span>
-                            </dd>
-                        </div>
-                    </dl><!-- 礼物框 -->
-                    <dt>
-                    <ol id="nav_emotion" class="nav_emotion">
-                        <!--<span class="on"></span>-->
-                    </ol>
-                    </dt>
-                </div>
-            </div>
-        </nav>
-        <div class="f-cb">
-            <span class="f-fl f-ml10 f-mt5 expression-icon"></span>
-            <!--<p class="f-fr">
-                <span class="post-editor-title"><input type="hidden" id="reply_user_nickname" value=""><input type="hidden" id="reply_chat_id" value="0"></span>
-                <span class="f-cl11 f-fs12">按下ctrl+enter键发送</span>
-                <a class="u-btn f-mr10 f-ml20 chat-btn" id="room_talk_post_ok">发送</a>
-            </p>-->
-            <div class="qq-face">
-                <span class="triangle-down"></span>
-                <div style="height: 155px;overflow: auto;">
-                </div>
-            </div>
-        </div>
-
-    </div>
-</div>
-
-        </div>
-<script>
-    $(function(){
-        setInterval(function(){
-            var first_gift = $('.gift-list-zone li:first-child');
-            var giftLen = $('.gift-list-zone li').length;
-            if (giftLen > 0){
-//                $('.gift-animate-box').css('display','block');
-                var addObject = $('<div class="animating-gift">' + first_gift.html() + '</div>');
-                $('.animate-zone').append(addObject);
-                setTimeout(function(){
-                    addObject.remove();
-                },1400);
-                first_gift.html('<div style="height: 90px;"></div>');
-                first_gift.hide(800, function(){
-                    setTimeout(function(){
-                        first_gift.remove();
-                    },3000);
+        <div class="galaxy-float"></div>
+        <script>
+            $(function () {
+                $(".txtScroll-top").slide({
+                    mainCell: ".bd ul",
+                    effect: "top",
+                    autoPlay: true,
+                    vis: 5,
+                    triggerTime: 150,
+                    interTime: 3000,
                 });
-            }else{
-//                $('.gift-animate-box').css('display','none');
-            }
-        }, 300);
-    });
-</script>
-<div class="galaxy-float"></div>
-<script>
-    $(function(){
-        $(".txtScroll-top").slide({
-            mainCell:".bd ul",
-            effect:"top",
-            autoPlay:true,
-            vis:5,
-            triggerTime:150,
-            interTime:3000,
-        });
-    });
+            });
 
-    $('.pack-up').on('click',function(){
-        $('.galaxy').hide();
-        $('.galaxy-float').show();
-    });
-    $('.galaxy-float').on('click',function(){
-        $('.galaxy-float').hide();
-        $('.galaxy').show();
-    });
-</script>
-</div>
+            $('.pack-up').on('click', function () {
+                $('.galaxy').hide();
+                $('.galaxy-float').show();
+            });
+            $('.galaxy-float').on('click', function () {
+                $('.galaxy-float').hide();
+                $('.galaxy').show();
+            });
+        </script>
+    </div>
 </div>
 <!-- 消息提示框 -->
 <!--{ include block/live/newsremindbox.html }-->
@@ -924,4 +947,5 @@ $(function () {
 
 <script type="text/javascript" src="/room_files/room_user.js"></script>
 
-</body></html>
+</body>
+</html>

@@ -1,5 +1,5 @@
 
-.bg-grey{background: #52586e /*url('../img/sutdio/bg/2.jpg')*/  no-repeat fixed top center;}
+.bg-grey{background: #f8f8f8  no-repeat fixed top center;}
 .bg-white{background: #fff;}
 /* studio-header */
 .studio-header{color: #fff;min-width: 1280px;height: 49px;line-height: 50px;background-color: #ca974e; border-bottom:  1px solid rgba(255, 255, 255, 0.3);}
@@ -81,7 +81,7 @@
 .studio-main .view-zone{position: absolute;top: 0;left:0;bottom: 40px;right: 430px; background-color: #fff;overflow-y: scroll;padding:0 50px 0 30px;overflow-x: hidden;}
 .studio-main .view-set-zone{position: absolute;top: auto;left:0;bottom: 0;right: 430px;padding: 0 30px;line-height: 40px;background-color: #f7f7f7;}
 .studio-main .chat-zone{position: absolute;top:-1px;left:auto;bottom: 193px;right: 0;width:430px;/*padding: 0px;*/padding-top: 0;/*overflow-x: hidden;overflow-y: scroll;*/border-left: 1px #ddd solid;background-color: #f2f2f2;}
-.studio-main .chat-send-zone{position: absolute;top: auto;left:auto;bottom: 0;right: 0;width:430px;height: 27px;background-color: #f7f7f7;border-top: 1px #ddd solid;border-left: 1px #ddd solid;}
+.studio-main .chat-send-zone{position: absolute;top: auto;left:auto;bottom: 0;right: 0;width:430px;height: 27px;background-color: #f7f7f7;border-top: 1px #ddd solid;border-left: 1px #ddd solid;z-index: 99;}
 .studio-main .chat-zone .chat-tip{}
 .studio-main .view-zone::-webkit-scrollbar{opacity: 0;}
 .studio-main .view-zone:hover::-webkit-scrollbar{opacity: 1;}
