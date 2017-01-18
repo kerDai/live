@@ -32,7 +32,7 @@ public class AnchorCondition extends PageAndSortCondition {
 
     @Override
     protected String getDefaultSort() {
-        return "id_1";
+        return "updateTime_1";
     }
 
 

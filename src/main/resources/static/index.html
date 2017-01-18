@@ -68,7 +68,7 @@
                         保持登录-->
                         <span class="login_warning" style="margin-left: 10px; margin-top: 25px;">用户名或密码错误</span>
                     </div>
-                    <!--<div class="fr"><a href="http://www.jq22.com/">忘记密码?</a></div>-->
+                    <div class="fr"><a href="javascript:void(0)">忘记密码?</a></div>
                     <div class="clear"></div>
                 </div>
             </form>
@@ -159,6 +159,18 @@
 </style>
 
 <script>
+    
+    function compareDate(updateTime) {
+        var myDate = new Date();
+        var year = myDate.getFullYear()+"-"+myDate.getMonth()+1+"-"+myDate.getDate();    //获取完整的年份(4位,1970-????)
+        if(updateTime != null){
+            if(updateTime.substring(0, 10) == year){
+                return "正在直播";
+            }
+        }
+        return "休息中";
+    }
+    
     $(document).ready(function(){
         var users = Tool.getCookie("users");
         if(users != null){
@@ -190,7 +202,7 @@
                 error: function(error){alert(error);}
             });
         }
-
+        
         $.ajax({
             type: "GET",
             url:"/anchor",
@@ -204,6 +216,9 @@
                         if(avatar == null){
                             avatar = "/center/default-avatar.jpg";
                         }
+
+                        var status = compareDate(item.updateTime);
+
                         temp += '<div class="rank-list-con-item f-cb">'+
                                 '<a href="'+roomNO+'">'+
                                 '<div class="rank-list-con-item-1">'+
@@ -218,7 +233,7 @@
                                 '<i class="f-fs14 f-cl2">'+item.roomName+'</i>'+
                                 '</div>'+
                                 '<div class="rank-list-con-item-3">'+
-                                '<p class="f-mt10"><span class="f-cl1 f-fs20">正在直播</span></p>'+
+                                '<p class="f-mt10"><span class="f-cl1 f-fs20">'+status+'</span></p>'+
                                 '</div>'+
                                 '</a>'+
                                 '</div>';
