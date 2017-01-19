@@ -487,10 +487,16 @@
                 url:"/user/logout",
                 success: function(msg) {
                     if(msg.status == 200){
-                        window.location.href='/index.html';
+                        layer.msg("成功退出！", {
+                            time: 1000
+                        }, function () {
+                            window.location.href='/index.html';
+                        });
                     }
                 },
-                error: function(error){}
+                error: function(error){
+                    window.location.href='/index.html';
+                }
             });
         });
         $("#main_form").Validform({

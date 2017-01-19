@@ -267,8 +267,11 @@
                 url: "/user/logout",
                 success: function (msg) {
                     if (msg.status == 200) {
-                        document.location.reload();
-//                        window.location.href = '/index.html';
+                        layer.msg("成功退出！", {
+                            time: 1000
+                        }, function () {
+                            document.location.reload();
+                        });
                     }
                 },
                 error: function(error){}
