@@ -159,6 +159,17 @@
 </style>
 
 <script>
+    function compareDate(updateTime) {
+        var myDate = new Date();
+        var year = myDate.getFullYear()+"-"+myDate.getMonth()+1+"-"+myDate.getDate();    //获取完整的年份(4位,1970-????)
+        if(updateTime != null){
+            if(updateTime.substring(0, 10) == year){
+                return "正在直播";
+            }
+        }
+        return "暂无直播";
+    }
+
     $(document).ready(function(){
         var users = Tool.getCookie("users");
         if(users != null){
@@ -203,6 +214,7 @@
                         if(avatar == null){
                             avatar = "/center/default-avatar.jpg";
                         }
+                        var status = compareDate(item.updateTime);
                         temp += '<div class="rank-list-con-item f-cb">'+
                                 '<a href="'+roomNO+'">'+
                                 '<div class="rank-list-con-item-1">'+
@@ -217,7 +229,7 @@
                                 '<i class="f-fs14 f-cl2">'+item.roomName+'</i>'+
                                 '</div>'+
                                 '<div class="rank-list-con-item-3">'+
-                                '<p class="f-mt10"><span class="f-cl1 f-fs20">正在直播</span></p>'+
+                                '<p class="f-mt10"><span class="f-cl1 f-fs20">'+status+'</span></p>'+
                                 '</div>'+
                                 '</a>'+
                                 '</div>';
