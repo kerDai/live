@@ -252,6 +252,7 @@
                             $("#avatar").attr('src', '/center/default-avatar.jpg');
                             $("#touxiang").attr('src', '/center/default-avatar.jpg');
                         }
+//                        document.location.reload();
                     }
                 },
                 error: function (error) {
@@ -266,13 +267,11 @@
                 url: "/user/logout",
                 success: function (msg) {
                     if (msg.status == 200) {
-                        //                    document.location.reload();
-                        window.location.href = '/index.html';
+                        document.location.reload();
+//                        window.location.href = '/index.html';
                     }
                 },
-                error: function (error) {
-                    alert(error);
-                }
+                error: function(error){}
             });
         });
     });
